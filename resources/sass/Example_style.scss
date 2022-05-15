@@ -1,0 +1,14 @@
+.nav{
+    background-color: darksalmon;
+}
+.footer{
+    background-color: olivedrab;
+}
+.page{
+    &.main{
+        background-color: grey;
+    }
+    &.another{
+        background-color: peru;
+    }
+}

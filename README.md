@@ -6,6 +6,7 @@ git clone https://github.com/doonamm/MovieApp
 ```
 ## First setup after cloning
 ```
+cd MovieApp
 npm install
 composer install
 ```
@@ -14,13 +15,37 @@ copy .env file to root folder
 ```
 php artisan serve
 ```
-## Compile
+## Compile client
 ```
 npm run dev
 ```
-## Watch change
+## Compile client and Live change
 ```
 npm run watch
+```
+## Create enum
+```
+php artisan make:enum YourEnumName
+```
+## Create model with migration and controller
+```
+php artisan make:model YourModelName --migration --controller
+```
+## Publish model
+```
+php artisan migrate
+```
+## Create policy
+```
+php artisan make:policy YourPolicyName
+```
+## Generate secret key
+```
+php artisan jwt:secret
+```
+## Create middleware
+```
+php artisan make:middleware YourMiddlewareName
 ```
 ## Languages and Tools
 [![My Skills](https://skills.thijs.gg/icons?i=html,css,js,react,php,laravel,git)](https://skills.thijs.gg)

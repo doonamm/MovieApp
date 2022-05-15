@@ -1,17 +1,31 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { connect } from 'react-redux';
+import {Routes, Route, BrowserRouter} from 'react-router-dom';
+import stateToProps from '../helper/stateToProps';
 
-function App() {
+import Example_Nav from './exampleComponents/Example_Nav';
+import Example_Footer from './exampleComponents/Example_Footer';
+import Example_MainPage from './exampleComponents/Example_MainPage';
+import Example_AnotherPage from './exampleComponents/Example_AnotherPage';
+
+import '../../sass/Example_style.scss';
+
+function App(props) {
+
+    if(props.login.isLogged === true){
+        console.log('Welcomeeeeeeeeeee');
+    }
+
     return (
-        <div className="container">
-            helloaaaa
-        </div>
+        <BrowserRouter>
+            <Example_Nav/>
+            <Routes>
+                <Route path="/" element={<Example_MainPage/>}></Route>
+                <Route path="/another" element={<Example_AnotherPage/>}></Route>
+            </Routes>
+            <Example_Footer/>
+        </BrowserRouter>
     );
 }
 
-export default App;
-
-const root = document.getElementById('root');
-if (root) {
-    ReactDOM.render(<App />, root);
-}
+export default connect(stateToProps('login'))(App);

@@ -2,8 +2,16 @@
 
 namespace App\Exceptions;
 
+use App\Enums\Status;
+use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Facades\Response;
 use Throwable;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class Handler extends ExceptionHandler
 {
@@ -34,8 +42,60 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->renderable(function(TokenInvalidException $e, $request){
+            return Response::json([
+                'status' => Status::FAIL,
+                'message' => 'Invalid token'
+            ], 401);
         });
+
+        $this->renderable(function(TokenExpiredException $e, $request){
+            return Response::json([
+                'status' => Status::FAIL,
+                'message' => 'Token expired'
+            ], 401);
+        });
+
+        $this->renderable(function(JWTException $e, $request){
+            return Response::json([
+                'status' => Status::FAIL,
+                'message' => 'Token not parsed'
+            ], 401);
+        });
+    }
+
+    public function render($request, Throwable $e)
+    {
+        $errorMsg = '';
+
+        switch(true){
+            //skip if exception is belong JWT
+            case $e instanceof JWTException:
+                break;
+            case $e instanceof ModelNotFoundException:
+                $errorMsg = 'Not found';
+                break;
+            //catch policy exception
+            case $e instanceof AuthorizationException:
+                $errorMsg = 'User is not allowed';
+                break;
+            //------------modify here 
+            
+
+            //------------end modify
+            //catch unknown exception
+            // case $e instanceof Exception:
+            //     $errorMsg = 'Something went wrong';
+            //     break;
+        }
+
+        if(strlen($errorMsg)>0){
+            return response()->json([
+                'status' => Status::FAIL,
+                'message' => $errorMsg
+            ]);
+        }
+
+        return parent::render($request, $e);
     }
 }
