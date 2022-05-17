@@ -21,7 +21,7 @@ class UserController extends Controller
 
         if($validator->fails()){
             return response()->json([
-                'status' => Status::FAIL,
+                'success' => false,
                 'message' => 'Register fail',
                 'error' => $validator->errors()->toArray()
             ]);
@@ -34,7 +34,7 @@ class UserController extends Controller
         ]);
 
         return response()->json([
-            'status' => Status::SUCCESS,
+            'success' => true,
             'message' => 'Register successfully'
         ]);
     }
@@ -47,7 +47,7 @@ class UserController extends Controller
 
         if($validator->fails()){
             return response()->json([
-                'status' => Status::FAIL,
+                'success' => false,
                 'message' => 'Login fail',
                 'error' => $validator->errors()->toArray()
             ]);
@@ -59,19 +59,19 @@ class UserController extends Controller
             
             if(!$token){
                 return response()->json([
-                    'status' => Status::FAIL,
+                    'success' => false,
                     'message' => 'Wrong username or password'
                 ]);
             }
 
             return response()->json([
-                'status' => Status::SUCCESS,
+                'success' => true,
                 'token' => $token
             ]);
         }
         catch(JWTException $e){
             return response()->json([
-                'status' => Status::FAIL,
+                'success' => false,
                 'error' => $e
             ]);
         }
@@ -81,7 +81,7 @@ class UserController extends Controller
         JWTAuth::invalidate($request->bearerToken());
 
         return response()->json([
-            'status' => Status::SUCCESS,
+            'success' => true,
             'message' => 'Logout success'
         ]);
     }
@@ -90,8 +90,10 @@ class UserController extends Controller
         $user = JWTAuth::toUser($request->bearerToken());
 
         return response()->json([
-            'status' => Status::SUCCESS,
-            'user' => $user
+            'success' => true,
+            'result' => [
+                'user' => $user,
+            ],
         ]);
     }
 
@@ -99,8 +101,10 @@ class UserController extends Controller
         $this->authorize('getUserInfo', User::class);
 
         return response()->json([
-            'status' => Status::SUCCESS,
-            'user' => $user
+            'success' => true,
+            'result' => [
+                'user' => $user,
+            ],
         ]);
     }
 }

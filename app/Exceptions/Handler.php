@@ -6,6 +6,7 @@ use App\Enums\Status;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Support\Facades\Response;
 use Throwable;
@@ -44,21 +45,21 @@ class Handler extends ExceptionHandler
     {
         $this->renderable(function(TokenInvalidException $e, $request){
             return Response::json([
-                'status' => Status::FAIL,
+                'success' => false,
                 'message' => 'Invalid token'
             ], 401);
         });
 
         $this->renderable(function(TokenExpiredException $e, $request){
             return Response::json([
-                'status' => Status::FAIL,
+                'success' => false,
                 'message' => 'Token expired'
             ], 401);
         });
 
         $this->renderable(function(JWTException $e, $request){
             return Response::json([
-                'status' => Status::FAIL,
+                'success' => false,
                 'message' => 'Token not parsed'
             ], 401);
         });
@@ -79,20 +80,20 @@ class Handler extends ExceptionHandler
             case $e instanceof AuthorizationException:
                 $errorMsg = 'User is not allowed';
                 break;
+            case $e instanceof QueryException:
+                $errorMsg = 'Query fail';
+                break;
             //------------modify here 
             
 
             //------------end modify
-            //catch unknown exception
-            // case $e instanceof Exception:
-            //     $errorMsg = 'Something went wrong';
-            //     break;
         }
 
         if(strlen($errorMsg)>0){
             return response()->json([
-                'status' => Status::FAIL,
-                'message' => $errorMsg
+                'success' => false,
+                'message' => $errorMsg,
+                'error' => $e
             ]);
         }
 

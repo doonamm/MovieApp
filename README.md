@@ -11,7 +11,7 @@ npm install
 composer install
 ```
 copy .env file to root folder
-## Run
+## Run server
 ```
 php artisan serve
 ```
