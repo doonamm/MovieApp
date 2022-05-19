@@ -18,6 +18,7 @@ class CreateCastsTable extends Migration
             $table->foreign('movie_id')->references('id')->on('movies');
             $table->integer('actor_id')->unsigned();
             $table->foreign('actor_id')->references('id')->on('actors');
+            $table->string('character');
         });
     }
 

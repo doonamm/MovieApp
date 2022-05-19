@@ -104,7 +104,8 @@ create table `genres` (
 
 create table `casts` (
     `movie_id` int unsigned not null,
-    `actor_id` int unsigned not null
+    `actor_id` int unsigned not null,
+    `character` varchar(255) not null
 ) default character set utf8mb4 collate 'utf8mb4_unicode_ci';
 
 create table `movie_genres` (
