@@ -9,15 +9,14 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class CommentController extends Controller
 {
-    //
-
-    public function create(Request $request){
+    public function create(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'movie_id' => 'required|integer',
             'content' => 'required|string',
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json([
                 'success' => false,
                 'error' => $validator->errors()->toArray()
@@ -38,6 +37,39 @@ class CommentController extends Controller
             'result' => [
                 'comment' => $comment,
             ],
+        ]);
+    }
+
+    public function destroy(Request $request, Comment $comment)
+    {
+        $comment->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Delete Comment Successfully',
+        ]);
+    }
+
+    public function update(Request $request)
+    {
+        //
+    }
+
+    public function show(Request $request, Comment $comment)
+    {
+        return response()->json([
+            'data' => Comment::find($comment),
+            'success' => true,
+            'message' => "Show Comment Successfully",
+        ]);
+    }
+
+    public function showAll(Request $request)
+    {
+        return response()->json([
+            'data' => Comment::all(),
+            'success' => true,
+            'message' => "Show All Comments Successfully",
         ]);
     }
 }
