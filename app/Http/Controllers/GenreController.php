@@ -32,7 +32,7 @@ class GenreController extends Controller
 
     public function update()
     {
-        //
+        // Update
     }
 
     public function destroy(Request $request, Genre $genre)
