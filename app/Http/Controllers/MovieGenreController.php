@@ -19,7 +19,7 @@ class MovieGenreController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Create Movie Genre successfully',
+            'message' => 'Create Movie Genre Successfully',
         ]);
     }
 
@@ -34,7 +34,7 @@ class MovieGenreController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Delete Movie Genre successfully',
+            'message' => 'Delete Movie Genre Successfully',
         ]);
     }
 
@@ -46,7 +46,16 @@ class MovieGenreController extends Controller
                 ->where('comment_id', $request->comment)
                 ->get(),
             'success' => true,
-            'message' => 'Show Movie Gerne successfully'
+            'message' => 'Show Movie Genre Successfully'
+        ]);
+    }
+
+    public function showAll(Request $request)
+    {
+        return response()->json([
+            'data' => Movie_Genre::all(),
+            'success' => true,
+            'message' => 'Show All Movie Genre Successfully',
         ]);
     }
 }

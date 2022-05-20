@@ -32,7 +32,7 @@ class GenreController extends Controller
 
     public function update()
     {
-        // Update
+        // Updates
     }
 
     public function destroy(Request $request, Genre $genre)
@@ -45,8 +45,21 @@ class GenreController extends Controller
         ]);
     }
 
-    public function show(Request $request, Genre $genre) 
+    public function show(Request $request, Genre $genre)
     {
-        
+        return response()->json([
+            'data' => Genre::find($genre),
+            'success' => true,
+            'message' => 'Show Genre Successfully',
+        ]);
+    }
+
+    public function showAll(Request $request)
+    {
+        return response()->json([
+            'data' => Genre::all(),
+            'success' => true,
+            'message' => 'Show All Genre Successfully',
+        ]);
     }
 }
