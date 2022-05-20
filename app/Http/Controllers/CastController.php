@@ -46,10 +46,13 @@ class CastController extends Controller
         ]);
     }
 
-    public function show(Request $request, Cast $cast)
+    public function show(Request $request)
     {
         return response()->json([
-            'data' => Cast::find($cast),
+            'data' => Cast::query()
+                ->where('movie_id', $request->movie_id)
+                ->where('actor_id', $request->actor_id)
+                ->get(),
             'success' => true,
             'message' => 'Show Cast Successfully'
         ]);
