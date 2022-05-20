@@ -21,7 +21,7 @@ class LikeController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Create Like successfully',
+            'message' => 'Create Like Successfully',
         ]);
     }
 
@@ -37,7 +37,7 @@ class LikeController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Delete like successfully'
+            'message' => 'Delete Like Successfully'
         ]);
     }
 
@@ -49,7 +49,16 @@ class LikeController extends Controller
                 ->where('comment_id', $request->comment)
                 ->get(),
             'success' => true,
-            'message' => 'Show profile successfully'
+            'message' => 'Show Like Successfully'
+        ]);
+    }
+
+    public function showAll(Request $request)
+    {
+        return response()->json([
+            'data' => Like::all(),
+            'success' => true,
+            'message' => 'Show All Likes Successfully'
         ]);
     }
 }

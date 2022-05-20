@@ -17,7 +17,7 @@ class GenreController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
-                'message' => 'Create Gerne failed',
+                'message' => 'Create Gerne Failed',
                 'error' => $validator->errors()->toArray(),
             ]);
         }
@@ -26,7 +26,7 @@ class GenreController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Create Gerne successful',
+            'message' => 'Create Gerne Successful',
         ]);
     }
 
@@ -41,7 +41,12 @@ class GenreController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Show genre successfully',
+            'message' => 'Delete Genre Successfully',
         ]);
+    }
+
+    public function show(Request $request, Genre $genre) 
+    {
+        
     }
 }

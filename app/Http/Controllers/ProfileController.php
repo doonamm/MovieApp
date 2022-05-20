@@ -28,7 +28,7 @@ class ProfileController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
-                'message' => 'Create Profile failed',
+                'message' => 'Create Profile Failed',
                 'error' => $validator->errors()->toArray(),
             ]);
         }
@@ -43,7 +43,7 @@ class ProfileController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Create profile successfully'
+            'message' => 'Create Profile Successfully'
         ]);
     }
 
@@ -59,7 +59,7 @@ class ProfileController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Delete profile successfully'
+            'message' => 'Delete Profile Successfully'
         ]);
     }
 
@@ -68,7 +68,16 @@ class ProfileController extends Controller
         return response()->json([
             'data' => Profile::find($user),
             'success' => true,
-            'message' => 'Show Profile successfully'
+            'message' => 'Show Profile Successfully'
+        ]);
+    }
+
+    public function showAll(Request $request)
+    {
+        return response()->json([
+            'data' => Profile::all(),
+            'success' => true,
+            'message' => 'Show All Profiles Successfully'
         ]);
     }
 }
