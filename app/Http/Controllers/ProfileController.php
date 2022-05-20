@@ -68,7 +68,7 @@ class ProfileController extends Controller
         return response()->json([
             'data' => Profile::find($user),
             'success' => true,
-            'message' => 'Delete profile successfully'
+            'message' => 'Show Profile successfully'
         ]);
     }
 }

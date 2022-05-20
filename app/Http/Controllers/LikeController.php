@@ -49,7 +49,7 @@ class LikeController extends Controller
                 ->where('comment_id', $comment)
                 ->get(),
             'success' => true,
-            'message' => 'Delete profile successfully'
+            'message' => 'Show profile successfully'
         ]);
     }
 }

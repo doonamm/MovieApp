@@ -41,7 +41,7 @@ class GenreController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Delete genre successfully',
+            'message' => 'Show genre successfully',
         ]);
     }
 }
