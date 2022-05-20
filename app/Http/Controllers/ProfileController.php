@@ -30,7 +30,7 @@ class ProfileController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Create Profile failed',
-                'error' => $validator->errors()->toArray()
+                'error' => $validator->errors()->toArray(),
             ]);
         }
 
