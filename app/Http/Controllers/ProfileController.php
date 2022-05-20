@@ -16,7 +16,6 @@ class ProfileController extends Controller
 
     public function create(Request $request)
     {
-
         $user = JWTAuth::toUser($request->bearerToken());
 
         $validator = Validator::make($request->all(), [

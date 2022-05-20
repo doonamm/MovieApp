@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Validator;
 class MovieGenreController extends Controller
 {
     public function create(Request $request)
-    
     {
     }
 }
