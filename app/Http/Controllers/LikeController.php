@@ -41,12 +41,12 @@ class LikeController extends Controller
         ]);
     }
 
-    public function show(Request $request, User $user, Comment $comment)
+    public function show(Request $request)
     {
         return response()->json([
             'data' => Like::query()
-                ->where('user_id', $user)
-                ->where('comment_id', $comment)
+                ->where('user_id', $request->user)
+                ->where('comment_id', $request->comment)
                 ->get(),
             'success' => true,
             'message' => 'Show profile successfully'
