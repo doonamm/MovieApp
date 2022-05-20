@@ -21,7 +21,7 @@ class LikeController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Create Like successfully'
+            'message' => 'Create Like successfully',
         ]);
     }
 
