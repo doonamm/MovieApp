@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Movie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class MovieController extends Controller
 {
@@ -12,7 +13,7 @@ class MovieController extends Controller
 
     public function create(Request $request)
     {
-        //this is a test
+        $user = JWTAuth::toUser($request->bearerToken());
 
         $validator = Validator::make($request->all(), [
             'adult' => 'required|boolean',
@@ -48,6 +49,9 @@ class MovieController extends Controller
 
     public function update(Request $request, Movie $movie)
     {
+
+        $user = JWTAuth::toUser($request->bearerToken());
+
         $movie = Movie::findOrFail($movie);
         $validator = Validator::make($request->all(), [
             'adult' => 'boolean',
@@ -82,6 +86,8 @@ class MovieController extends Controller
 
     public function destroy(Request $request, Movie $movie)
     {
+        $user = JWTAuth::toUser($request->bearerToken());
+
         $movie->delete();
 
         return response()->json([
