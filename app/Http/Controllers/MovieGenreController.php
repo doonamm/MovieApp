@@ -12,7 +12,7 @@ class MovieGenreController extends Controller
 {
     public function create(Request $request)
     {
-        Movie_Genre::query()->create([
+        $movie_Genre = Movie_Genre::query()->create([
             'movie_id' => $request->input('movie_id'),
             'genre_id' => $request->input('genre_id'),
         ]);
@@ -20,12 +20,21 @@ class MovieGenreController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Create Movie Genre Successfully',
+            'data' => $movie_Genre,
         ]);
     }
 
-    public function update(Request $request)
+    public function update(Request $request, Movie_Genre $movie_Genre)
     {
-        // Update
+        $movie_Genre = Movie_Genre::findOrFail($movie_Genre);
+
+        $movie_Genre->update($request->all());
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Update Movie Genre Successfully',
+            'data' => $movie_Genre,
+        ]);
     }
 
     public function destroy(Request $request, Movie_Genre $movie_Genre)
@@ -38,13 +47,11 @@ class MovieGenreController extends Controller
         ]);
     }
 
-    public function show(Request $request)
+    public function show(Request $request, Movie_Genre $movie_Genre)
     {
+        $movie_Genre = Movie_Genre::findOrFail($movie_Genre);
         return response()->json([
-            'data' => Movie_Genre::query()
-                ->where('user_id', $request->user)
-                ->where('comment_id', $request->comment)
-                ->get(),
+            'data' => $movie_Genre,
             'success' => true,
             'message' => 'Show Movie Genre Successfully'
         ]);

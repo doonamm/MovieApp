@@ -23,17 +23,36 @@ class CastController extends Controller
             ]);
         }
 
-        Cast::create($request->validated());
+        $cast = Cast::create($request->validated());
 
         return response()->json([
             'success' => true,
             'message' => 'Create Cast Successfully',
+            'data' => $cast,
         ]);
     }
 
-    public function update(Request $request)
+    public function update(Request $request, Cast $cast)
     {
-        // Update
+        $cast = Cast::findOrFail($cast);
+        $validator = Validator::make($request->all(), [
+            'character' => "string",
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data is not correct!',
+            ]);
+        }
+
+        $cast->update($request->all());
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Update Cast Successfully',
+            'data' => $cast,
+        ]);
     }
 
     public function destroy(Request $request, Cast $cast)
@@ -46,13 +65,11 @@ class CastController extends Controller
         ]);
     }
 
-    public function show(Request $request)
+    public function show(Request $request, Cast $cast)
     {
+        $cast = Cast::findOrFail($cast);
         return response()->json([
-            'data' => Cast::query()
-                ->where('movie_id', $request->movie_id)
-                ->where('actor_id', $request->actor_id)
-                ->get(),
+            'data' => $cast,
             'success' => true,
             'message' => 'Show Cast Successfully'
         ]);
