@@ -3,16 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cast;
+use App\Models\Movie;
+use App\Models\Actor;
 use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Http\Request;
 
 class CastController extends Controller
 {
-    public function create(Request $request)
+    public function create(Request $request, Movie $movie, Actor $actor)
     {
         $validator = Validator::make($request->all(), [
             'character' => "required|string",
+            'movie_id' => 'required|string',
+            'actor_id' => 'required|string',
         ]);
 
         if ($validator->fails()) {
@@ -23,34 +27,15 @@ class CastController extends Controller
             ]);
         }
 
-        $cast = Cast::create($request->validated());
+        $cast = Cast::create([
+            'movie_id' => $request->input($movie->id),
+            'actor_id' => $request->input($actor->id),
+            'character' => $request->input('character'),
+        ]);
 
         return response()->json([
             'success' => true,
             'message' => 'Create Cast Successfully',
-            'data' => $cast,
-        ]);
-    }
-
-    public function update(Request $request, Cast $cast)
-    {
-        $cast = Cast::findOrFail($cast);
-        $validator = Validator::make($request->all(), [
-            'character' => "string",
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Data is not correct!',
-            ]);
-        }
-
-        $cast->update($request->all());
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Update Cast Successfully',
             'data' => $cast,
         ]);
     }
@@ -67,7 +52,6 @@ class CastController extends Controller
 
     public function show(Request $request, Cast $cast)
     {
-        $cast = Cast::findOrFail($cast);
         return response()->json([
             'data' => $cast,
             'success' => true,

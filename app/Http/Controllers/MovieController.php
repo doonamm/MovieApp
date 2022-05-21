@@ -38,7 +38,7 @@ class MovieController extends Controller
             ]);
         }
 
-        $movie = Movie::query()->create([$request->validated()]);
+        $movie = Movie::query()->create($request->validated());
 
         return response()->json([
             'success' => true,
@@ -86,8 +86,6 @@ class MovieController extends Controller
 
     public function destroy(Request $request, Movie $movie)
     {
-        $user = JWTAuth::toUser($request->bearerToken());
-
         $movie->delete();
 
         return response()->json([
@@ -99,7 +97,6 @@ class MovieController extends Controller
     public function show(Request $request, Movie $movie)
     {
         return response()->json([
-            'data' => Movie::find($movie),
             'success' => true,
             'message' => 'Show Movie Successfully'
         ]);

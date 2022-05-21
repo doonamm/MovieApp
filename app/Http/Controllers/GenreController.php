@@ -31,29 +31,6 @@ class GenreController extends Controller
         ]);
     }
 
-    public function update(Request $request, Genre $genre)
-    {
-        $genre = Genre::findOrFail($genre);
-        $validator = Validator::make($request->all(), [
-            'name' => 'string',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Data is not correct!',
-            ]);
-        }
-
-        $genre->update($request->all());
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Update Genre Successfully',
-            'data' => $genre,
-        ]);
-    }
-
     public function destroy(Request $request, Genre $genre)
     {
         $genre->delete();
@@ -61,15 +38,6 @@ class GenreController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Delete Genre Successfully',
-        ]);
-    }
-
-    public function show(Request $request, Genre $genre)
-    {
-        return response()->json([
-            'data' => Genre::find($genre),
-            'success' => true,
-            'message' => 'Show Genre Successfully',
         ]);
     }
 

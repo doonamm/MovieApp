@@ -12,7 +12,7 @@ class ActorController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
-            'popularity' => 'numeric',
+            'popularity' => 'required|numeric',
             'profile_path' => 'required|string',
         ]);
 
@@ -35,7 +35,6 @@ class ActorController extends Controller
 
     public function update(Request $request, Actor $actor)
     {
-        $actor = Actor::findOrFail($actor);
         $validator = Validator::make($request->all(), [
             'name' => 'string',
             'popularity' => 'numeric',
@@ -71,7 +70,6 @@ class ActorController extends Controller
     public function show(Request $request, Actor $actor)
     {
         return response()->json([
-            'data' => Actor::find($actor),
             'success' => true,
             'message' => 'Show Actor Successfully'
         ]);
