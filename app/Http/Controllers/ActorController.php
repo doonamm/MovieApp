@@ -32,9 +32,29 @@ class ActorController extends Controller
         ]);
     }
 
-    public function update(Request $request)
+    public function update(Request $request, Actor $actor)
     {
-        // Update
+        $actor = Actor::findOrFail($actor);
+        $validator = Validator::make($request->all(), [
+            'name' => 'string',
+            'popularity' => 'numeric',
+            'profile_path' => 'string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data is not correct!',
+            ]);
+        }
+
+        $actor->update($request->all());
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Update Actor Successfully',
+            'data' => $actor,
+        ]);
     }
 
     public function destroy(Request $request, Actor $actor)

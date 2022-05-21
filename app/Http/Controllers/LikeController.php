@@ -25,9 +25,16 @@ class LikeController extends Controller
         ]);
     }
 
-    public function update(Request $request)
+    public function update(Request $request, Like $like)
     {
-        // update
+        $like = Like::findOrFail($like);
+        $like->update($request->all());
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Update Like Successfully',
+            'data' => $like,
+        ]);
     }
 
     public function destroy(Request $request, Like $like)

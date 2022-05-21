@@ -23,9 +23,17 @@ class MovieGenreController extends Controller
         ]);
     }
 
-    public function update(Request $request)
+    public function update(Request $request, Movie_Genre $movie_Genre)
     {
-        // Update
+        $movie_Genre = Movie_Genre::findOrFail($movie_Genre);
+
+        $movie_Genre->update($request->all());
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Update Movie Genre Successfully',
+            'data' => $movie_Genre,
+        ]);
     }
 
     public function destroy(Request $request, Movie_Genre $movie_Genre)
