@@ -17,16 +17,17 @@ class GenreController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
-                'message' => 'Create Gerne Failed',
+                'message' => 'Create Genre Failed',
                 'error' => $validator->errors()->toArray(),
             ]);
         }
 
-        Genre::create($request->validated());
+        $genre = Genre::create($request->validated());
 
         return response()->json([
             'success' => true,
-            'message' => 'Create Gerne Successful',
+            'message' => 'Create Genre Successful',
+            'data' => $genre,
         ]);
     }
 

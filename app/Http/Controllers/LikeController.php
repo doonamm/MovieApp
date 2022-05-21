@@ -14,21 +14,31 @@ class LikeController extends Controller
 {
     public function create(Request $request)
     {
-        Like::query()->create([
-            'user_id' => $request->input('user_id'),
+
+        $user = JWTAuth::toUser($request->bearerToken());
+
+        $like = Like::query()->create([
+            'user_id' => $user->id,
             'comment_id' => $request->input('comment_id'),
         ]);
 
         return response()->json([
             'success' => true,
             'message' => 'Create Like Successfully',
+            'data' => $like,
         ]);
     }
 
     public function update(Request $request, Like $like)
     {
+        $user = JWTAuth::toUser($request->bearerToken());
+
         $like = Like::findOrFail($like);
-        $like->update($request->all());
+
+        $like->update([
+            'user_id' => $user->id,
+            'comment_id' => $request->input('comment_id'),
+        ]);
 
         return response()->json([
             'success' => true,
@@ -39,6 +49,7 @@ class LikeController extends Controller
 
     public function destroy(Request $request, Like $like)
     {
+        $user = JWTAuth::toUser($request->bearerToken());
 
         $like->delete();
 

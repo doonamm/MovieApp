@@ -11,6 +11,7 @@ class CommentController extends Controller
 {
     public function create(Request $request)
     {
+
         $validator = Validator::make($request->all(), [
             'movie_id' => 'required|integer',
             'content' => 'required|string',
@@ -19,14 +20,15 @@ class CommentController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
+                'messsage' => 'Create Comment Failed!',
                 'error' => $validator->errors()->toArray()
             ]);
         }
 
-        $userId = JWTAuth::toUser($request->bearerToken())->id;
+        $user = JWTAuth::toUser($request->bearerToken());
 
         $comment = Comment::query()->create([
-            'user_id' => $userId,
+            'user_id' => $user->id,
             'movie_id' => $request->input('movie_id'),
             'content' => $request->input('content'),
             'like_count' => 0
@@ -34,14 +36,16 @@ class CommentController extends Controller
 
         return response()->json([
             'success' => true,
-            'result' => [
-                'comment' => $comment,
-            ],
+            'messsage' => 'Create Comment Successfully!',
+            'data' => $comment,
         ]);
     }
 
     public function destroy(Request $request, Comment $comment)
     {
+
+        $user = JWTAuth::toUser($request->bearerToken());
+
         $comment->delete();
 
         return response()->json([
@@ -52,10 +56,15 @@ class CommentController extends Controller
 
     public function update(Request $request, Comment $comment)
     {
+
+        $user = JWTAuth::toUser($request->bearerToken());
+
         $comment = Comment::findOrFail($comment);
-        $validator = Validator::make($request->all(), [
-            'movie_id' => 'integer',
-            'content' => 'string',
+        $validator = Validator::make([
+            'user_id' => $user->id,
+            'movie_id' => $request->input('movie_id'),
+            'content' => $request->input('content'),
+            'like_count' => 0
         ]);
 
         if ($validator->fails()) {

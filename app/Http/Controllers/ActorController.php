@@ -24,11 +24,12 @@ class ActorController extends Controller
             ]);
         }
 
-        Actor::query()->create($request->validated());
+        $actor = Actor::query()->create($request->validated());
 
         return response()->json([
             'success' => true,
             'message' => 'Create Actor Successfully',
+            'data' => $actor,
         ]);
     }
 

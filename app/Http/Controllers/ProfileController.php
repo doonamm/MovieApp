@@ -33,7 +33,7 @@ class ProfileController extends Controller
             ]);
         }
 
-        Profile::query()->create([
+        $profile = Profile::query()->create([
             'user_id' => $user->id,
             'nickname' => $request->input('nickname'),
             'gender' => $request->input('gender'),
@@ -43,13 +43,17 @@ class ProfileController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Create Profile Successfully'
+            'message' => 'Create Profile Successfully',
+            'data' => $profile,
         ]);
     }
 
     public function update(Request $request, Profile $profile)
     {
+        $user = JWTAuth::toUser($request->bearerToken());
+
         $profile = Profile::findOrFail($profile);
+
         $validator = Validator::make($request->all(), [
             'nickname' => 'string',
             'gender' => "in:'male','female'",
@@ -64,7 +68,13 @@ class ProfileController extends Controller
             ]);
         }
 
-        $profile->update($request->all());
+        $profile->update([
+            'user_id' => $user->id,
+            'nickname' => $request->input('nickname'),
+            'gender' => $request->input('gender'),
+            'birthday' => $request->input('birthday'),
+            'avatar_url' => $request->input('avatar_url'),
+        ]);
 
         return response()->json([
             'success' => true,
@@ -75,6 +85,8 @@ class ProfileController extends Controller
 
     public function destroy(Request $request, Profile $profile)
     {
+
+        $user = JWTAuth::toUser($request->bearerToken());
 
         $profile->delete();
 

@@ -23,11 +23,12 @@ class CastController extends Controller
             ]);
         }
 
-        Cast::create($request->validated());
+        $cast = Cast::create($request->validated());
 
         return response()->json([
             'success' => true,
             'message' => 'Create Cast Successfully',
+            'data' => $cast,
         ]);
     }
 
@@ -64,13 +65,11 @@ class CastController extends Controller
         ]);
     }
 
-    public function show(Request $request)
+    public function show(Request $request, Cast $cast)
     {
+        $cast = Cast::findOrFail($cast);
         return response()->json([
-            'data' => Cast::query()
-                ->where('movie_id', $request->movie_id)
-                ->where('actor_id', $request->actor_id)
-                ->get(),
+            'data' => $cast,
             'success' => true,
             'message' => 'Show Cast Successfully'
         ]);
