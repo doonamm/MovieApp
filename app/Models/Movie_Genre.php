@@ -10,6 +10,6 @@ class Movie_Genre extends Model
     use HasFactory;
 
     protected $table = 'movie_genres';
-
+    public $timestamps = false;
     protected $guarded = [];
 }
