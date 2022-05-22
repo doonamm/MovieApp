@@ -117,8 +117,8 @@ alter table `comments` add constraint `comments_user_id_foreign` foreign key (`u
 alter table `comments` add constraint `comments_movie_id_foreign` foreign key (`movie_id`) references `movies` (`id`) on delete cascade;
 alter table `likes` add constraint `likes_user_id_foreign` foreign key (`user_id`) references `users` (`id`);
 alter table `likes` add constraint `likes_comment_id_foreign` foreign key (`comment_id`) references `comments` (`id`) on delete cascade;
-alter table `profiles` add constraint `profiles_user_id_foreign` foreign key (`user_id`) references `users` (`id`);
-alter table `casts` add constraint `casts_movie_id_foreign` foreign key (`movie_id`) references `movies` (`id`);
-alter table `casts` add constraint `casts_actor_id_foreign` foreign key (`actor_id`) references `actors` (`id`);
+alter table `profiles` add constraint `profiles_user_id_foreign` foreign key (`user_id`) references `users` (`id`) on delete cascade;
+alter table `casts` add constraint `casts_movie_id_foreign` foreign key (`movie_id`) references `movies` (`id`) on delete cascade;
+alter table `casts` add constraint `casts_actor_id_foreign` foreign key (`actor_id`) references `actors` (`id`) on delete cascade;
 alter table `movie_genres` add constraint `movie_genres_movie_id_foreign` foreign key (`movie_id`) references `movies` (`id`) on delete cascade;
 alter table `movie_genres` add constraint `movie_genres_genre_id_foreign` foreign key (`genre_id`) references `genres` (`id`) on delete cascade;

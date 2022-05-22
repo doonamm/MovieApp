@@ -15,9 +15,9 @@ class CreateCastsTable extends Migration
     {
         Schema::create('casts', function (Blueprint $table) {
             $table->integer('movie_id')->unsigned();
-            $table->foreign('movie_id')->references('id')->on('movies');
+            $table->foreign('movie_id')->references('id')->on('movies')->onDelete('cascade');
             $table->integer('actor_id')->unsigned();
-            $table->foreign('actor_id')->references('id')->on('actors');
+            $table->foreign('actor_id')->references('id')->on('actors')->onDelete('cascade');
             $table->string('character');
         });
     }
