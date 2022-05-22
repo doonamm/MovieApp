@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Genre;
+use App\Models\Movie;
 
 class GenreController extends Controller
 {
@@ -26,7 +27,6 @@ class GenreController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Create Genre Successful',
             'data' => $genre,
         ]);
     }
@@ -37,16 +37,16 @@ class GenreController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Delete Genre Successfully',
         ]);
     }
 
     public function showAll(Request $request)
     {
+        $list = Genre::all();
+
         return response()->json([
-            'data' => Genre::all(),
+            'data' => $list,
             'success' => true,
-            'message' => 'Show All Genre Successfully',
         ]);
     }
 }

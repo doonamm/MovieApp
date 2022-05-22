@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Facades\JWTAuth;
-use Illuminate\Support\Facades\Validator;
 use App\Models\Movie_Genre;
+use App\Models\Movie;
 
 
 class MovieGenreController extends Controller
@@ -16,7 +15,6 @@ class MovieGenreController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Delete Movie Genre Successfully',
         ]);
     }
 
@@ -26,16 +24,18 @@ class MovieGenreController extends Controller
         return response()->json([
             'data' => $movie_Genre,
             'success' => true,
-            'message' => 'Show Movie Genre Successfully'
         ]);
     }
 
-    public function showAll(Request $request)
+    public function showAll(Request $request, Movie $movie)
     {
+        $list = Movie_Genre::join("GENREs", 'MOVIE_GENREs.genre_id', '=', 'GENREs.id')
+            ->where('MOVIE_GENREs.movie_id', $movie->id)
+            ->get('GENREs.name', 'MOVIE_GENREs.genre_id');
+
         return response()->json([
-            'data' => Movie_Genre::all(),
+            'data' => $list,
             'success' => true,
-            'message' => 'Show All Movie Genre Successfully',
         ]);
     }
 }

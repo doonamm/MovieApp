@@ -4,14 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Cast;
 use App\Models\Movie;
-use App\Models\Actor;
 use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Http\Request;
 
 class CastController extends Controller
 {
-    public function create(Request $request, Movie $movie, Actor $actor)
+    public function create(Request $request, Movie $movie)
     {
         $validator = Validator::make($request->all(), [
             'character' => "required|string",
@@ -27,15 +26,10 @@ class CastController extends Controller
             ]);
         }
 
-        $cast = Cast::create([
-            'movie_id' => $request->input($movie->id),
-            'actor_id' => $request->input($actor->id),
-            'character' => $request->input('character'),
-        ]);
+        $cast = Cast::create($request->validated());
 
         return response()->json([
             'success' => true,
-            'message' => 'Create Cast Successfully',
             'data' => $cast,
         ]);
     }
@@ -46,7 +40,6 @@ class CastController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Delete Cast Successfully',
         ]);
     }
 
@@ -55,16 +48,18 @@ class CastController extends Controller
         return response()->json([
             'data' => $cast,
             'success' => true,
-            'message' => 'Show Cast Successfully'
         ]);
     }
 
-    public function showAll(Request $request)
+    public function showAll(Request $request, Movie $movie)
     {
+        $list = Cast::join('ACTORs', 'CASTs.actor_id', '=', 'ACTORs.id')
+            ->where('CASTs.movie_id', $movie->id)
+            ->get();
+
         return response()->json([
-            'data' => Cast::all(),
+            'data' => $list,
             'success' => true,
-            'message' => 'Show All Casts Successfully'
         ]);
     }
 }

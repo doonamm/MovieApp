@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Movie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -51,12 +52,15 @@ class CommentController extends Controller
         ]);
     }
 
-    public function showAll(Request $request)
+    public function showAll(Request $request, Movie $movie)
     {
+        $list =  Comment::query()
+            ->where('movie_id', $movie->id)
+            ->get();
+
         return response()->json([
-            'data' => Comment::all(),
+            'data' => $list,
             'success' => true,
-            'message' => "Show All Comments Successfully",
         ]);
     }
 }

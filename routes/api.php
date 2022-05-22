@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\CastController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\GenreController;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\MovieGenreController;
 use App\Http\Controllers\UserController;
 use GuzzleHttp\Middleware;
 use Illuminate\Http\Request;
@@ -31,16 +34,17 @@ Route::group(['middleware' => 'auth.jwt'], function () {
 
         //Nhật
         //Movies
-        Route::get('/{movie}', [MovieController::class, 'show']);
-        Route::put('/{movie}', [MovieController::class, 'update']);
-        Route::delete('/{movie}', [MovieController::class, 'destroy']);
-        Route::post('/', [MovieController::class, 'create']);
 
         //Genre
-        Route::get('/genres', [GenreController::class, 'showAll']);
+        Route::get('/{movie}/genres', [MovieGenreController::class, 'showAll']); /* show genres of movies */
 
         //Cast
-        Route::get('/casts', [CastController::class, 'showAll']);
+        Route::get('/{movie/casts}', [CastController::class, 'showAll']);
+
+
+        //Comments
+        Route::get('/{movie}/comments', [CommentController::class, 'showAll']);
+        Route::post('/{movie}', [CommentController::class, 'create']);
     });
     //more route...
 });
