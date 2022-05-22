@@ -24,11 +24,10 @@ class ActorController extends Controller
             ]);
         }
 
-        $actor = Actor::query()->create($request->validated());
+        $actor = Actor::query()->create($request->all());
 
         return response()->json([
             'success' => true,
-            'message' => 'Create Actor Successfully',
             'data' => $actor,
         ]);
     }
@@ -52,7 +51,6 @@ class ActorController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Update Actor Successfully',
             'data' => $actor,
         ]);
     }
@@ -70,8 +68,8 @@ class ActorController extends Controller
     public function show(Request $request, Actor $actor)
     {
         return response()->json([
+            'data' => $actor,
             'success' => true,
-            'message' => 'Show Actor Successfully'
         ]);
     }
 
@@ -80,7 +78,6 @@ class ActorController extends Controller
         return response()->json([
             'data' => Actor::all(),
             'success' => true,
-            'message' => 'Show All Actors Successfully'
         ]);
     }
 }

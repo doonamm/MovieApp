@@ -10,9 +10,8 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class CommentController extends Controller
 {
-    public function create(Request $request)
+    public function create(Request $request, Movie $movie)
     {
-
         $validator = Validator::make($request->all(), [
             'movie_id' => 'required|integer',
             'content' => 'required|string',

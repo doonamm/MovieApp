@@ -31,7 +31,7 @@ class MovieGenreController extends Controller
     {
         $list = Movie_Genre::join("GENREs", 'MOVIE_GENREs.genre_id', '=', 'GENREs.id')
             ->where('MOVIE_GENREs.movie_id', $movie->id)
-            ->get('GENREs.name', 'MOVIE_GENREs.genre_id');
+            ->get(['GENREs.name', 'MOVIE_GENREs.genre_id']);
 
         return response()->json([
             'data' => $list,

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Genre;
-use App\Models\Movie;
 
 class GenreController extends Controller
 {
@@ -23,7 +22,9 @@ class GenreController extends Controller
             ]);
         }
 
-        $genre = Genre::create($request->validated());
+        $genre = Genre::query()->create([
+            'name' => $request->input('name')
+        ]);
 
         return response()->json([
             'success' => true,
