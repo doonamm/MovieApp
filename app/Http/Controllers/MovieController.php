@@ -38,11 +38,10 @@ class MovieController extends Controller
             ]);
         }
 
-        $movie = Movie::query()->create($request->validated());
+        $movie = Movie::query()->create($request->all());
 
         return response()->json([
             'success' => true,
-            'message' => 'Create Movie Successfully',
             'data' => $movie,
         ]);
     }
@@ -79,7 +78,6 @@ class MovieController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Update Movie Successfully',
             'data' => $movie,
         ]);
     }
@@ -90,15 +88,14 @@ class MovieController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Delete Movie Successfully'
         ]);
     }
 
     public function show(Request $request, Movie $movie)
     {
         return response()->json([
+            'data' => $movie,
             'success' => true,
-            'message' => 'Show Movie Successfully'
         ]);
     }
 
@@ -107,7 +104,6 @@ class MovieController extends Controller
         return response()->json([
             'data' => Movie::all(),
             'success' => true,
-            'message' => 'Show All Movies Successfully'
         ]);
     }
 }

@@ -45,9 +45,7 @@ Route::group(['prefix' => 'users'], function () {
 
 
 Route::group(['prefix' => 'movies'], function () {
-    Route::post('/', [MovieController::class, 'create']);
-
-    //Movies
+    Route::get('/{movie}', [MovieController::class, 'show']);
 
     //Genre
     Route::get('/{movie}/genres', [MovieGenreController::class, 'showAll']); /* show genres of movies */
