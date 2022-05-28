@@ -74,7 +74,7 @@ class Handler extends ExceptionHandler
             case $e instanceof JWTException:
                 break;
             case $e instanceof ModelNotFoundException:
-                $errorMsg = 'Not found';
+                $errorMsg = 'Model not found';
                 break;
             //catch policy exception
             case $e instanceof AuthorizationException:
@@ -87,6 +87,9 @@ class Handler extends ExceptionHandler
             
 
             //------------end modify
+            case $e instanceof Exception:
+                $errorMsg = 'Something went wrong';
+                break;
         }
 
         if(strlen($errorMsg)>0){
