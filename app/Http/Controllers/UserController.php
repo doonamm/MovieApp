@@ -86,25 +86,34 @@ class UserController extends Controller
         ]);
     }
 
-    function getInfo(Request $request){
-        $user = JWTAuth::toUser($request->bearerToken());
+    public function getAllUser(Request $request){
+        $this->authorize('onlyAdmin', User::class);
+
+        $list = User::all();
 
         return response()->json([
             'success' => true,
-            'result' => [
-                'user' => $user,
-            ],
+            'data' => $list,
         ]);
     }
 
-    function getUserInfo(Request $request, User $user){
-        $this->authorize('getUserInfo', User::class);
+    public function getUserInfo(Request $request, User $user){
+        $this->authorize('onlyAdmin', User::class);
 
         return response()->json([
             'success' => true,
-            'result' => [
-                'user' => $user,
-            ],
+            'data' => $user
+        ]);
+    }
+
+    public function destroy(Request $request, User $user){
+        $this->authorize('onlyAdmin', User::class);
+
+        $user->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Delete user success'
         ]);
     }
 }
