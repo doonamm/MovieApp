@@ -7,9 +7,6 @@ use App\Http\Controllers\GenreController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\MovieGenreController;
 use App\Http\Controllers\UserController;
-use App\Models\Genre;
-use GuzzleHttp\Middleware;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::group([
@@ -19,6 +16,7 @@ Route::group([
     Route::post('/register', [UserController::class, 'register']);
     Route::delete('/logout', [UserController::class, 'logout'])->middleware('auth.jwt');
 });
+
 
 Route::group(['prefix' => 'actors'], function () {
     Route::get('/', [ActorController::class, 'showAll']);
@@ -58,5 +56,11 @@ Route::group(['prefix' => 'movies'], function () {
     // Route::get('/{movie}/comments', [CommentController::class, 'showAll']);
     // Route::post('/{movie}', [CommentController::class, 'create']);
 });
-    //more route...
+//more route...
 // });
+
+
+
+//test
+
+Route::post('/createcomment', [CommentController::class, 'create']);

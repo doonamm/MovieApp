@@ -10,6 +10,8 @@ class ActorController extends Controller
 {
     public function create(Request $request)
     {
+        $this->authorize('create', Actor::class);
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'popularity' => 'required|numeric',
@@ -23,9 +25,7 @@ class ActorController extends Controller
                 'error' => $validator->errors()->toArray(),
             ]);
         }
-
         $actor = Actor::query()->create($request->all());
-
         return response()->json([
             'success' => true,
             'data' => $actor,

@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Actor;
 use App\Models\Cast;
 use App\Models\Genre;
+use App\Models\Movie;
 use App\Models\Movie_Genre;
 use App\Models\Profile;
 use App\Models\User;
@@ -28,6 +29,10 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         User::class => UserPolicy::class,
+        Actor::class => ActorPolicy::class,
+        Genre::class => GenrePolicy::class,
+        Comment::class => CommentPolicy::class,
+        Movie::class => MoviePolicy::class,
     ];
 
     /**

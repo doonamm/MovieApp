@@ -36,18 +36,21 @@ class CommentController extends Controller
 
         return response()->json([
             'success' => true,
-            'messsage' => 'Create Comment Successfully!',
             'data' => $comment,
         ]);
     }
 
-    public function destroy(Request $request, Comment $comment)
+    public function destroy(Request $request, Movie $movie, Comment $comment)
     {
+        // Xóa một comment của film
         $comment->delete();
+
+        $movie->comment_count = $movie->comment_count - 1;
+        $movie->save();
 
         return response()->json([
             'success' => true,
-            'message' => 'Delete Comment Successfully',
+            'deleted comment' => $comment,
         ]);
     }
 

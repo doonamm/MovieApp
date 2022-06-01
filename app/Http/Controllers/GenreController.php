@@ -10,6 +10,8 @@ class GenreController extends Controller
 {
     public function create(Request $request)
     {
+        $this->authorize('create', Genre::class);
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
         ]);
