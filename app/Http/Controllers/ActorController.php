@@ -3,8 +3,81 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use App\Models\Actor;
 
 class ActorController extends Controller
 {
-    //
+    public function create(Request $request)
+    {
+        $this->authorize('create', Actor::class);
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string',
+            'popularity' => 'required|numeric',
+            'profile_path' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Create Actor Failed',
+                'error' => $validator->errors()->toArray(),
+            ]);
+        }
+        $actor = Actor::query()->create($request->all());
+        return response()->json([
+            'success' => true,
+            'data' => $actor,
+        ]);
+    }
+
+    public function update(Request $request, Actor $actor)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'string',
+            'popularity' => 'numeric',
+            'profile_path' => 'string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Data is not correct!',
+            ]);
+        }
+
+        $actor->update($request->all());
+
+        return response()->json([
+            'success' => true,
+            'data' => $actor,
+        ]);
+    }
+
+    public function destroy(Request $request, Actor $actor)
+    {
+        $actor->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Delete Actor Successfully',
+        ]);
+    }
+
+    public function show(Request $request, Actor $actor)
+    {
+        return response()->json([
+            'data' => $actor,
+            'success' => true,
+        ]);
+    }
+
+    public function showAll(Request $request)
+    {
+        return response()->json([
+            'data' => Actor::all(),
+            'success' => true,
+        ]);
+    }
 }

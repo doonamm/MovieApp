@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ActorController;
+use App\Http\Controllers\CastController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\MovieController;
@@ -13,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group([
     'prefix' => 'auth',
-], function(){
+], function () {
     Route::post('/login', [UserController::class, 'login']);
     Route::post('/register', [UserController::class, 'register']);
     Route::delete('/logout', [UserController::class, 'logout'])->middleware('auth.jwt');
