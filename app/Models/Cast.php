@@ -11,6 +11,5 @@ class Cast extends Model
     
     public $timestamps = false;
 
-    public $timestamps = false;
     protected $guarded = [];
 }

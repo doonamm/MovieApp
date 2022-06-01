@@ -12,6 +12,6 @@ class Movie_Genre extends Model
     public $timestamps = false;
 
     protected $table = 'movie_genres';
-    public $timestamps = false;
+
     protected $guarded = [];
 }

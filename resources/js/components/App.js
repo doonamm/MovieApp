@@ -10,22 +10,32 @@ import Example_AnotherPage from './exampleComponents/Example_AnotherPage';
 
 import '../../sass/Example_style.scss';
 
+import {login} from '../redux/action/loginAction';
+
 function App(props) {
 
     if(props.login.isLogged === true){
         console.log('Welcomeeeeeeeeeee');
+
+        props.loginFunc();
     }
 
     return (
         <BrowserRouter>
             <Example_Nav/>
+
             <Routes>
                 <Route path="/" element={<Example_MainPage/>}></Route>
                 <Route path="/another" element={<Example_AnotherPage/>}></Route>
             </Routes>
+
             <Example_Footer/>
         </BrowserRouter>
     );
 }
 
-export default connect(stateToProps('login'))(App);
+const mapDispatchToProps = {
+    loginFunc: login
+}
+
+export default connect(stateToProps('login'), mapDispatchToProps)(App);
