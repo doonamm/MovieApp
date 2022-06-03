@@ -21,13 +21,13 @@ Route::group([
     Route::delete('/logout', [UserController::class, 'logout'])->middleware('auth.jwt');
 });
 
-Route::group(['middleware' => 'auth.jwt'], function(){
+Route::group(['middleware' => 'auth.jwt'], function () {
 
     //user
-    Route::group(['prefix' => 'users'], function(){
+    Route::group(['prefix' => 'users'], function () {
         Route::get('/', [UserController::class, 'getAllUser']);
 
-        Route::group(['prefix' => '/{user}'], function(){
+        Route::group(['prefix' => '/{user}'], function () {
             Route::get('/', [UserController::class, 'getUserInfo']);
             Route::delete('/', [UserController::class, 'destroy']);
 
@@ -36,18 +36,17 @@ Route::group(['middleware' => 'auth.jwt'], function(){
             Route::post('/profile', [ProfileController::class, 'create']);
             Route::put('/profile', [ProfileController::class, 'update']);
         });
-        
     });
 
     //profile
     Route::get('/profiles', [ProfileController::class, 'showAll']);
 
     //movie
-    Route::group(['prefix' => 'movies'], function(){
+    Route::group(['prefix' => 'movies'], function () {
         Route::get('/', [MovieController::class, 'showAll']);
         Route::post('/', [MovieController::class, 'create']);
 
-        Route::group(['prefix' => '/{movie}'], function(){
+        Route::group(['prefix' => '/{movie}'], function () {
             Route::get('/', [MovieController::class, 'show']);
             Route::put('/', [MovieController::class, 'update']);
             Route::delete('/', [MovieController::class, 'destroy']);
@@ -56,11 +55,11 @@ Route::group(['middleware' => 'auth.jwt'], function(){
             Route::put('/genres', [Movie_Genre::class, 'showAll']);
 
             //comments
-            Route::group(['prefix' => 'comments'], function(){
+            Route::group(['prefix' => 'comments'], function () {
                 Route::get('/', [CommentController::class, 'showAll']);
                 Route::post('/', [CommentController::class, 'create']);
                 Route::delete('/{comment}', [CommentController::class, 'destroy']);
-                
+
                 //like
                 Route::post('/{comment}/likes', [LikeController::class, 'create']);
                 Route::delete('/{comment}/likes', [LikeController::class, 'destroy']);
