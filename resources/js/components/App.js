@@ -3,14 +3,16 @@ import '../../style/index.css';
 import React from 'react';
 import { connect } from 'react-redux';
 import {Routes, Route, BrowserRouter} from 'react-router-dom';
+import Nav from './Nav';
 
 function App(props) {
 
     return (
         <BrowserRouter>
-111
+            <Nav/>
             <Routes>
                 {/* --------- Add Page here ----------- */}
+                <Route path='/login' element={<Element/>}></Route>
             </Routes>
 
         </BrowserRouter>
