@@ -5,12 +5,24 @@ Small website for watching movie
 git clone https://github.com/doonamm/MovieApp
 ```
 ## First setup after cloning
+Move to project folder
 ```
 cd MovieApp
+```
+
+Update npm & composer to latest version
+```
+npm update
+composer udpate
+```
+
+Install project dependencies
+```
 npm install
 composer install
 ```
-copy .env file to root folder
+
+Then copy .env file to root folder
 ## Run server
 ```
 php artisan serve
@@ -23,29 +35,10 @@ npm run dev
 ```
 npm run watch
 ```
-## Create enum
+## Pull new update from your fork to local
 ```
-php artisan make:enum YourEnumName
-```
-## Create model with migration and controller
-```
-php artisan make:model YourModelName --migration --controller
-```
-## Publish model
-```
-php artisan migrate
-```
-## Create policy
-```
-php artisan make:policy YourPolicyName
-```
-## Generate secret key
-```
-php artisan jwt:secret
-```
-## Create middleware
-```
-php artisan make:middleware YourMiddlewareName
+git fetch upstream
+git pull
 ```
 ## Languages and Tools
 [![My Skills](https://skills.thijs.gg/icons?i=html,css,js,react,php,laravel,git)](https://skills.thijs.gg)

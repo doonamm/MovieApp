@@ -1,41 +1,20 @@
+import '../../style/index.css';
+
 import React from 'react';
 import { connect } from 'react-redux';
 import {Routes, Route, BrowserRouter} from 'react-router-dom';
-import stateToProps from '../helper/stateToProps';
-
-import Example_Nav from './exampleComponents/Example_Nav';
-import Example_Footer from './exampleComponents/Example_Footer';
-import Example_MainPage from './exampleComponents/Example_MainPage';
-import Example_AnotherPage from './exampleComponents/Example_AnotherPage';
-
-import '../../sass/Example_style.scss';
-
-import {login} from '../redux/action/loginAction';
 
 function App(props) {
 
-    if(props.login.isLogged === true){
-        console.log('Welcomeeeeeeeeeee');
-
-        props.loginFunc();
-    }
-
     return (
         <BrowserRouter>
-            <Example_Nav/>
 
             <Routes>
-                <Route path="/" element={<Example_MainPage/>}></Route>
-                <Route path="/another" element={<Example_AnotherPage/>}></Route>
+                {/* --------- Add Page here ----------- */}
             </Routes>
 
-            <Example_Footer/>
         </BrowserRouter>
     );
 }
 
-const mapDispatchToProps = {
-    loginFunc: login
-}
-
-export default connect(stateToProps('login'), mapDispatchToProps)(App);
+export default connect()(App);
