@@ -27,6 +27,7 @@ class CreateMoviesTable extends Migration
             $table->integer('vote_count');
             $table->bigInteger('revenue');
             $table->integer('comment_count');
+            $table->date('release_date');
             $table->timestamp('created_at');
         });
     }
