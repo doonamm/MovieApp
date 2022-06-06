@@ -18,7 +18,7 @@ function Nav(props){
                 <div className="logo img-wrapper">
                     <img src="https://previews.123rf.com/images/michaelrayback/michaelrayback1610/michaelrayback161000022/64360128-.jpg"/>
                 </div>
-                <ul>
+                <ul className='nav-list'>
                     <li>Home</li>
                     <li>Movies</li>
                     <li>Collections</li>
