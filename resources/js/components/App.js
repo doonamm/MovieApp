@@ -2,21 +2,23 @@ import '../../style/index.css';
 
 import React from 'react';
 import { connect } from 'react-redux';
-import {Routes, Route, BrowserRouter} from 'react-router-dom';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import Nav from './Nav';
 import SignInPage from './SignInPage';
-// import SignUpPage from './SignUpPage';
+import SignUpPage from './SignUpPage';
 import SingleMoviePage from './SingleMoviePage';
+
 function App(props) {
 
     return (
         <BrowserRouter>
-            <Nav/>
+            <Nav />
             <Routes>
                 {/* --------- Add Page here ----------- */}
-                <Route path='/signin' element={<SignInPage/>}></Route>
-             
-                <Route path='/movies/:id' element={<SingleMoviePage/>}></Route>
+                <Route path='/signin' element={<SignInPage />}></Route>
+                <Route path='/signup' element={<SignUpPage />}></Route>
+
+                <Route path='/movies/:id' element={<SingleMoviePage />}></Route>
             </Routes>
 
         </BrowserRouter>
