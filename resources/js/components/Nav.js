@@ -20,9 +20,9 @@ function Nav(props){
                         <img src="https://previews.123rf.com/images/michaelrayback/michaelrayback1610/michaelrayback161000022/64360128-.jpg"/>
                     </div>
                     <ul className='nav-list'>
-                        <li>Home</li>
-                        <li>Movies</li>
-                        <li>Collections</li>
+                        <li><span>Home</span></li>
+                        <li><span>Movies</span></li>
+                        <li><span>Collections</span></li>
                     </ul>
                 </div>
                 <div className='right'>

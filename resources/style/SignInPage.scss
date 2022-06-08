@@ -1,73 +1,99 @@
-.signin{
+
+
+.signin{  
+    background-image: linear-gradient(#e30044, #820027);
+    padding: 30px 0;
     .margin{
-        margin-bottom: 30px;
+        margin-bottom: 0px;
     }
     .container{
-        width: 60%;
+        background-color:rgb(252, 248, 228);
+        width: 400px;
         margin: 0 auto;
+        padding: 20px;
+        border-radius: 10px;
         text-align: center;
         h2{
-            width: 100%;
-            color: #b70000;
-            font-size: 40px;
+            color: #000000;
+            font-size: 25px;
+            text-shadow: 1px -2px rgba(0, 0, 0, .1);
         }
         .social_button{
-           
             display: flex;
             justify-content: center;
             align-items: center;
-            // margin: 10px auto;
             button{
-            height: 70px;
-            width: 70px;
-            line-height: 80px;
-            font-size: 40px;
-            margin: 10px 20px;
-            border-radius: 50%;
+                height: 50px;
+                width: 50px;
+                font-size: 30px;
+                margin: 0px 10px;
+                border-radius: 50%;
+                box-shadow: 1px 1px rgba(0, 0, 0, .1), 0 0 1px rgba(0, 0, 0, .2);   
+                border: none;
+                &.facebook{
+                    background-color: #47546d;
+                    color: aliceblue;
+                    line-height: 20px;
+                }
+                &.google{
+                    background-color: #df4d3a;
+                    color: aliceblue;
+                    font-size: 40px;
+                    line-height: 65px;
+                }
+                &.linkedin{
+                    background-color: #47546d;
+                    color: aliceblue;
+                    line-height: 20px;
+                }
+            }
             
-            border: none;
-            }
-            .facebook{
-                background-color: #47546d;
-                color: aliceblue;
-            }
-            .google{
-                background-color: #df4d3a;
-                color: aliceblue;
-                font-size: 50px;
-                line-height: 85px;
-            }
-            .linkedin{
-                background-color: #47546d;
-                color: aliceblue;
-            }
         }
         .form{
             input{
-                width: 100%;
-                height: 60px;
+                width: 80%;
+                padding: 5px 10px;
                 border-radius: 5px;
-                font-size: 20px;
+                font-size: 15px;
+                border-width: 2px;
+                &:nth-child(2){
+                    margin-bottom: 10px;
+                }
             }
             button{
-                width: 140px;
-                height: 60px;
-                font-size: 30px;
-                background-color: #1f2658;
+                width: 80%;
+                height: 40px;
+                font-size: 15px;
+                background-color: #e30044;
                 color: rgb(249, 249, 249);
                 border-radius: 10px;
-                
+                border: none;
+                box-shadow: 0 0 10px -5px rgba(0, 0, 0, .4), 0 0 1px rgba(0, 0, 0, .9);    
             }
             button:hover{
                 background-color: #141521;
-                color: rgb(243, 243, 243);
-                
+                color: rgb(243, 243, 243);   
             }
-            i{
-                color:rgb(61, 180, 254);
-                font-size: 20px;
+            a{
+                font-size: 15px;
                 width: 100%;
-                justify-content: left;
+                text-align: right;
+                padding-right: 30px;
+                color:rgb(61, 180, 254);
+                font-style: italic;
+                &:hover{
+                    color: rgb(0, 125, 202);
+                }
+            }
+            .needanaccount{
+                color: rgb(95, 94, 94);
+                font-style: italic;
+                font-size: 15px;
+                margin: 10px 0;
+                a{
+                    margin-left: 10px;
+                    text-decoration-line: underline;
+                }
             }
             display: flex;
             flex-direction: column;
