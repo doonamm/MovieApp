@@ -86,7 +86,7 @@ class Handler extends ExceptionHandler
                 //------------modify here 
 
 
-                //------------end modify
+            //------------end modify
             case $e instanceof Exception:
                 $errorMsg = 'Something went wrong';
                 break;
