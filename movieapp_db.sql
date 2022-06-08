@@ -72,6 +72,7 @@ create table `movies` (
     `vote_count` int not null,
     `revenue` bigint not null,
     `comment_count` int not null,
+    `release_date` date not null,
     `created_at` timestamp not null
 ) default character set utf8mb4 collate 'utf8mb4_unicode_ci';
 
