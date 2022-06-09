@@ -1,22 +1,31 @@
 import { FaFacebookF, FaGooglePlusG, FaLinkedinIn } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../../style/SignInPage.scss'
 import FormItem from './formItem';
 import useInput from '../helper/useInput';
 import axios from 'axios';
+import { storeToken } from '../helper/token';
 
 function SignInPage(props) {
+
+    const navigate = useNavigate()
 
     const email = useInput("", false);
     const password = useInput("", false);
 
-    function SignIn() {
+    function SignIn(e) {
+        e.preventDefault();
+
         axios.post('http://localhost:8000/api/auth/login', {
             'username': email.value,
             'password': password.value,
         })
-            .then(function (response) {
-                console.log(response);
+            .then(function ({ data }) {
+                console.log(data);
+
+                storeToken(data.token);
+
+                navigate('/');
             })
             .catch(function (error) {
                 console.log(error);
@@ -51,11 +60,7 @@ function SignInPage(props) {
                     <Link to='#'>Forgot your password ?</Link>
                     <p className='needanaccount'>Need an account?<Link to='/signup'>SIGN UP</Link></p>
                     <button className='signin_button'>Sign In</button>
-<<<<<<< HEAD
                 </form>
-=======
-                </div>
->>>>>>> 87fcea6b74da0aeb72a2025519e5899a1358d1d9
             </div>
         </div>
     )

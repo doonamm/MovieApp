@@ -1,11 +1,12 @@
 import MovieItem from "./MovieItem";
 import '../../style/MovieList.scss'
-function MovieList(props){
-    const {list} = props;
-    return(
+function MovieList(props) {
+    const { list } = props;
+
+    return (
         <ul className='movie_list'>
             {
-               list.map(movie => <MovieItem key={movie.id} info={movie}/>) 
+                list.map(movie => <MovieItem key={movie.id} info={movie} />)
             }
         </ul>
     );

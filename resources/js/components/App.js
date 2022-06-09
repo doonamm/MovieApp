@@ -7,6 +7,7 @@ import Nav from './Nav';
 import SignInPage from './SignInPage';
 import SignUpPage from './SignUpPage';
 import SingleMoviePage from './SingleMoviePage';
+import LandingPage from './LandingPage';
 
 function App(props) {
 
@@ -19,9 +20,10 @@ function App(props) {
                 <Route path='/signup' element={<SignUpPage />}></Route>
 
                 <Route path='/:id' element={<SingleMoviePage />}></Route>
+                <Route path='/' element={< LandingPage />} ></Route>
             </Routes>
 
-        </BrowserRouter>
+        </BrowserRouter >
     );
 }
 

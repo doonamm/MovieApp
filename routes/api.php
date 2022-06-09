@@ -3,6 +3,7 @@
 use App\Http\Controllers\ActorController;
 use App\Http\Controllers\CastController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\GenreController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\ProfileController;
@@ -40,6 +41,9 @@ Route::group(['middleware' => 'auth.jwt'], function () {
 
     //profile
     Route::get('/profiles', [ProfileController::class, 'showAll']);
+
+    //genres
+    Route::get('/genres', [GenreController::class, 'showAll']);
 
     //movie
     Route::group(['prefix' => 'movies'], function () {
