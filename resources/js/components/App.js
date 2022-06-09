@@ -18,7 +18,7 @@ function App(props) {
                 <Route path='/signin' element={<SignInPage />}></Route>
                 <Route path='/signup' element={<SignUpPage />}></Route>
 
-                <Route path='/movies/:id' element={<SingleMoviePage />}></Route>
+                <Route path='/:id' element={<SingleMoviePage />}></Route>
             </Routes>
 
         </BrowserRouter>
