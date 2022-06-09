@@ -23,9 +23,13 @@ function SignInPage(props) {
             .then(function ({ data }) {
                 console.log(data);
 
-                storeToken(data.token);
+                if (data.success == true) {
+                    storeToken(data.token);
 
-                navigate('/');
+                    navigate('/');
+                } else {
+                    alert("Sai cmnr!");
+                }
             })
             .catch(function (error) {
                 console.log(error);
