@@ -39,6 +39,19 @@ function GiaoDienPhim(props) {
                         </div>
                     </div>
                 </div>
+                <div className='bottom_container'>
+                    <div className='controller khoangcach'>
+                        <div>
+                            <p>Comments</p>
+                        </div>
+                        <div>
+                            <p>Similar Content</p>
+                            <div className='similar_movie khoangcach'>
+                                <MovieList list={movieList} />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     );

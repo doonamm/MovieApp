@@ -51,7 +51,11 @@ function SignInPage(props) {
                     <Link to='#'>Forgot your password ?</Link>
                     <p className='needanaccount'>Need an account?<Link to='/signup'>SIGN UP</Link></p>
                     <button className='signin_button'>Sign In</button>
+<<<<<<< HEAD
                 </form>
+=======
+                </div>
+>>>>>>> 87fcea6b74da0aeb72a2025519e5899a1358d1d9
             </div>
         </div>
     )
