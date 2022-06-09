@@ -15,8 +15,7 @@ function App(props) {
             <Routes>
                 {/* --------- Add Page here ----------- */}
                 <Route path='/signin' element={<SignInPage/>}></Route>
-             
-                <Route path='/movies/:id' element={<SingleMoviePage/>}></Route>
+                <Route path='/:id' element={<SingleMoviePage/>}></Route>
             </Routes>
 
         </BrowserRouter>

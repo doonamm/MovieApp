@@ -11,102 +11,105 @@
 
 .giaodien_phim{
     .container{
+        
         .khoangcach{
             margin-top: 20px;
         }
-        h2{
-            font-size: 30px;
-            text-shadow: 1px -2px rgba(0, 0, 0, .1);
-
-        }
-        .tagproperties{
-            
-            button{
-                width: 60px;
-                height: 30px;
-                margin-right: 10px;
-                box-shadow: 1px 1px rgba(0, 0, 0, .2), 0 0 1px rgba(0, 0, 0, .4);   
-                border-radius: 2px;
-                border: none;
-            }
-               
-        }
-        .description{
-            font-size: 10px;
-        }
-        .direction_button{
+        .top_container{
             display: flex;
-            
-            button{
-                span{
-                    margin-right: 5px;
-                    font-size: 20px;
-                }
-                display: flex;
-                width: 110px;
-                height: 40px;
-                margin-right: 10px;
-                font-size: 12px;
-                border-radius: 4px;
-                border-width: 1px;
-                border-color: #333;
-                color: #fff;
-                justify-content: left;
-                background-image:  linear-gradient(#e30044, #e30044, #b00136);
-                box-shadow: 1px 1px rgba(0, 0, 0, .4), 0 0 1px rgba(0, 0, 0, .6);   
-                text-align: left;
-                padding-left: 5px;
-                justify-content: center;
-                line-height: 40px;
-                &:hover{
-                    background-image:  linear-gradient(rgb(0, 0, 0), rgb(25, 17, 17));
-                }
-            }  
-        }
-        .moredescription{
-            p{
-            font-size: 10px;
+            h2{
+                font-size: 30px;
+                text-shadow: 1px -2px rgba(0, 0, 0, .1);
             
             }
-            .title{
-                margin-bottom: 5px;
-                font-size: 12px;
-                font-weight: 500;
-
-            }
-        }
-        .controller{
-            width: 100%;
-
-            justify-content: space-between;
-            span{
-                font-size: 12px;
             
-                width: 100px;
-                transition: transform 0.15s linear;
+            .left_container{
+                min-width: 70%;
+                .tagproperties{
+                
+                    button{
+                        width: 60px;
+                        height: 30px;
+                        margin-right: 10px;
+                        box-shadow: 1px 1px rgba(0, 0, 0, .2), 0 0 1px rgba(0, 0, 0, .4);   
+                        border-radius: 2px;
+                        border: none;
+                    }
+                
+                }
+                .description{
+                    font-size: 10px;
+                }
+                .direction_button{
+                    display: flex;
+                
+                    button{
+                        span{
+                            margin-right: 5px;
+                            font-size: 20px;
+                        }
+                        display: flex;
+                        width: 110px;
+                        height: 40px;
+                        margin-right: 10px;
+                        font-size: 12px;
+                        border-radius: 4px;
+                        border-width: 1px;
+                        border-color: #333;
+                        color: #fff;
+                        justify-content: left;
+                        background-image:  linear-gradient(#e30044, #e30044, #b00136);
+                        box-shadow: 1px 1px rgba(0, 0, 0, .4), 0 0 1px rgba(0, 0, 0, .6);   
+                        text-align: left;
+                        padding-left: 5px;
+                        justify-content: center;
+                        line-height: 40px;
+                        &:hover{
+                            background-image:  linear-gradient(rgb(0, 0, 0), rgb(25, 17, 17));
+                        }
+                    }  
+                }
+            }
+            .right_container{
+                width: 100%;
+                padding-top: 50px;
 
-                &::after{
-                    content: "";
-                    display: block;
-                    width: 0%;
-                    height: 2px;
-                    border-radius: 2px;
-                    background-color: #b00136;
-                    transition: width 0.2s ease;
+                h3{
+                    margin: 10px 0 5px 0;
+                    justify-content: center;
 
                 }
-                &:hover{
-                    transform: translateY(-5px);
-                    &::after{
-                        width: 100%;
+                .release_year, .prize{
+                }
+            }
+        }
+        .bottom_container{
+            .similar_movie{
+                ul{
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                    row-gap: 10px;
+                    column-gap: 10px;
+                    li{
+                        margin: 0 10px;
+                        text-align: center;
+                        .img-wrapper{
+                            width: 160px;
+                            height: 100px;
+                            border-radius: 5px;
+                            img{
+                                border-radius: 5px;
+                            }
+                        }
+                        p{
+                            
+                        }
                     }
                 }
             }
-            display: flex;
-            justify-content: center;
-            
         }
-    }
-    
 
+        
+           
+    }
 }
