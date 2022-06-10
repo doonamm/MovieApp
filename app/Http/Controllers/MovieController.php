@@ -11,18 +11,20 @@ class MovieController extends Controller
 {
     //
 
-    public function create(Request $request){
-        
+    public function create(Request $request)
+    {
     }
 
-    public function show(Request $request, Movie $movie){
+    public function show(Request $request, Movie $movie)
+    {
         return response()->json([
             'success' => true,
             'data' => $movie
         ]);
     }
 
-    public function showAll(Request $request){
+    public function showAll(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'sort_by' => ['regex:/(id|popularity|title|release_date|vote_average|vote_count)\.(asc|desc)/'],
             'casts' => 'array',
@@ -31,13 +33,13 @@ class MovieController extends Controller
             'genres.*' => 'string',
             'month' => 'integer',
             'year' => 'integer',
-            'release-date' => 'date',
+            'release_date' => 'date',
             'limit' => 'integer|gte:1|lte:100',
             'next' => 'integer|gte:1',
             'search' => 'string'
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json([
                 'success' => true,
                 'error' => $validator->errors()->toArray()
@@ -46,46 +48,46 @@ class MovieController extends Controller
 
         $list = DB::table('movies');
 
-        if($request->has('release_date')){
+        if ($request->has('release_date')) {
             $date = $request->input('release_date');
             $list = $list->where('release_date', $date);
         }
 
-        if($request->has('month')){
+        if ($request->has('month')) {
             $month = $request->input('month');
             $list->whereMonth('release_date', $month);
         }
 
-        if($request->has('year')){
+        if ($request->has('year')) {
             $year = $request->input('year');
             $list->whereYear('release_date', $year);
         }
 
-        if($request->has('search')){
+        if ($request->has('search')) {
             $search = $request->input('search');
             $list->where('title', 'LIKE', "%$search%");
         }
 
-        if($request->has('casts')){
+        if ($request->has('casts')) {
             $casts = $request->input('casts');
             $list->join('casts', 'casts.movie_id', '=', 'movies.id')
-                        ->join('actors', 'actors.id', '=', 'casts.actor_id')
-                        ->whereIn('actors.name', $casts);
+                ->join('actors', 'actors.id', '=', 'casts.actor_id')
+                ->whereIn('actors.name', $casts);
         }
 
-        if($request->has('genres')){
+        if ($request->has('genres')) {
             $genres = $request->input('genres');
             $list->join('movie_genres', 'movie_genres.movie_id', '=', 'movies.id')
-                        ->join('genres', 'genres.id', '=', 'movie_genres.genre_id')
-                        ->whereIn('genres.name', $genres);
+                ->join('genres', 'genres.id', '=', 'movie_genres.genre_id')
+                ->whereIn('genres.name', $genres);
         }
 
-        if($request->has('sort_by')){
+        if ($request->has('sort_by')) {
             $sortBy = explode('.', $request->input('sort_by'));
             $list->orderBy("movies.$sortBy[0]", $sortBy[1]);
         }
 
-        if($request->has('next')){
+        if ($request->has('next')) {
             $next = $request->input('next');
             $list = $list->skip($next);
         }
@@ -102,7 +104,8 @@ class MovieController extends Controller
         ]);
     }
 
-    public function destroy(Request $request, Movie $movie){
+    public function destroy(Request $request, Movie $movie)
+    {
 
         $movie->delete();
 

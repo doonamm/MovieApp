@@ -1,0 +1,158 @@
+@keyframes jump {
+    0%   {
+        transform: translate3d(0,0,0);
+    }
+    
+    100% {
+        
+    }
+}
+
+.single-movie{
+    .container{
+        
+        .khoangcach{
+            margin-top: 20px;
+        }
+        .top_container{
+            display: flex;
+            h2{
+                font-size: 30px;
+                text-shadow: 1px -2px rgba(0, 0, 0, .1);
+            
+            }
+            
+            .left_container{
+                min-width: 70%;
+                .tagproperties{
+                
+                    button{
+                        width: 60px;
+                        height: 30px;
+                        margin-right: 10px;
+                        box-shadow: 1px 1px rgba(0, 0, 0, .2), 0 0 1px rgba(0, 0, 0, .4);   
+                        border-radius: 2px;
+                        border: none;
+                    }
+                
+                }
+                .description{
+                    font-size: 15px;
+                    padding-right: 20px;
+                }
+                .direction_button{
+                    display: flex;
+                    button{
+                        span{
+                            margin-right: 5px;
+                            font-size: 20px;
+                        }
+                        display: flex;
+                        width: 110px;
+                        height: 40px;
+                        margin-right: 10px;
+                        font-size: 12px;
+                        border-radius: 4px;
+                        border-width: 1px;
+                        border-color: #333;
+                        color: #fff;
+                        justify-content: left;
+                        background-image:  linear-gradient(#e30044, #e30044, #b00136);
+                        box-shadow: 1px 1px rgba(0, 0, 0, .4), 0 0 1px rgba(0, 0, 0, .6);   
+                        text-align: left;
+                        padding-left: 5px;
+                        justify-content: center;
+                        line-height: 40px;
+                        &:hover{
+                            background-image:  linear-gradient(rgb(0, 0, 0), rgb(25, 17, 17));
+                        }
+                    }  
+                }
+            }
+            .right_container{
+                width: 100%;
+                padding-top: 50px;
+
+                h3{
+                    margin: 10px 0 5px 0;
+                    justify-content: center;
+
+                }
+            }
+        }
+        .bottom_container{
+            .controller{
+                .comment{
+                    margin-bottom: 30px;
+                    h2{
+                        text-align: center;
+                        font-size: 30px;
+                        margin-top: 30px;
+                        
+                    }
+                    .comment_body{
+                        display: flex;
+                        margin-top: 12px;
+                        .img-wrapper{
+                            width: 50px;
+                            height: 50px;
+                            img{
+
+                                border-radius: 50%;
+                                // box-shadow: 1px 1px rgba(0, 0, 0, .4), 0 0 1px rgba(0, 0, 0, .8);
+                                border: solid 4px #fcc500;
+                            }
+                        }
+                        .right_comment{
+                            margin-left: 10px;
+                            .name{
+                                margin-bottom: 5px;
+                                font-size: 15px;
+                                color: rgb(5, 5, 110);
+                            }
+                            textarea{
+                                width: 500px;
+                                height: 35px;
+                                border-radius: 10px;
+                                border-width: 2px;
+                                padding-top: 6px;
+                                padding-left: 10px;
+                                font-size: 16px;
+                                
+                            }
+                            .react{
+                                display: flex;
+
+                                li{
+                                   
+                                    margin-right: 10px;
+                                    font-size: 12px;
+                                    color: darkgray;
+                                    margin-top: 5px;
+                                    i{
+                                        color: dodgerblue;
+                                        font-style: normal;
+
+                                        &:hover{
+                                            color: rgb(9, 9, 128);
+                                            cursor: pointer;
+
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                h2{
+                    text-align: center;
+                    justify-content: center;
+                    font-size: 30px;
+                }
+                .similar_movie{
+                    
+                }
+            }
+        }      
+    }
+}

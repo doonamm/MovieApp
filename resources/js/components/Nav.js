@@ -2,10 +2,16 @@ import '../../style/Nav.scss';
 
 import { connect } from "react-redux";
 import {GiMagnifyingGlass} from 'react-icons/gi';
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation } from 'react-router-dom';
 
 function Nav(props){
+    const location = useLocation();
 
+    if(location.pathname === '/signin'){
+        return null;
+    }
+   
     const [open, setOpen] = useState(false);
 
     function toggleController(){
@@ -20,9 +26,9 @@ function Nav(props){
                         <img src="https://previews.123rf.com/images/michaelrayback/michaelrayback1610/michaelrayback161000022/64360128-.jpg"/>
                     </div>
                     <ul className='nav-list'>
-                        <li>Home</li>
-                        <li>Movies</li>
-                        <li>Collections</li>
+                        <li><span>Home</span></li>
+                        <li><span>Movies</span></li>
+                        <li><span>Collections</span></li>
                     </ul>
                 </div>
                 <div className='right'>
@@ -48,7 +54,9 @@ function Nav(props){
                 </div>
             </div>
         </div>
-    )
+    );
+
+    <MovieAPi genre="aaa" limit="10"/>
 }
 
 export default connect()(Nav);
