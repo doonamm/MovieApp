@@ -1,8 +1,8 @@
-
 import axios from "axios";
 import { useEffect, useState } from "react";
 import MovieAPIlist from "./MovieAPIlist";
 import { getToken } from "../helper/token";
+
 function LandingPage() {
 
     const [listGenres, setListGenres] = useState([]);

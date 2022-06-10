@@ -33,7 +33,7 @@ class MovieController extends Controller
             'genres.*' => 'string',
             'month' => 'integer',
             'year' => 'integer',
-            'release-date' => 'date',
+            'release_date' => 'date',
             'limit' => 'integer|gte:1|lte:100',
             'next' => 'integer|gte:1',
             'search' => 'string'

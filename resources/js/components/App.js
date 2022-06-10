@@ -8,7 +8,6 @@ import SignInPage from './SignInPage';
 import SignUpPage from './SignUpPage';
 import SingleMoviePage from './SingleMoviePage';
 import LandingPage from './LandingPage';
-
 function App(props) {
 
     return (
