@@ -203,30 +203,24 @@ const commentList =[
     },
 ]
 function GiaoDienPhim(props) {
-    const {id} = useParams();
-
-    useEffect(()=>{
-
-    }, []);
-
-    function fetchData(){
-        axios.get('http://localhost:8000/api/movies/' + id, {
-            headers: {
-                Authorization: "Bearer "
-            }
-        });
-    }
-
-    return(
+    return (
         <div className="page giaodien_phim">
             <div className="container margin">
-                <div className='top_container'>
-                    <div className='left_container'>
-                    <h2 className="name ">Moive Name</h2>
-                        <div className="tagproperties khoangcach">
-                            <button> 1h 20m</button>
-                        </div>
-                        <p className="description khoangcach">
+                <h2 className="name ">Moive Name</h2>
+                <div className="tagproperties khoangcach">
+                    <button> 13+ </button>
+                    <button> 1h 20m</button>
+                </div>
+                <p className="description khoangcach">
+                    Harry Potter là tên của series tiểu thuyết phim huyền bí gồm bảy phần của nhà văn Anh Quốc J. K. Rowling. Bộ truyện viết về những cuộc phiêu lưu phù thủy của cậu bé Harry Potter cùng hai người bạn thân là Ronald Weasley và Hermione Granger, lấy bối cảnh tại Trường Phù thủy và Pháp sư Hogwarts nước Anh.
+                </p>
+                <div className="direction_button khoangcach">
+                    <button><span className='btn_icon'><GiPlayButton /></span>Play</button>
+                    <button><span className='btn_icon'><FaPlus /></span>Add to my list</button>
+                </div>
+                <div className='moredescription khoangcach'>
+                    <p className='title'> More description</p>
+                    <p>
                         Harry Potter là tên của series tiểu thuyết phim huyền bí gồm bảy phần của nhà văn Anh Quốc J. K. Rowling. Bộ truyện viết về những cuộc phiêu lưu phù thủy của cậu bé Harry Potter cùng hai người bạn thân là Ronald Weasley và Hermione Granger, lấy bối cảnh tại Trường Phù thủy và Pháp sư Hogwarts nước Anh.
                         </p>
                         <div className="direction_button khoangcach">
@@ -252,8 +246,8 @@ function GiaoDienPhim(props) {
                             <p>Oscar</p>
                         </div>
                     </div>
-                </div>
-                <div className='bottom_container'>
+            </div>
+            <div className='bottom_container'>
                     <div className='controller khoangcach'>
                         <div className='comment'>
                             <h2>Comments</h2>
@@ -280,8 +274,7 @@ function GiaoDienPhim(props) {
                                 <MovieList  list={movieList}/>
                             </div>
                         </div>
-                    </div>    
-                </div> 
+                    </div>
             </div>
         </div>
     );

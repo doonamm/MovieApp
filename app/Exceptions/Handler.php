@@ -43,21 +43,21 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->renderable(function(TokenInvalidException $e, $request){
+        $this->renderable(function (TokenInvalidException $e, $request) {
             return Response::json([
                 'success' => false,
                 'message' => 'Invalid token'
             ], 401);
         });
 
-        $this->renderable(function(TokenExpiredException $e, $request){
+        $this->renderable(function (TokenExpiredException $e, $request) {
             return Response::json([
                 'success' => false,
                 'message' => 'Token expired'
             ], 401);
         });
 
-        $this->renderable(function(JWTException $e, $request){
+        $this->renderable(function (JWTException $e, $request) {
             return Response::json([
                 'success' => false,
                 'message' => 'Token not parsed'
@@ -69,30 +69,30 @@ class Handler extends ExceptionHandler
     {
         $errorMsg = '';
 
-        switch(true){
-            //skip if exception is belong JWT
+        switch (true) {
+                //skip if exception is belong JWT
             case $e instanceof JWTException:
                 break;
             case $e instanceof ModelNotFoundException:
                 $errorMsg = 'Model not found';
                 break;
-            //catch policy exception
+                //catch policy exception
             case $e instanceof AuthorizationException:
                 $errorMsg = 'User is not allowed';
                 break;
             case $e instanceof QueryException:
                 $errorMsg = 'Query fail';
                 break;
-            //------------modify here 
-            
+                //------------modify here 
+
 
             //------------end modify
-            // case $e instanceof Exception:
-            //     $errorMsg = 'Something went wrong';
-            //     break;
+            case $e instanceof Exception:
+                $errorMsg = 'Something went wrong';
+                break;
         }
 
-        if(strlen($errorMsg)>0){
+        if (strlen($errorMsg) > 0) {
             return response()->json([
                 'success' => false,
                 'message' => $errorMsg,
