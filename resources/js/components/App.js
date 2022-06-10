@@ -7,6 +7,7 @@ import Nav from './Nav';
 import SignInPage from './SignInPage';
 // import SignUpPage from './SignUpPage';
 import SingleMoviePage from './SingleMoviePage';
+import LandingPage from './LandingPage';
 function App(props) {
 
     return (
@@ -14,9 +15,11 @@ function App(props) {
             <Nav/>
             <Routes>
                 {/* --------- Add Page here ----------- */}
+                <Route path='/' element={<LandingPage/>}></Route>
+
                 <Route path='/signin' element={<SignInPage/>}></Route>
              
-                <Route path='/movies/:id' element={<SingleMoviePage/>}></Route>
+                <Route path='/:id' element={<SingleMoviePage/>}></Route>
             </Routes>
 
         </BrowserRouter>

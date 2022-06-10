@@ -2,10 +2,16 @@ import '../../style/Nav.scss';
 
 import { connect } from "react-redux";
 import {GiMagnifyingGlass} from 'react-icons/gi';
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation } from 'react-router-dom';
 
 function Nav(props){
+    const location = useLocation();
 
+    if(location.pathname === '/signin'){
+        return null;
+    }
+   
     const [open, setOpen] = useState(false);
 
     function toggleController(){
@@ -48,7 +54,9 @@ function Nav(props){
                 </div>
             </div>
         </div>
-    )
+    );
+
+    <MovieAPi genre="aaa" limit="10"/>
 }
 
 export default connect()(Nav);

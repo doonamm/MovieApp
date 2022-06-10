@@ -1,7 +1,12 @@
 import {GiPlayButton} from 'react-icons/gi';
 import {FaPlus} from 'react-icons/fa';
 import  '../../style/SingleMoviePage.scss';
-function GiaoDienPhim(props) {
+import { useParams } from 'react-router-dom';
+function SingleMoviePage(props) {
+    const {id} = useParams();
+
+    console.log(id);
+
     return(
         <div className="page giaodien_phim">
             <div className="container margin">
@@ -43,4 +48,4 @@ function GiaoDienPhim(props) {
         </div>
     );
 }
-export default GiaoDienPhim;
+export default SingleMoviePage;
