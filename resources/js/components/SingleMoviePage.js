@@ -202,35 +202,31 @@ const commentList =[
         name: "Rose"
     },
 ]
-function GiaoDienPhim(props) {
+function SingleMoviePage(props) {
     return (
-        <div className="page giaodien_phim">
+        <div className="page single-movie">
             <div className="container margin">
-                <h2 className="name ">Moive Name</h2>
-                <div className="tagproperties khoangcach">
-                    <button> 13+ </button>
-                    <button> 1h 20m</button>
-                </div>
-                <p className="description khoangcach">
-                    Harry Potter là tên của series tiểu thuyết phim huyền bí gồm bảy phần của nhà văn Anh Quốc J. K. Rowling. Bộ truyện viết về những cuộc phiêu lưu phù thủy của cậu bé Harry Potter cùng hai người bạn thân là Ronald Weasley và Hermione Granger, lấy bối cảnh tại Trường Phù thủy và Pháp sư Hogwarts nước Anh.
-                </p>
-                <div className="direction_button khoangcach">
-                    <button><span className='btn_icon'><GiPlayButton /></span>Play</button>
-                    <button><span className='btn_icon'><FaPlus /></span>Add to my list</button>
-                </div>
-                <div className='moredescription khoangcach'>
-                    <p className='title'> More description</p>
-                    <p>
-                        Harry Potter là tên của series tiểu thuyết phim huyền bí gồm bảy phần của nhà văn Anh Quốc J. K. Rowling. Bộ truyện viết về những cuộc phiêu lưu phù thủy của cậu bé Harry Potter cùng hai người bạn thân là Ronald Weasley và Hermione Granger, lấy bối cảnh tại Trường Phù thủy và Pháp sư Hogwarts nước Anh.
-                        </p>
-                        <div className="direction_button khoangcach">
-                            <button><span className='btn_icon'><GiPlayButton/></span>Play</button>
-                            <button><span className='btn_icon'><FaPlus/></span>Add to my list</button>
+                <div className='top_container'>
+                    <div className='left_container'>
+                        <h2 className="name ">Moive Name</h2>
+                        <div className="tagproperties khoangcach">
+                            <button> 13+ </button>
+                            <button> 1h 20m</button>
                         </div>
-                        <p className="description khoangcach">
-                        Today I’d like to talk to you about Harry Potter which is one of my favourite films. It was a fiction film telling a story about people in the wizarding world. The central character was Harry Potter, who used to be an orphan in the normal world before discovering that he was a wizard. Afterwards, he went to a special school called Howard where he taught him necessary skills to succeed in the wizarding world. He also had to deal with challenges in terms of study, friendship, love and even the fight against dark power. Harry Potter was recommended as a masterpiece that made me feel curious about it. Moreover, I had read the original novel before, and I really can’t put it down. So I guess the film would be as attractive as the book. I think the most important reason why I enjoyed this film was that it made me feel adventurous. It was really a fantastic film.
-                        </p>
-                        
+                        <div className='moredescription khoangcach'>
+                            <p className='title'> More description</p>
+                            <p>
+                                Harry Potter là tên của series tiểu thuyết phim huyền bí gồm bảy phần của nhà văn Anh Quốc J. K. Rowling. Bộ truyện viết về những cuộc phiêu lưu phù thủy của cậu bé Harry Potter cùng hai người bạn thân là Ronald Weasley và Hermione Granger, lấy bối cảnh tại Trường Phù thủy và Pháp sư Hogwarts nước Anh.
+                            </p>
+                            <div className="direction_button khoangcach">
+                                <button><span className='btn_icon'><GiPlayButton/></span>Play</button>
+                                <button><span className='btn_icon'><FaPlus/></span>Add to my list</button>
+                            </div>
+                            <p className="description khoangcach">
+                                Today I’d like to talk to you about Harry Potter which is one of my favourite films. It was a fiction film telling a story about people in the wizarding world. The central character was Harry Potter, who used to be an orphan in the normal world before discovering that he was a wizard. Afterwards, he went to a special school called Howard where he taught him necessary skills to succeed in the wizarding world. He also had to deal with challenges in terms of study, friendship, love and even the fight against dark power. Harry Potter was recommended as a masterpiece that made me feel curious about it. Moreover, I had read the original novel before, and I really can’t put it down. So I guess the film would be as attractive as the book. I think the most important reason why I enjoyed this film was that it made me feel adventurous. It was really a fantastic film.
+                            </p>
+
+                        </div>
                     </div>
                     <div className='right_container'>
                         <h3>Actor</h3>
@@ -246,12 +242,11 @@ function GiaoDienPhim(props) {
                             <p>Oscar</p>
                         </div>
                     </div>
-            </div>
-            <div className='bottom_container'>
+                </div>
+                <div className='bottom_container'>
                     <div className='controller khoangcach'>
                         <div className='comment'>
                             <h2>Comments</h2>
-                            
                             <CommentList list={commentList}/>
                             <div className='comment_body'>
                                 <div className='left_comment img-wrapper'>
@@ -275,6 +270,7 @@ function GiaoDienPhim(props) {
                             </div>
                         </div>
                     </div>
+                </div>
             </div>
         </div>
     );
