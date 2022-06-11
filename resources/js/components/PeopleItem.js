@@ -1,5 +1,4 @@
 
-
 function PeopleItem(props){
     const {info} = props;
     return(
