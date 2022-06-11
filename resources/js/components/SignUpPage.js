@@ -3,21 +3,19 @@ import validator from 'validator';
 import FormItem from "./formItem";
 import axios from "axios";
 import useInput from '../helper/useInput';
+import { useNavigate } from 'react-router-dom';
 
 function SignUpPage() {
 
-    const email = useInput("", false);
+    const username = useInput("", false);
     const password = useInput("", false);
     const repassword = useInput("", false);
+    const navigate = useNavigate();
+
 
     function Register(e) {
         e.preventDefault();
         var flag = false;
-
-        if (!validator.isEmail(email.value)) {
-            email.setError("Invalid Email")
-            flag = true;
-        }
 
         if (!validator.isAlphanumeric(password.value)) {
             password.setError("Invalid Password")
@@ -34,12 +32,17 @@ function SignUpPage() {
         }
 
         axios.post('http://localhost:8000/api/auth/register', {
-            'username': email.value,
+            'username': username.value,
             'password': password.value,
             'password_confirmation': repassword.value,
         })
-            .then(function (response) {
-                console.log(response);
+            .then(function (data) {
+                console.log(data);
+                if (data.data.success == false) {
+                    alert(data.data.message);
+                } else {
+                    navigate('/signin');
+                }
             })
             .catch(function (error) {
                 console.log(error);
@@ -57,9 +60,8 @@ function SignUpPage() {
             <div className="form-container">
                 <form action="#" onSubmit={Register}>
                     <FormItem
-                        title="Email"
-                        type="email"
-                        useInputObject={email}
+                        title="Username"
+                        useInputObject={username}
                     />
 
                     <FormItem

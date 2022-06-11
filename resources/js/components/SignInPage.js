@@ -10,22 +10,26 @@ function SignInPage(props) {
 
     const navigate = useNavigate()
 
-    const email = useInput("", false);
+    const username = useInput("", false);
     const password = useInput("", false);
 
     function SignIn(e) {
         e.preventDefault();
 
         axios.post('http://localhost:8000/api/auth/login', {
-            'username': email.value,
+            'username': username.value,
             'password': password.value,
         })
             .then(function ({ data }) {
                 console.log(data);
 
-                storeToken(data.token);
+                if (data.success == true) {
+                    storeToken(data.token);
 
-                navigate('/');
+                    navigate('/');
+                } else {
+                    alert("Sai cmnr!");
+                }
             })
             .catch(function (error) {
                 console.log(error);
@@ -42,13 +46,9 @@ function SignInPage(props) {
                     <button className='linkedin'><FaLinkedinIn /></button>
                 </div>
                 <form className="form" onSubmit={SignIn}>
-                    {/* <input className='margin' type='text' placeholder="Username" />
-                    <input className=' margin' type='text' placeholder="Password" /> */}
-
                     <FormItem
-                        title="Email"
-                        type="email"
-                        useInputObject={email}
+                        title="Username"
+                        useInputObject={username}
                     />
 
                     <FormItem
