@@ -45,6 +45,15 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     //genres
     Route::get('/genres', [GenreController::class, 'showAll']);
 
+    //actors
+    Route::group(['prefix' => 'actors'], function(){
+        Route::get('/', [ActorController::class, 'showAll']);
+        Route::post('/', [ActorController::class, 'create']);
+        Route::get('/{actor}', [ActorController::class, 'show']);
+        Route::put('/{actor}', [ActorController::class, 'update']);
+        Route::delete('/{actor}', [ActorController::class, 'destroy']);
+    });
+
     //movie
     Route::group(['prefix' => 'movies'], function () {
         Route::get('/', [MovieController::class, 'showAll']);

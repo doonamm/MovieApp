@@ -1,21 +1,29 @@
 import '../../style/Nav.scss';
 
 import { connect } from "react-redux";
-import {GiMagnifyingGlass} from 'react-icons/gi';
 import { useEffect, useState } from "react";
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import stateToProps from '../helper/stateToProps';
+import {logout} from '../redux/action/loginAction';
 
 function Nav(props){
     const location = useLocation();
+    const navigate = useNavigate();
+    
+    const [openUserController, setOpenUserController] = useState(false);
 
-    if(location.pathname === '/signin'){
-        return null;
+    function toggleUserController(){
+        setOpenUserController(state => !state);
     }
-   
-    const [open, setOpen] = useState(false);
 
-    function toggleController(){
-        setOpen(state => !state);
+    function handleSignOut(){
+        props.logout();
+        localStorage.clear();
+        navigate('/');
+    }
+
+    if(location.pathname === '/signin' || location.pathname === '/signup'){
+        return null;
     }
 
     return(
@@ -26,37 +34,37 @@ function Nav(props){
                         <img src="https://previews.123rf.com/images/michaelrayback/michaelrayback1610/michaelrayback161000022/64360128-.jpg"/>
                     </div>
                     <ul className='nav-list'>
-                        <li><span>Home</span></li>
-                        <li><span>Movies</span></li>
-                        <li><span>Collections</span></li>
+                        <li><Link to="/movies">Movies</Link></li>
+                        <li><Link to="/actors">Actors</Link></li>
+                        <li><Link to="/companies">Companies</Link></li>
                     </ul>
                 </div>
                 <div className='right'>
-                    <form className="search">
-                        <input type="text" placeholder="Search film..."/>
-                        <button type="submit"><GiMagnifyingGlass/></button>
-                    </form>
-                    <div className="user-controllers">
-                        <div onClick={toggleController} className="img-wrapper avatar">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/User_font_awesome.svg/2048px-User_font_awesome.svg.png"/>
+                    {props.login.isLogged ? (
+                        <div className="user-controllers">
+                            <div onClick={toggleUserController} className="img-wrapper avatar">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/User_font_awesome.svg/2048px-User_font_awesome.svg.png"/>
+                            </div>
+                            <ul className={openUserController ? "controllers show" : "controllers"}>
+                                <li>Settings</li>
+                                <li>Edit profile</li>
+                                <li onClick={handleSignOut}>Sign out</li>
+                            </ul>
                         </div>
-                        {/* 
-                            ---- Todo ----
-                            Announce component
-                        
-                        */}
-                        <ul className={open ? "controllers show" : "controllers"}>
-                            <li>Settings</li>
-                            <li>Edit profile</li>
-                            <li>Sign out</li>
-                        </ul>
-                    </div>
+                    ) : (
+                        <div className='btn-container'>
+                            <button onClick={()=>navigate('/signin')}>Sign in</button>
+                            <button onClick={()=>navigate('/signup')}>Sign up</button>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
     );
-
-    <MovieAPi genre="aaa" limit="10"/>
 }
 
-export default connect()(Nav);
+const mapDispatchToProps = {
+    logout
+}
+
+export default connect(stateToProps('login'), mapDispatchToProps)(Nav);

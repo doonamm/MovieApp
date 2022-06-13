@@ -41,7 +41,7 @@ class MovieController extends Controller
 
         if ($validator->fails()) {
             return response()->json([
-                'success' => true,
+                'success' => false,
                 'error' => $validator->errors()->toArray()
             ]);
         }
@@ -95,7 +95,7 @@ class MovieController extends Controller
         $limit = $request->input('limit', 20);
         $list->limit($limit);
 
-        $list = $list->select('movies.id', 'title', 'poster_path')->get();
+        $list = $list->select('movies.id', 'title', 'poster_path')->distinct()->get();
 
         return response()->json([
             'success' => true,

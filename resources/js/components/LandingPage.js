@@ -8,7 +8,7 @@ function LandingPage() {
     const [listGenres, setListGenres] = useState([]);
 
     useEffect(() => {
-        getListGenres();
+        // getListGenres();
     }, [])
 
     function getListGenres() {
@@ -23,7 +23,7 @@ function LandingPage() {
             })
             .catch(function (error) {
                 console.log(error);
-            })
+            });
     }
 
 
