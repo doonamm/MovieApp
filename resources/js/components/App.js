@@ -8,6 +8,7 @@ import SignInPage from './SignInPage';
 import SignUpPage from './SignUpPage';
 import SingleMoviePage from './SingleMoviePage';
 import LandingPage from './LandingPage';
+// import '../../style/Color.scss';
 function App(props) {
 
     return (
@@ -19,7 +20,7 @@ function App(props) {
                 <Route path='/signup' element={<SignUpPage />}></Route>
 
                 <Route path='/:id' element={<SingleMoviePage />}></Route>
-                <Route path='/' element={< LandingPage />} ></Route>
+                <Route path='/' element={<LandingPage />} ></Route>
             </Routes>
 
         </BrowserRouter >

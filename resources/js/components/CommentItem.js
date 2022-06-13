@@ -8,7 +8,7 @@ function CommentItem(props){
                 </div>
                 <div className='right_comment'>
                     <p className='name'>{atr.name}</p>
-                    <p>Omg this film is really nice !</p>
+                    <p className='content'>Omg this film is really nice !</p>
                     <ul className='react'>
                         <li><i>Like</i></li>
                         <li><i>Reply</i></li>

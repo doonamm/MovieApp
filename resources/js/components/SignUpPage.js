@@ -1,9 +1,11 @@
+import { FaFacebookF, FaGooglePlusG, FaLinkedinIn } from 'react-icons/fa';
 import React from "react";
 import validator from 'validator';
 import FormItem from "./formItem";
 import axios from "axios";
 import useInput from '../helper/useInput';
-
+import '../../style/SignUpPage.scss';
+import logo from '../../img/logo.png';
 function SignUpPage() {
 
     const email = useInput("", false);
@@ -47,35 +49,50 @@ function SignUpPage() {
     }
 
     return (
-        <div>
-            <div>
-                <h2>
+        <div className="page signup">
+            
+            <div className="container">
+                <div className='img-wrapper'>
+                    <img src={logo}></img>
+                </div>
+                <h2 className="margin">
                     SIGN UP
                 </h2>
-            </div>
+                <p>Sign up with: </p>
+                <div className='social_button'>
+                    <button className='facebook'><FaFacebookF /></button>
+                    <button className='google'><FaGooglePlusG /></button>
+                    <button className='linkedin'><FaLinkedinIn /></button>
+                </div>
+                <div className='form'>
+                    <form action="#" onSubmit={Register}>
+                        <FormItem
+                            title="Email"
+                            type="email"
+                            useInputObject={email}
+                            className="input_form"
+                            placeholder="Email/ Username"
+                        />
 
-            <div className="form-container">
-                <form action="#" onSubmit={Register}>
-                    <FormItem
-                        title="Email"
-                        type="email"
-                        useInputObject={email}
-                    />
+                        <FormItem
+                            title="Password"
+                            type="password"
+                            useInputObject={password}
+                            className="input_form"
+                            placeholder="Password"
+                        />
 
-                    <FormItem
-                        title="Password"
-                        type="password"
-                        useInputObject={password}
-                    />
+                        <FormItem
+                            title="Confirm Password"
+                            type="password"
+                            useInputObject={repassword}
+                            className="input_form"
+                            placeholder="Confirm Password"
+                        />
 
-                    <FormItem
-                        title="Confirm Password"
-                        type="password"
-                        useInputObject={repassword}
-                    />
-
-                    <input type="submit" value="SIGN UP" />
-                </form>
+                        <input class='signup_btn' type="submit" value="SIGN UP" />
+                    </form>
+                </div>
             </div>
         </div>
     );
