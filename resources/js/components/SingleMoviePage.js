@@ -147,6 +147,7 @@ function SingleMoviePage(props) {
         <div className="page single-movie">
             <div className="container wrap-center">
                 <div className='top_container'>
+                   
                     <div className='left_container'>
                         <div className='film-info'>
                             <div className='poster img-wrapper'>

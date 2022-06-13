@@ -40,8 +40,8 @@ function MovieAPIlist(props) {
     }
 
     return (
-        <div>
-            <h2>{title}</h2>
+        <div className="movie_land">
+            <h2 className="title">{title}</h2>
 
             <MovieList
                 list={listMovie}
