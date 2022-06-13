@@ -5,7 +5,7 @@ export default function Input(props){
             <div className={error ? 'input error' : 'input'}>
                 <input 
                     type={props.type} 
-                    placeholder={props.placeholder || ""}
+                    placeholder={props.placeholder}
                     value={props.value}
                     onChange={props.onChange} 
                 />
@@ -18,7 +18,7 @@ export default function Input(props){
         <div className={error ? 'input error' : 'input'}>
             <input
                 type={props.type}
-                placeholder={props.placeholder || ""}
+                placeholder={props.placeholder}
                 value={value}
                 onChange={(e)=>setValue(e.target.value)}
             />

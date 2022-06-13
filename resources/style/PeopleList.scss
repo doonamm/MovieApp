@@ -14,10 +14,17 @@
             height: 60px;
             img{
                 border-radius: 4px;
+                &:hover{
+                    filter: brightness(0.5);
+                }
             }
         }
         span{
             font-size: 12px;
+        }
+        &:hover{
+            color: #fff;
+            cursor: pointer;
         }
     }
 }
