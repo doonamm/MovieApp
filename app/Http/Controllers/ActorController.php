@@ -27,7 +27,7 @@ class ActorController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'birthday' => 'required|date',
-            'gender' => '[new Enum(ServerStatus::class)]'
+            // 'gender' => '[new Enum(ServerStatus::class)]'
             'popularity' => 'required|numeric',
             'profile_path' => 'required|string',
 
