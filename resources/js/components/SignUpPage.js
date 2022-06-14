@@ -10,7 +10,7 @@ import '../../style/SignUpPage.scss';
 import logo from '../../img/logo1.png';
 function SignUpPage() {
 
-    const email = useInput("", false);
+    const username = useInput("", false);
     const password = useInput("", false);
     const repassword = useInput("", false);
 
@@ -18,8 +18,8 @@ function SignUpPage() {
         e.preventDefault();
         var flag = false;
 
-        if (!validator.isEmail(email.value)) {
-            email.setError("Invalid Email")
+        if (!validator.isAlphanumeric(username.value)) {
+            username.setError("Invalid username")
             flag = true;
         }
 
@@ -38,7 +38,7 @@ function SignUpPage() {
         }
 
         axios.post('http://localhost:8000/api/auth/register', {
-            'username': email.value,
+            'username': username.value,
             'password': password.value,
             'password_confirmation': repassword.value,
         })
@@ -70,7 +70,9 @@ function SignUpPage() {
                         <FormItem
                             title="Username"
                             type="text"
-                            useInputObject={email}
+
+                            useInputObject={username}
+
                             className="input_form"
                             placeholder="Username"
                         />

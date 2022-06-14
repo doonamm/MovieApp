@@ -102,6 +102,8 @@ class ActorController extends Controller
             $list->orderBy($sortBy[0], $sortBy[1]);
         }
 
+        $length = $list->count();
+
         if ($request->has('next')) {
             $next = $request->input('next');
             $list = $list->skip($next);
@@ -115,7 +117,8 @@ class ActorController extends Controller
         return response()->json([
             'success' => true,
             'data' => $list,
-            'length' => sizeof($list)
+            'totalLength' => $length
         ]);
     }
 }
+
