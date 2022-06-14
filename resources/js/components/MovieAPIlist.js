@@ -11,8 +11,6 @@ function MovieAPIlist(props) {
 
     const { title, genre, limit } = props;
 
-    const [next, setNext] = useState(0);
-
     useEffect(() => {
         getTop10();
     }, [])

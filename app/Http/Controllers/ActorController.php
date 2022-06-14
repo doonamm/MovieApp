@@ -9,14 +9,28 @@ use Illuminate\Support\Facades\DB;
 
 class ActorController extends Controller
 {
+
+    // $table->increments('id');
+    //         $table->string('name');
+    //         $table->date('birthday');
+    //         $table->enum('gender', ['male', 'female']);
+    //         $table->string('place_of_birth');
+    //         $table->string('profile_path');
+    //         $table->mediumText('biography');
+    //         $table->string('imdb_id');
+    //         $table->double('popularity');
+
     public function create(Request $request)
     {
         $this->authorize('create', Actor::class);
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
+            'birthday' => 'required|date',
+            // 'gender' => '[new Enum(ServerStatus::class)]'
             'popularity' => 'required|numeric',
             'profile_path' => 'required|string',
+
         ]);
 
         if ($validator->fails()) {
@@ -121,4 +135,3 @@ class ActorController extends Controller
         ]);
     }
 }
-
