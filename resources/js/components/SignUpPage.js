@@ -8,7 +8,7 @@ import '../../style/SignUpPage.scss';
 import logo from '../../img/logo.png';
 function SignUpPage() {
 
-    const email = useInput("", false);
+    const username = useInput("", false);
     const password = useInput("", false);
     const repassword = useInput("", false);
 
@@ -16,8 +16,8 @@ function SignUpPage() {
         e.preventDefault();
         var flag = false;
 
-        if (!validator.isEmail(email.value)) {
-            email.setError("Invalid Email")
+        if (!validator.isAlphanumeric(username.value)) {
+            username.setError("Invalid username")
             flag = true;
         }
 
@@ -36,7 +36,7 @@ function SignUpPage() {
         }
 
         axios.post('http://localhost:8000/api/auth/register', {
-            'username': email.value,
+            'username': username.value,
             'password': password.value,
             'password_confirmation': repassword.value,
         })
@@ -67,11 +67,11 @@ function SignUpPage() {
                 <div className='form'>
                     <form action="#" onSubmit={Register}>
                         <FormItem
-                            title="Email"
-                            type="email"
-                            useInputObject={email}
+                            title="Username"
+                            type="text"
+                            useInputObject={username}
                             className="input_form"
-                            placeholder="Email/ Username"
+                            placeholder="Username"
                         />
 
                         <FormItem
