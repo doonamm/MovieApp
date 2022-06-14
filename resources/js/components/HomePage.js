@@ -121,6 +121,8 @@ function HomePage(props) {
                 <p id="fact">Fact: I luv you pak pak</p>
                 <div className="stem-padding-top"></div>
             </header>
+
+            <TimeLineHeader/>
             <section className="timeline">
                 {
                     milestones.map((milestone, i) => {
