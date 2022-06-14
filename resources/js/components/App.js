@@ -29,9 +29,9 @@ function App(props) {
             <Routes>
                 {/* --------- Add Page here ----------- */}
 
-                <Route path='/home' element={< LandingPage />} ></Route>
+                <Route path='/' element={<HomePage />} ></Route>
 
-                <Route path='/' element={<LandingPage/>} ></Route>
+                <Route path='/home' element={<LandingPage/>} ></Route>
 
                 <Route path='/signin' element={<SignInPage />}></Route>
                 <Route path='/signup' element={<SignUpPage />}></Route>

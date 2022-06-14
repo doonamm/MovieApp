@@ -9,8 +9,6 @@ import useInput from '../helper/useInput';
 import '../../style/SignUpPage.scss';
 
 import logo from '../../img/logo.png';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
 function SignUpPage() {
