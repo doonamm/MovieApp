@@ -1,10 +1,13 @@
 import { FaFacebookF, FaGooglePlusG, FaLinkedinIn } from 'react-icons/fa';
 import React from "react";
+import { Link, useNavigate } from 'react-router-dom';
+
 import validator from 'validator';
 import FormItem from "./formItem";
 import axios from "axios";
 import useInput from '../helper/useInput';
 import '../../style/SignUpPage.scss';
+
 import logo from '../../img/logo.png';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -72,7 +75,6 @@ function SignUpPage() {
                 <h2 className="margin">
                     SIGN UP
                 </h2>
-                <p>Sign up with: </p>
                 <div className='social_button'>
                     <button className='facebook'><FaFacebookF /></button>
                     <button className='google'><FaGooglePlusG /></button>
@@ -83,7 +85,9 @@ function SignUpPage() {
                         <FormItem
                             title="Username"
                             type="text"
+
                             useInputObject={username}
+
                             className="input_form"
                             placeholder="Username"
                         />
@@ -104,6 +108,7 @@ function SignUpPage() {
                             placeholder="Confirm Password"
                         />
                         <input className='signup_btn' type="submit" value="SIGN UP" />
+                        <p className='already_a_user'> Already a user ? <Link to='/signin'>SIGN IN</Link></p>
                     </form>
                 </div>
             </div>
