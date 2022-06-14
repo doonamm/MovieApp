@@ -10,16 +10,6 @@ use Illuminate\Support\Facades\DB;
 class ActorController extends Controller
 {
 
-    // $table->increments('id');
-    //         $table->string('name');
-    //         $table->date('birthday');
-    //         $table->enum('gender', ['male', 'female']);
-    //         $table->string('place_of_birth');
-    //         $table->string('profile_path');
-    //         $table->mediumText('biography');
-    //         $table->string('imdb_id');
-    //         $table->double('popularity');
-
     public function create(Request $request)
     {
         $this->authorize('create', Actor::class);
@@ -27,20 +17,31 @@ class ActorController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'birthday' => 'required|date',
-            // 'gender' => '[new Enum(ServerStatus::class)]'
-            'popularity' => 'required|numeric',
+            'gender' => 'required|in:female,male',
+            'place_of_birth' => 'required|string',
             'profile_path' => 'required|string',
-
+            'biography' => 'required|string',
+            'imdb_id' => 'required|string',
+            'popularity' => 'required|numeric',
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
-                'message' => 'Create Actor Failed',
                 'error' => $validator->errors()->toArray(),
             ]);
         }
-        $actor = Actor::query()->create($request->all());
+        $actor = Actor::create([
+            'name' => $request->input('name'),
+            'birthday' => $request->input('birthday'),
+            'gender' => $request->input('gender'),
+            'place_of_birth' => $request->input('place_of_birth'),
+            'profile_path' => $request->input('profile_path'),
+            'biography' => $request->input('biography'),
+            'imdb_id' => $request->input('imdb_id'),
+            'popularity' => $request->input('popularity'),
+        ]);
+
         return response()->json([
             'success' => true,
             'data' => $actor,
@@ -126,7 +127,7 @@ class ActorController extends Controller
         $limit = $request->input('limit', 20);
         $list->limit($limit);
 
-        $list = $list->select('id', 'name', 'profile_path')->distinct()->get();
+        $list = $list->distinct()->get();
 
         return response()->json([
             'success' => true,
