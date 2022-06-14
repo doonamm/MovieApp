@@ -66,8 +66,8 @@ function ProfilePage(props){
                         </label>
                     </div>
                     <h2>{profile.nickname}</h2>
-                    <p>Gender: {profile.gender}</p>
-                    <p>Birthday: {profile.birthday}</p>
+                    <p>Gender: <span>{profile.gender}</span></p>
+                    <p>Birthday: <span>{profile.birthday}</span></p>
                 </div>
             </div>
         </div>

@@ -3,10 +3,14 @@ import { useEffect, useRef } from 'react';
 import TimelineHeader from './TimelineHeader';
 import TimelineSection from './TimelineSection';
 import {FiDownloadCloud} from 'react-icons/fi';
-import {MdMovieFilter} from 'react-icons/md'
+import {MdMovieFilter} from 'react-icons/md';
+import '../../style/HomePage.scss';
 import {
     FaGlobeAsia,
     FaHeart,
+    FaFacebook, 
+    FaTwitter, 
+    FaMailBulk
 } from 'react-icons/fa';
 import {TbMoodKid} from 'react-icons/tb';
 import TimelineService from './TimelineService';
@@ -38,27 +42,27 @@ const service = [
    
     {
         id: 1,
-        time: "Gói tháng",
+        time: "1 MONTH",
         content: "Watch movies for 30 days in Full HD 4K",
         price: "45000"
     },
     
     {
         id: 2,
-        time: "Gói 3 tháng",
+        time: "3 MONTHS",
         content: "Watch movies for 90 days in Full HD 4K",
         price: "70000"
     },
     
     {
         id: 3,
-        time: "Gói 6 tháng",
+        time: "6 MONTHS",
         content: "Watch movies for 180 days in Full HD 4K",
         price: "95000"
     },
     {
         id: 4,
-        time: "Gói 1 năm",
+        time: "1 YEAR",
         content: "Watch movies for 360 days in Full HD 4K",
         price: "130000"
     },
@@ -97,7 +101,7 @@ function HomePage(props) {
     
     
     return (
-        <div className='page timelime'>
+        <div className='page timeline'>
             <div className="stem"></div>
             
             <TimelineHeader 
@@ -113,7 +117,30 @@ function HomePage(props) {
             />
             
             <footer>
-                <p>Made by Kiến Nam, Quang Nhật, Anh Thư</p>
+                <div className='part1'>
+                    <p className='title'>Made by</p>
+                    <div className='membername'>
+                        <p>Kiến Nam</p>
+                        <p>Quang Nhật</p>
+                        <p>Anh Thư</p>
+                    </div>
+                </div>
+                <div className='part2'>
+                    <p className='title'>Social</p>
+                    <div className='social-btn'>
+                        <p><FaFacebook/><span>Facebook</span></p>
+                        <p><FaTwitter/><span>Twitter</span></p>
+                        <p><FaMailBulk/><span>Email</span></p>
+                    </div>
+                </div>
+                <div className='part3'>
+                    <p className='title'>Service</p>
+                    <div className='service-footer'>
+                        <p>Help</p>
+                        <p>Terms of Use</p>
+                        <p>Contact Us</p>
+                    </div>
+                </div>
                 {/* <ul className="contacts">
                     <caption>Contacts:</caption>
                     <li><a href="/"><FaFacebook /></a></li>

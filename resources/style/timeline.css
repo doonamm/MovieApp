@@ -1,16 +1,15 @@
 .timeline{
     font-family: 'Comfortaa', cursive;
 	font-size: 16px;
-	height: calc(100% + 10px);
+	/* height: calc(100% + 10px); */
 	line-height: 1.5;
 	z-index: 1;
-    padding-bottom: 20px;
 }
 
 .stem{
 	position: fixed;
 	width: var(--symbol-width);
-	background: linear-gradient(180deg, var(--header-color) 65%, 0, var(--stem-background) 100%);
+	background: linear-gradient(180deg, var(--background-color1) 65%, 0, var(--background-color) 100%);
 	top: 90px;
 	bottom: 0;
 	left: 50%;
@@ -36,8 +35,7 @@
 
 .header{
 	width: 100%;
-	height: 800px;
-	background-image: linear-gradient(180deg, var(--header-color), var(--timeline-color));
+	background-image: linear-gradient(180deg, var(--dark-black-color), var(--timeline-color));
 	/* background: var(--timeline-color); */
 	color: #eee;
 	font-size: 20px;
@@ -50,7 +48,8 @@
 .header h1{
 	font-size: 50px;
 	margin-bottom: 20px;
-	font-family: Nunito, sans-serif;
+	font-family: Roboto, sans-serif;
+	
 }
 
 .header > p{
@@ -151,7 +150,27 @@
 .milestone.main .details{
 	opacity: .6;
 }
+.header h2{
+	margin-top: 20px;
 
+}
+.TimelineService{
+	margin-top: 20px;
+	
+
+
+}
+.ServiceItem{
+	display: flex;
+
+}
+.ServiceItem .packname{
+	color: var(--yellow-color);
+	
+}
+.TimelineService .detail{
+	color: var(--text-color);
+}
 footer{
 	background: var(--timeline-color);
 	width: 100%;
@@ -175,7 +194,9 @@ footer .contacts{
 footer .contacts li a i{
 	color: rgba(255, 255, 255, .8);
 }
-
+.milestone.end{
+	padding-bottom: 50px;
+}
 @media only screen and (max-width: 940px) {
 	.stem{
 		left: 30px !important;

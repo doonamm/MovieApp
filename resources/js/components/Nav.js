@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import stateToProps from '../helper/stateToProps';
 import { logout } from '../redux/action/loginAction';
-import logo from '../../img/logo2.png';
+import logoPage from '../../img/logo_removebg_cut.png';
 function Nav(props) {
     const location = useLocation();
     const navigate = useNavigate();
@@ -35,7 +35,7 @@ function Nav(props) {
                 <div className='left'>
                     <div className="logo img-wrapper">
                         <Link to="/">
-                            <img src={logo} />
+                            <img src={logoPage} />
                         </Link>
                     </div>
                     <ul className='nav-list'>
@@ -51,8 +51,7 @@ function Nav(props) {
                             </div>
                             <ul className={openUserController ? "controllers show" : "controllers"}>
                                 <li>Settings</li>
-                                <li>Edit profile</li>
-                                <li><Link to="/reset">Reset Password</Link></li>
+                                <li onClick={()=>navigate('/reset/' + userId)}>Reset Password</li>
                                 <li onClick={()=>navigate('/profile/' + userId)}>Profile</li>
                                 <li onClick={handleSignOut}>Sign out</li>
                             </ul>
