@@ -23,6 +23,7 @@ Route::group([
 });
 
 Route::group(['middleware' => 'auth.jwt'], function () {
+    Route::post('/avatar', [ProfileController::class, 'updateAvatar']);
 
     //user
     Route::group(['prefix' => 'users'], function () {
@@ -32,6 +33,7 @@ Route::group(['middleware' => 'auth.jwt'], function () {
             Route::get('/', [UserController::class, 'getUserInfo']);
             Route::delete('/', [UserController::class, 'destroy']);
             Route::post('/', [UserController::class, 'resetPassword']);
+
 
             Route::get('/profile', [ProfileController::class, 'show']);
             Route::get('/profile/public', [ProfileController::class, 'showPublic']);
