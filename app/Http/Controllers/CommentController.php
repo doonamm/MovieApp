@@ -9,15 +9,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use App\Models\User;
 
 class CommentController extends Controller
 {
-    public function create(Request $request, Movie $movie){
+    public function create(Request $request, Movie $movie)
+    {
         $validator = Validator::make($request->all(), [
             'content' => 'required|string',
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json([
                 'success' => false,
                 'error' => $validator->errors()->toArray()
@@ -52,7 +54,10 @@ class CommentController extends Controller
         ]);
     }
 
-    public function showAll(Request $request, Movie $movie){
+    // public function update()
+
+    public function showAll(Request $request, Movie $movie)
+    {
         $validator = Validator::make($request->all(), [
             'sort_by' => ['regex:/(created_at)\.(asc|desc)/'],
             'limit' => 'integer|gte:1|lte:100',
@@ -66,9 +71,9 @@ class CommentController extends Controller
 
         $list = DB::table('comments');
         $list = $list->join('profiles', 'profiles.user_id', '=', 'comments.user_id')
-                ->where('movie_id', '=', $movie->id)
-                ->orderBy('comments.created_at', $sortBy)
-                ->select('comments.id', 'profiles.user_id', 'profiles.nickname', 'profiles.avatar_url', 'content', 'like_count', 'comments.created_at');
+            ->where('movie_id', '=', $movie->id)
+            ->orderBy('comments.created_at', $sortBy)
+            ->select('comments.id', 'profiles.user_id', 'profiles.nickname', 'profiles.avatar_url', 'content', 'like_count', 'comments.created_at');
 
         $length = $list->count();
 
@@ -76,7 +81,7 @@ class CommentController extends Controller
             $next = $request->input('next');
             $list = $list->skip($next);
         }
-        
+
         $limit = $request->input('limit', 20);
         $list->limit($limit);
 
@@ -89,11 +94,12 @@ class CommentController extends Controller
         ]);
     }
 
-    public function destroy(Request $request, Movie $movie, Comment $comment){
+    public function destroy(Request $request, Movie $movie, Comment $comment)
+    {
         $this->authorize('onlySelfAndAdmin', $comment);
-        
+
         $comment->delete();
-       
+
         $movie->comment_count -= 1;
         $movie->save();
 

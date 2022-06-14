@@ -54,6 +54,8 @@ function SignUpPage() {
             .then(function (data) {
                 console.log(data.data);
                 if (data.data.success == true) {
+                    swal('Success', 'Sign up account successfully!', 'success');
+                    navigate("/signupprofile");
                     setID(data.data.id);
                     setShowClass("showSignUpProfile");
                 }

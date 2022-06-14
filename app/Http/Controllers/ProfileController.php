@@ -25,7 +25,6 @@ class ProfileController extends Controller
             'nickname' => 'required|string',
             'gender' => 'required|in:male,female',
             'birthday' => 'required|date',
-            'avatar_url' => 'string|url'
         ]);
 
         if ($validator->fails()) {
@@ -36,14 +35,11 @@ class ProfileController extends Controller
             ]);
         }
 
-
-
         $profile = Profile::query()->create([
             'user_id' => $userId,
             'nickname' => $request->input('nickname'),
             'gender' => $request->input('gender'),
-            'birthday' => $request->input('birthday'),
-            'avatar_url' => $request->input('avatar_url'),
+            'birthday' => $request->input('birthday')
         ]);
 
         return response()->json([
@@ -94,7 +90,6 @@ class ProfileController extends Controller
             'nickname' => 'string',
             'gender' => 'in:male,female',
             'birthday' => 'date',
-            'avatar_url' => 'url'
         ]);
 
         if ($validator->fails()) {
@@ -117,6 +112,36 @@ class ProfileController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Update profile success'
+        ]);
+    }
+
+    public function updateAvatar(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'image' => 'required|image|mimes:png,jpg,jpeg|max:2048'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Create profile fail',
+                'error' => $validator->errors()->toArray()
+            ]);
+        }
+
+        $userId = JWTAuth::toUser($request->bearerToken())->id;
+        $profile = Profile::query()->where('user_id', '=', $userId);
+
+        $image = $request->file('image');
+        $filename = time() . rand(100000, 999999) . '.' . $image->getClientOriginalExtension();
+        $image->move('uploads/', $filename);
+
+        $profile->update(['avatar_url' => $filename]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Update profile success',
+            'data' => $filename
         ]);
     }
 }

@@ -11,7 +11,13 @@ class CommentPolicy
 {
     use HandlesAuthorization;
 
-    public function onlySelfAndAdmin(User $user, Comment $comment){
-        return $user->role === UserRole::Admin || $comment->user_id === $user->id; 
+    public function onlySelfAndAdmin(User $user, Comment $comment)
+    {
+        return $user->role === UserRole::Admin || $comment->user_id === $user->id;
+    }
+
+    public function onlyAdmin(User $user)
+    {
+        return $user->role === UserRole::Admin;
     }
 }

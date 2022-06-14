@@ -2,19 +2,13 @@
 
 namespace App\Policies;
 
-use App\Models\Actor;
+use App\Enums\UserRole;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use App\Enums\UserRole;
 
-class ActorPolicy
+class MoviePolicy
 {
     use HandlesAuthorization;
-
-    public function create(User $user)
-    {
-        return $user->role === UserRole::Admin;
-    }
 
     public function onlyAdmin(User $user)
     {
