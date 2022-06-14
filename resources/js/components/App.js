@@ -17,6 +17,7 @@ import SignUpProfile from './SignUpProfile';
 import HomePage from './HomePage';
 import SingleActorPage from './SingleActorPage';
 import ProfilePage from './ProfilePage';
+import WatchMoviePage from './WatchMoviePage';
 
 
 function App(props) {
@@ -32,14 +33,13 @@ function App(props) {
             <Routes>
                 {/* --------- Add Page here ----------- */}
 
-                <Route path='/home' element={< LandingPage />} ></Route>
-
                 <Route path='/' element={<HomePage />} ></Route>
-
+                <Route path='/home' element={<LandingPage/>} ></Route>
                 <Route path='/signin' element={<SignInPage />}></Route>
                 <Route path='/signup' element={<SignUpPage />}></Route>
                 <Route path='/movies' element={<MoviesPage />}></Route>
                 <Route path='/movies/:id' element={<SingleMoviePage />}></Route>
+                <Route path='/movies/:id/watch' element={<WatchMoviePage />}></Route>
                 <Route path="/reset" element={<ResetPasswordPage />}></Route>
                 <Route path='/actors' element={<ActorsPage/>}></Route>
                 <Route path='/actors/:id' element={<SingleActorPage/>}></Route>
