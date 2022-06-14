@@ -7,8 +7,8 @@ import axios from 'axios';
 import { storeToken } from '../helper/token';
 import {login} from '../redux/action/loginAction';
 import { connect } from 'react-redux';
-import logo from '../../img/logo.png';
-
+import logo from '../../img/logo1.png';
+import galaxy from '../../img/Galaxy.png';
 function SignInPage(props) {
 
     const navigate = useNavigate()

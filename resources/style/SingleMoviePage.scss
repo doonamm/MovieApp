@@ -50,19 +50,29 @@
                 .film-info{
                     display: flex;
                     .poster{
-                        height: 300px;
-                        min-width: 200px;
+                        height: 400px;
+                        min-width: 250px;
                         border-radius: 5px;
                         overflow: hidden;
                     }
                     .attribute{
                         margin-left: 20px;
                         h2{
-                            font-size: 55px;
+                            font-size: 45px;
                             line-height: 55px;
                             text-shadow: 1px -2px rgba(0, 0, 0, .1);
                             color: var(--yellow-color);
                             font-family: Nunito, sans-serif;
+                        }
+                        .vote{
+                            display: flex;
+                            align-items: baseline;
+                            p{
+                                margin-left: 10px;
+                                font-size: 18px;
+                                color: var(--white-color);
+                                font-family: Nutori, sans-serif;
+                            }
                         }
                         .tagproperties{
                             button{
@@ -74,9 +84,20 @@
                                 box-shadow: 1px 1px rgba(0, 0, 0, .2), 0 0 1px rgba(0, 0, 0, .4);   
                                 border-radius: 2px;
                                 border: none;
-                                
+                                margin-bottom: 10px;
                             }
-                        
+                            .tagline{
+                                color: var(--text-color);
+                                font-size: 20px;
+                            }
+                            p{
+                                color: var(--white-color);
+                                margin-top: 10px;
+                                span{
+                                    text-transform: capitalize;
+                                    color: var(--yellow2-color);
+                                }
+                            }
                         }
                     }
                 }
@@ -159,11 +180,12 @@
             }
         }
         .bottom_container{
+            padding-left: 40px;
             .controller{
                 .comment{
                     margin-bottom: 30px;
                     h2{
-                        text-align: center;
+                        // text-align: center;
                         font-size: 30px;
                         margin-top: 30px;
                         color: var(--white-color);
@@ -245,7 +267,7 @@
                     }
                 }
                 h2{
-                    text-align: center;
+                    // text-align: center;
                     justify-content: center;
                     font-size: 30px;
                     color: var(--white-color);
