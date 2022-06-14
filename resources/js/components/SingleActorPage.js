@@ -1,21 +1,44 @@
+import '../../style/SingleActorPage.scss';
+
 import { useState } from 'react';
 import { useEffect } from 'react';
 import {useParams} from 'react-router-dom';
 import {instance} from '../helper/instance';
+import MovieList from './MovieList';
 
 function SingleActorPage(props){
     const {id} = useParams();
     const [info, setInfo] = useState({});
+    const [moreBio, setMoreBio] = useState(false);
+    const [movieList, setMovieList] = useState([]);
+    const [next, setNext] = useState(0);
 
     useEffect(()=>{
         instance.get('/actors/' + id)
         .then(res => {
             if(res.success){
                 setInfo(res.data);
+                loadMovieList(res.data.name);
             }
         })
         .catch(console.log);
     }, []);
+
+    function loadMovieList(name){
+        instance.get('/movies', {
+            params: {
+                casts: [
+                    name
+                ]
+            }
+        })
+        .then(res => {
+            if(res.success){
+                setMovieList(res.data);
+            }
+        })
+        .catch(console.log);
+    }
 
     const {
         name,
@@ -39,30 +62,34 @@ function SingleActorPage(props){
                         <h3>{name}</h3>
                         <ul>
                             <li>
-                                <p>Gender:</p>
+                                <p className='field'>Gender:</p>
                                 <p>{gender}</p>
                             </li>
                             <li>
-                                <p>Imdb:</p>
-                                <p>{imdb_id}</p>
-                            </li>
-                            <li>
-                                <p>Birthday:</p>
+                                <p className='field'>Birthday:</p>
                                 <p>{birthday}</p>
                             </li>
                             <li>
-                                <p>Place of birth:</p>
+                                <p className='field'>Place of birth:</p>
                                 <p>{place_of_birth}</p>
                             </li>
                             <li>
-                                <p>Description:</p>
-                                <p>{biography}</p>
+                                <p className='field'>Imdb:</p>
+                                <p>{imdb_id}</p>
+                            </li>
+                            <li>
+                                <p className='field'>Description:</p>
+                                <p className='bio'>
+                                    {moreBio ? biography : biography?.substring(0, 400)} 
+                                    <span onClick={()=>setMoreBio(!moreBio)} className='toggle-more-btn'>{moreBio ? 'Less' : 'More'}</span>
+                                </p>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div className='bottom'>
-
+                    <h3>{name}'s movies:</h3>
+                    <MovieList list={movieList}/>
                 </div>
             </div>
         </div>
