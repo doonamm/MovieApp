@@ -1,25 +1,45 @@
 .movie_list{
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
     row-gap: 10px;
-    column-gap: 10px;
-    li{
-        margin: 0 10px;
+    column-gap: 15px;
+    width: 100%;
+    .movie-item{
         text-align: center;
+        position: relative;
+        overflow: hidden;
+        &:hover{
+            p{
+                opacity: 1;
+            }
+            img{
+                filter: brightness(0.3);
+            }
+        }
         .img-wrapper{
-            width: 160px;
-            height: 100px;
+            width: 100%;
+            height: 310px;
             border-radius: 5px;
             img{
                 border-radius: 5px;
-                &:hover{
-                    filter: brightness(0.5);
-                    cursor: pointer;
-                }
+                cursor: pointer;
+                transition: filter 0.5s ease;
             }
         }
         p{
-            color: var(--text-color);
+            position: absolute;
+            color: var(--white-color);
+            padding: 0 20px;
+            font-weight: bold;
+            font-size: 1.1em;
+            left: 50%;
+            top: 50%;
+            width: 100%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity .4s ease;
+            pointer-events: none;
+            letter-spacing: 0.5px;
         }
     }
 }

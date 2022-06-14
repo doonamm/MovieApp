@@ -45,6 +45,15 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     //genres
     Route::get('/genres', [GenreController::class, 'showAll']);
 
+    //actors
+    Route::group(['prefix' => 'actors'], function(){
+        Route::get('/', [ActorController::class, 'showAll']);
+        Route::post('/', [ActorController::class, 'create']);
+        Route::get('/{actor}', [ActorController::class, 'show']);
+        Route::put('/{actor}', [ActorController::class, 'update']);
+        Route::delete('/{actor}', [ActorController::class, 'destroy']);
+    });
+
     //movie
     Route::group(['prefix' => 'movies'], function () {
         Route::get('/', [MovieController::class, 'showAll']);
@@ -55,8 +64,8 @@ Route::group(['middleware' => 'auth.jwt'], function () {
             Route::put('/', [MovieController::class, 'update']);
             Route::delete('/', [MovieController::class, 'destroy']);
 
-            Route::get('/casts', [Cast::class, 'showAll']);
-            Route::put('/genres', [Movie_Genre::class, 'showAll']);
+            Route::get('/casts', [CastController::class, 'showAll']);
+            Route::put('/genres', [Movie_GenreController::class, 'showAll']);
 
             //comments
             Route::group(['prefix' => 'comments'], function () {

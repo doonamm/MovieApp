@@ -1,11 +1,13 @@
 import { FaFacebookF, FaGooglePlusG, FaLinkedinIn } from 'react-icons/fa';
 import React from "react";
+import { Link, useNavigate } from 'react-router-dom';
+
 import validator from 'validator';
 import FormItem from "./formItem";
 import axios from "axios";
 import useInput from '../helper/useInput';
 import '../../style/SignUpPage.scss';
-import logo from '../../img/logo.png';
+import logo from '../../img/logo1.png';
 function SignUpPage() {
 
     const email = useInput("", false);
@@ -58,7 +60,6 @@ function SignUpPage() {
                 <h2 className="margin">
                     SIGN UP
                 </h2>
-                <p>Sign up with: </p>
                 <div className='social_button'>
                     <button className='facebook'><FaFacebookF /></button>
                     <button className='google'><FaGooglePlusG /></button>
@@ -67,11 +68,11 @@ function SignUpPage() {
                 <div className='form'>
                     <form action="#" onSubmit={Register}>
                         <FormItem
-                            title="Email"
-                            type="email"
+                            title="Username"
+                            type="text"
                             useInputObject={email}
                             className="input_form"
-                            placeholder="Email/ Username"
+                            placeholder="Username"
                         />
 
                         <FormItem
@@ -89,8 +90,9 @@ function SignUpPage() {
                             className="input_form"
                             placeholder="Confirm Password"
                         />
+                        <input className='signup_btn' type="submit" value="SIGN UP" />
+                        <p className='already_a_user'> Already a user ? <Link to='/signin'>SIGN IN</Link></p>
 
-                        <input class='signup_btn' type="submit" value="SIGN UP" />
                     </form>
                 </div>
             </div>

@@ -5,7 +5,7 @@ function CommentList(props){
     return(
         <ul className="comment_list">
         {   
-            list.map((comment, i) => <CommentItem key={comment.id} atr={comment}/>)
+            list.map((comment) => <CommentItem key={comment.id} movieId={props.movieId} data={comment}/>)
         }
         </ul>
     );

@@ -3,9 +3,10 @@ import {BsStarFill, BsStarHalf, BsStar} from 'react-icons/bs';
 import '../../style/VoteStar.scss';
 
 function VoteStar(props){
-    const rate = props.rate || 5;
+    const rate = props.rate/2 || 0;
     const maxStar = props.maxStar || 5;
     const [starList, setStarList] = useState([]);
+
     useEffect(()=>{
         const list = [];
         for(let i=1; i<=maxStar; i++){
@@ -20,7 +21,7 @@ function VoteStar(props){
             }
         }
         setStarList(list);
-    }, []);
+    }, [rate]);
 
 
     return(

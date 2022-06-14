@@ -54,7 +54,8 @@ class CastController extends Controller
     public function showAll(Request $request, Movie $movie)
     {
         $list = Cast::join('ACTORs', 'CASTs.actor_id', '=', 'ACTORs.id')
-            ->where('CASTs.movie_id', $movie->id)
+            ->where('movie_id', $movie->id)
+            ->select('actors.id', 'actors.name', 'actors.profile_path')
             ->get();
 
         return response()->json([

@@ -5,32 +5,38 @@ import FormItem from './formItem';
 import useInput from '../helper/useInput';
 import axios from 'axios';
 import { storeToken } from '../helper/token';
-import logo from '../../img/logo.png';
-
+import {login} from '../redux/action/loginAction';
+import { connect } from 'react-redux';
+import logo from '../../img/logo1.png';
+import galaxy from '../../img/Galaxy.png';
 function SignInPage(props) {
 
     const navigate = useNavigate()
 
-    const email = useInput("", false);
+    const username = useInput("", false);
     const password = useInput("", false);
 
     function SignIn(e) {
         e.preventDefault();
 
         axios.post('http://localhost:8000/api/auth/login', {
-            'username': email.value,
+            'username': username.value,
             'password': password.value,
         })
-            .then(function ({ data }) {
-                console.log(data);
-
-                storeToken(data.token);
-
+        .then(function ({ data: res }) {
+            if(res.success){
+                storeToken(res.token);
+                props.login();
                 navigate('/');
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
+            }
+            else{
+                username.setError("Wrong username or password");
+                password.setValue("");
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
     }
 
     return (
@@ -47,23 +53,17 @@ function SignInPage(props) {
                     <button className='linkedin'><FaLinkedinIn /></button>
                 </div>
                 <form className="form" onSubmit={SignIn}>
-                    {/* <input className='margin' type='text' placeholder="Username" />
-                    <input className=' margin' type='text' placeholder="Password" /> */}
-
                     <FormItem
-                        title="Email"
-                        type="email"
-                        useInputObject={email}
-                        className="margin"
+                        title="Username"
+                        type="text"
+                        useInputObject={username}
                     />
-
                     <FormItem
                         title="Password"
                         type="password"
                         useInputObject={password}
                         className="margin"
                     />
-
                     <Link to='#'>Forgot your password ?</Link>
                     <p className='needanaccount'>Need an account?<Link to='/signup'>SIGN UP</Link></p>
                     <button className='signin_button'>Sign In</button>
@@ -72,4 +72,8 @@ function SignInPage(props) {
         </div>
     )
 }
-export default SignInPage;
+
+const mapDispatchToProps = {
+    login
+}
+export default connect(null, mapDispatchToProps)(SignInPage);
