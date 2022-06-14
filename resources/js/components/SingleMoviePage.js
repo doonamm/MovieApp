@@ -1,7 +1,7 @@
-import {GiPlayButton} from 'react-icons/gi';
-import  '../../style/SingleMoviePage.scss';
+import { GiPlayButton } from 'react-icons/gi';
+import '../../style/SingleMoviePage.scss';
 
-import {FaPlus} from 'react-icons/fa';
+import { FaPlus } from 'react-icons/fa';
 import PeopleList from './PeopleList';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -9,9 +9,10 @@ import MovieList from './MovieList';
 import CommentList from './CommentList';
 import VoteStar from './VoteStar';
 import { instance } from '../helper/instance';
+import { useNavigate } from 'react-router-dom';
 
 function SingleMoviePage(props) {
-    const {id} = useParams();
+    const { id } = useParams();
     const [movieInfo, setMovieInfo] = useState({});
     const [casts, setCasts] = useState([]);
     const [showMore, setShowMore] = useState(false);
@@ -20,47 +21,48 @@ function SingleMoviePage(props) {
     const [rcmMovies, setRcmMovies] = useState([]);
     const [inputCmt, setInputCmt] = useState('');
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
-    useEffect(()=>{
+    useEffect(() => {
         loadMovie();
         loadCasts();
         loadComments();
     }, []);
 
-    function loadMovie(){
+    function loadMovie() {
         setLoading(true);
         instance.get('/movies/' + id)
-        .then(res => {
-            if(res.success){
-                setMovieInfo(res.data);
-                setMovieCmtCount(res.data.comment_count);
-                console.log(res.data.comment_count);
-            }
-        })
-        .catch(console.log)
-        .finally(()=>setLoading(false));
+            .then(res => {
+                if (res.success) {
+                    setMovieInfo(res.data);
+                    setMovieCmtCount(res.data.comment_count);
+                    console.log(res.data.comment_count);
+                }
+            })
+            .catch(console.log)
+            .finally(() => setLoading(false));
     }
 
-    function loadCasts(){
+    function loadCasts() {
         instance.get(`/movies/${id}/casts`)
-        .then(res => {
-            if(res.success){
-                setCasts(res.data);
-            }
-        })
-        .catch(console.log)
+            .then(res => {
+                if (res.success) {
+                    setCasts(res.data);
+                }
+            })
+            .catch(console.log)
     }
 
-    function loadComments(){
+    function loadComments() {
         instance.get(`/movies/${id}/comments`)
-        .then(res => {
-            if(res.success){
-                setCommentList(res.data);
-            }
-        })
-        .catch(console.log);
+            .then(res => {
+                if (res.success) {
+                    setCommentList(res.data);
+                }
+            })
+            .catch(console.log);
     }
-    
+
     function showMore_comment() {
         setCommentList([...commentList, ...commentListData]);
     }
@@ -69,21 +71,21 @@ function SingleMoviePage(props) {
         rcmMovies([...rcmMovies, ...movieListData]);
     }
 
-    function handleCreateComment(e){
+    function handleCreateComment(e) {
         const comment = inputCmt.trim();
 
-        if(comment){
+        if (comment) {
             instance.post(`/movies/${id}/comments`, {
                 'content': comment
             })
-            .then(res => {
-                if(res.success){
-                    setCommentList([res.data, ...commentList]);
-                    setMovieCmtCount(movieCmtCount + 1);
-                }
-            })
-            .catch(console.log)
-            .finally(()=>setInputCmt(''));
+                .then(res => {
+                    if (res.success) {
+                        setCommentList([res.data, ...commentList]);
+                        setMovieCmtCount(movieCmtCount + 1);
+                    }
+                })
+                .catch(console.log)
+                .finally(() => setInputCmt(''));
         }
     }
 
@@ -105,47 +107,59 @@ function SingleMoviePage(props) {
         popularity,
     } = movieInfo;
 
+    function convertRuntime(time) {
+        if (time < 60) {
+            return time + 'm';
+        }
+        const m = time % 60;
+
+        time -= m;
+
+        return time / 60 + 'h ' + m + 'm';
+    }
+
+    const runtimeStr = convertRuntime(runtime);
+
     return (
         <div className="page single-movie">
             <div className="container wrap-center">
                 <div className='top_container' style={{
-                        "background": `linear-gradient(#0718227e,#0C222F), url(${'https://image.tmdb.org/t/p/w370_and_h556_bestv2' + poster_path})`
-                    }}>
+                    "background": `linear-gradient(#0718227e,#0C222F), url(${'https://image.tmdb.org/t/p/w370_and_h556_bestv2' + backdrop_path})`
+                }}>
                     <div className='left_container'>
                         <div className='film-info'>
                             <div className='poster img-wrapper'>
-                                <img src={'https://image.tmdb.org/t/p/w370_and_h556_bestv2' + poster_path}/>
+                                <img src={'https://image.tmdb.org/t/p/w370_and_h556_bestv2' + poster_path} />
                             </div>
                             <div className='attribute'>
                                 <h2 className="name">{title}</h2>
                                 <p className='tagline'>{tagline}</p>
 
                                 <div className='vote'>
-                                    <VoteStar rate={vote_average}/>
+                                    <VoteStar rate={vote_average} />
                                     <p>/ <span>{vote_count} votes</span></p>
                                 </div>
                                 <div className="tagproperties khoangcach">
                                     <button>{adult ? 'Adult' : 'For All'}</button>
-                                    <button>1h 20m</button>
+                                    <button>{runtimeStr}</button>
                                 </div>
                                 <div className="direction_button khoangcach">
-                                    <button className='play'><span className='btn_icon'><GiPlayButton/></span>Play</button>
-                                    <button className='add'><span className='btn_icon'><FaPlus/></span>Add to my list</button>
+                                    <button className='play'><span className='btn_icon'><GiPlayButton /></span>Play</button>
+                                    <button className='add'><span className='btn_icon'><FaPlus /></span>Add to my list</button>
                                 </div>
                             </div>
                         </div>
                         <div className='description khoangcach'>
-                            
                             <p className="description khoangcach">
-                                {showMore ? overview :`${overview?.substring(0,250)}`}
+                                {showMore ? overview : `${overview?.substring(0, 250)}`}
                                 <button className='btn_readmore' onClick={() => setShowMore(!showMore)}>{showMore ? "Read less" : "...Read more"}</button>
                             </p>
-                            
+
                         </div>
                     </div>
                     <div className='right_container'>
                         <h3>Actor</h3>
-                        <PeopleList list={casts}/>
+                        <PeopleList list={casts} />
                         {/* <h3>Producer</h3>
                         <PeopleList list={directorList}/> */}
                         <h3>Release Date</h3>
@@ -164,32 +178,32 @@ function SingleMoviePage(props) {
                             <h2>Comments</h2>
                             <div className='comment_body khoangcach'>
                                 <div className='left_comment img-wrapper'>
-                                    <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl4TT6qkBfVlorfV_X3LM1Z7ChtoxnEOaTdA&usqp=CAU'/>
+                                    <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl4TT6qkBfVlorfV_X3LM1Z7ChtoxnEOaTdA&usqp=CAU' />
                                 </div>
                                 <div className='right_comment'>
                                     <p className='name'>Rose</p>
                                     <div className='write_comment'>
-                                        <textarea value={inputCmt} onChange={(e)=>setInputCmt(e.target.value)} placeholder='Write your comment right here'></textarea>
+                                        <textarea value={inputCmt} onChange={(e) => setInputCmt(e.target.value)} placeholder='Write your comment right here'></textarea>
                                         <button onClick={handleCreateComment}>Gửi</button>
                                     </div>
                                 </div>
                             </div>
-                            <CommentList movieId={movieId} list={commentList}/>
+                            <CommentList movieId={movieId} list={commentList} />
                             {movieCmtCount > commentList.length && (
                                 <button className="btn btn-primary" onClick={showMore_comment}>
                                     <span>Show more</span>
                                 </button>
                             )}
                         </div>
-                        <div> 
+                        <div>
                             <h2>Similar Movies</h2>
                             <div className='similar_movie khoangcach'>
-                                <MovieList  list={rcmMovies}/>
+                                <MovieList list={rcmMovies} />
                             </div>
                             <a className="btn btn-primary" onClick={showMore_movie}>
                                 <span>Show more</span>
                             </a>
-                        </div> 
+                        </div>
                     </div>
                 </div>
             </div>

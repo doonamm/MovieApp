@@ -20,4 +20,12 @@ class GenrePolicy
     {
         return $user->id === UserRole::Admin;
     }
+    public function onlySelfAndAdmin(User $user, User $u)
+    {
+        return $user->role === UserRole::Admin || $user->id === $u->id;
+    }
+    public function onlyAdmin(User $user)
+    {
+        return $user->role === UserRole::Admin;
+    }
 }

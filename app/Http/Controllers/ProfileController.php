@@ -24,7 +24,7 @@ class ProfileController extends Controller
         $validator = Validator::make($request->all(), [
             'nickname' => 'required|string',
             'gender' => 'required|in:male,female',
-            'birthday' => 'required|date'
+            'birthday' => 'required|date',
         ]);
 
         if ($validator->fails()) {
@@ -115,12 +115,13 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function updateAvatar(Request $request){
+    public function updateAvatar(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'image' => 'required|image|mimes:png,jpg,jpeg|max:2048'
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json([
                 'success' => false,
                 'message' => 'Create profile fail',
@@ -132,7 +133,7 @@ class ProfileController extends Controller
         $profile = Profile::query()->where('user_id', '=', $userId);
 
         $image = $request->file('image');
-        $filename = time().rand(100000, 999999).'.'.$image->getClientOriginalExtension();
+        $filename = time() . rand(100000, 999999) . '.' . $image->getClientOriginalExtension();
         $image->move('uploads/', $filename);
 
         $profile->update(['avatar_url' => $filename]);

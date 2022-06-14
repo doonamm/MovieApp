@@ -10,11 +10,13 @@ class UserPolicy
 {
     use HandlesAuthorization;
 
-    public function onlyAdmin(User $user){
+    public function onlyAdmin(User $user)
+    {
         return $user->role === UserRole::Admin;
     }
 
-    public function onlySelfAndAdmin(User $user, User $u){
-        return $user->role===UserRole::Admin || $user->id === $u->id;
+    public function onlySelfAndAdmin(User $user, User $u)
+    {
+        return $user->role === UserRole::Admin || $user->id === $u->id;
     }
 }

@@ -5,51 +5,56 @@ namespace App\Http\Controllers;
 use App\Models\Cast;
 use App\Models\Movie;
 use Illuminate\Support\Facades\Validator;
+use App\Models\User;
 
 use Illuminate\Http\Request;
 
 class CastController extends Controller
 {
-    public function create(Request $request, Movie $movie)
-    {
-        $validator = Validator::make($request->all(), [
-            'character' => "required|string",
-            'movie_id' => 'required|string',
-            'actor_id' => 'required|string',
-        ]);
+    // public function create(Request $request, Movie $movie)
+    // {
+    //     $this->authorize('onlyAdmin', Cast::class);
 
-        if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Create Cast Failed',
-                'error' => $validator->errors()->toArray(),
-            ]);
-        }
+    //     $validator = Validator::make($request->all(), [
+    //         'character' => "required|string",
+    //         'movie_id' => 'required|string',
+    //         'actor_id' => 'required|string',
+    //     ]);
 
-        $cast = Cast::create($request->validated());
+    //     if ($validator->fails()) {
+    //         return response()->json([
+    //             'success' => false,
+    //             'message' => 'Create Cast Failed',
+    //             'error' => $validator->errors()->toArray(),
+    //         ]);
+    //     }
 
-        return response()->json([
-            'success' => true,
-            'data' => $cast,
-        ]);
-    }
+    //     $cast = Cast::create($request->validated());
 
-    public function destroy(Request $request, Cast $cast)
-    {
-        $cast->delete();
+    //     return response()->json([
+    //         'success' => true,
+    //         'data' => $cast,
+    //     ]);
+    // }
 
-        return response()->json([
-            'success' => true,
-        ]);
-    }
+    // public function destroy(Request $request, Cast $cast)
+    // {
+    //     $this->authorize('onlyAdmin', $cast);
 
-    public function show(Request $request, Cast $cast)
-    {
-        return response()->json([
-            'data' => $cast,
-            'success' => true,
-        ]);
-    }
+    //     $cast->delete();
+
+    //     return response()->json([
+    //         'success' => true,
+    //     ]);
+    // }
+
+    // public function show(Request $request, Cast $cast)
+    // {
+    //     return response()->json([
+    //         'data' => $cast,
+    //         'success' => true,
+    //     ]);
+    // }
 
     public function showAll(Request $request, Movie $movie)
     {

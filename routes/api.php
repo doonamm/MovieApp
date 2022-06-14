@@ -8,6 +8,7 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Models\Actor;
 use App\Models\Cast;
 use App\Models\Movie_Genre;
 use GuzzleHttp\Middleware;
@@ -25,6 +26,14 @@ Route::group([
 Route::group(['middleware' => 'auth.jwt'], function () {
     Route::post('/avatar', [ProfileController::class, 'updateAvatar']);
 
+    //actors
+    Route::group(['prefix' => 'actors'], function () {
+        Route::post('/', [ActorController::class, 'create']);
+        Route::put('/{actor}', [ActorController::class, 'update']);
+        Route::delete('/{actor}', [ActorController::class, 'destroy']);
+    });
+
+
     //user
     Route::group(['prefix' => 'users'], function () {
         Route::get('/', [UserController::class, 'getAllUser']);
@@ -36,7 +45,6 @@ Route::group(['middleware' => 'auth.jwt'], function () {
 
 
             Route::get('/profile', [ProfileController::class, 'show']);
-            Route::get('/profile/public', [ProfileController::class, 'showPublic']);
             Route::post('/profile', [ProfileController::class, 'create']);
             Route::put('/profile', [ProfileController::class, 'update']);
         });
@@ -48,31 +56,19 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     //genres
     Route::get('/genres', [GenreController::class, 'showAll']);
 
-    //actors
-    Route::group(['prefix' => 'actors'], function () {
-        Route::get('/', [ActorController::class, 'showAll']);
-        Route::post('/', [ActorController::class, 'create']);
-        Route::get('/{actor}', [ActorController::class, 'show']);
-        Route::put('/{actor}', [ActorController::class, 'update']);
-        Route::delete('/{actor}', [ActorController::class, 'destroy']);
-    });
-
     //movie
     Route::group(['prefix' => 'movies'], function () {
         Route::get('/', [MovieController::class, 'showAll']);
         Route::post('/', [MovieController::class, 'create']);
 
         Route::group(['prefix' => '/{movie}'], function () {
-            Route::get('/', [MovieController::class, 'show']);
+
             Route::put('/', [MovieController::class, 'update']);
             Route::delete('/', [MovieController::class, 'destroy']);
 
-            Route::get('/casts', [CastController::class, 'showAll']);
             Route::put('/genres', [Movie_GenreController::class, 'showAll']);
 
-            //comments
             Route::group(['prefix' => 'comments'], function () {
-                Route::get('/', [CommentController::class, 'showAll']);
                 Route::post('/', [CommentController::class, 'create']);
                 Route::delete('/{comment}', [CommentController::class, 'destroy']);
 
@@ -83,3 +79,19 @@ Route::group(['middleware' => 'auth.jwt'], function () {
         });
     });
 });
+
+// Khách vãng lai
+
+// actor
+Route::get("/actors", [ActorController::class, 'showAll']);
+Route::get('/actors/{actor}', [ActorController::class, 'show']);
+
+//cast
+Route::get("/movies/{movie}/casts", [CastController::class, 'showAll']);
+
+// comments
+Route::get("/movies/{movie}/comments", [CommentController::class, 'showAll']);
+
+Route::get('/users/{user}/profile/public', [ProfileController::class, 'showPublic']);
+
+Route::get('/movies/{movie}', [MovieController::class, 'show']);
