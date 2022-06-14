@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\UserRole;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -12,6 +13,40 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class UserController extends Controller
 {
+
+    public function resetPassword(Request $request, User $user)
+    {
+        $validator = Validator::make($request->all(), [
+            'password' => 'required|string',
+            'newpassword' => 'required|string',
+            'confirm_password' => 'required|same:newpassword',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Reset Password fail',
+                'error' => $validator->errors()->toArray()
+            ]);
+        }
+
+        $success = User::query()->where('id', '=', $user->id)->update([
+            'password' => Hash::make($request->input('newpassword'))
+        ]);
+
+        if (!$success) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Can not reset password'
+            ]);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'reset password success'
+        ]);
+    }
+
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -66,10 +101,14 @@ class UserController extends Controller
                 ]);
             }
 
+            $userId = Auth::guard('api')->user()->id;
+
             return response()->json([
                 'success' => true,
+                'user_id' => $userId,
                 'token' => $token
             ]);
+
         } catch (JWTException $e) {
             return response()->json([
                 'success' => false,

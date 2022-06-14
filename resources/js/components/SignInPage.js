@@ -6,9 +6,10 @@ import useInput from '../helper/useInput';
 import axios from 'axios';
 import { storeToken } from '../helper/token';
 import { login } from '../redux/action/loginAction';
+import { setId } from '../redux/action/userAction';
 import { connect } from 'react-redux';
 import logo from '../../img/logo1.png';
-import galaxy from '../../img/Galaxy.png';
+
 function SignInPage(props) {
 
     const navigate = useNavigate()
@@ -25,7 +26,9 @@ function SignInPage(props) {
         })
             .then(function ({ data: res }) {
                 if (res.success) {
+                    swal('Success', 'Sign in successfully!', 'success');
                     storeToken(res.token);
+                    props.setId(res.user_id);
                     props.login();
                     navigate('/home');
                 }
@@ -74,6 +77,7 @@ function SignInPage(props) {
 }
 
 const mapDispatchToProps = {
-    login
+    login,
+    setId
 }
 export default connect(null, mapDispatchToProps)(SignInPage);

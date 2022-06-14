@@ -3,16 +3,19 @@ import Avatar from "./Avatar";
 import FormItem from "./formItem";
 import validator from "validator";
 import useInput from "../helper/useInput";
+import '../../style/SignUpProfile.scss';
 
-function SignUpProfile() {
+function SignUpProfile(props) {
 
+
+    const { id, className } = props;
 
     const nickname = useInput("", false);
 
     function saveProfile(e) {
         e.preventDefault();
 
-        axios.post("http://localhost:8000/api/users/1/profile", {
+        axios.post("http://localhost:8000/api/users/" + { id } + "/profile", {
             "nickname": "",
             "gender": "male",
             "birthday": "2022-5-23",
@@ -26,7 +29,7 @@ function SignUpProfile() {
 
     return (
         <>
-            <form action="#" onSubmit={saveProfile}>
+            <form action="#" onSubmit={saveProfile} className={className}>
                 <Avatar />
 
                 <FormItem
