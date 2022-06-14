@@ -17,4 +17,8 @@ use Illuminate\Support\Facades\Route;
 //     return view('app');
 // });
 
-Route::view('/{path?}', 'app');
+// Route::view('/{path?}', 'app');
+
+Route::get('{path?}', function () {
+    return view('app');
+})->where('path', '^((?!api).)*$'); 

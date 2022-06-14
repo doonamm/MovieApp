@@ -16,8 +16,13 @@ class CreateActorsTable extends Migration
         Schema::create('actors', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->double('popularity');
+            $table->date('birthday');
+            $table->enum('gender', ['male', 'female']);
+            $table->string('place_of_birth');
             $table->string('profile_path');
+            $table->mediumText('biography');
+            $table->string('imdb_id');
+            $table->double('popularity');
         });
     }
 

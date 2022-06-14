@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\Status;
 use App\Enums\UserRole;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -13,13 +12,14 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class UserController extends Controller
 {
-    public function register(Request $request){
+    public function register(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'username' => 'required|string|unique:users',
             'password' => 'required|string|confirmed'
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json([
                 'success' => false,
                 'message' => 'Register fail',
@@ -27,7 +27,7 @@ class UserController extends Controller
             ]);
         }
 
-        User::query()->create([
+        $user = User::query()->create([
             'username' => $request->input('username'),
             'password' => Hash::make($request->input('password')),
             'role' => UserRole::Member
@@ -35,17 +35,19 @@ class UserController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Register successfully'
+            'message' => 'Register successfully',
+            'data' => $user,
         ]);
     }
 
-    public function login(Request $request){
+    public function login(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'username' => 'required|string',
             'password' => 'required|string'
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json([
                 'success' => false,
                 'message' => 'Login fail',
@@ -54,10 +56,10 @@ class UserController extends Controller
         }
 
         $credentials = $request->only('username', 'password');
-        try{
+        try {
             $token = JWTAuth::attempt($credentials);
-            
-            if(!$token){
+
+            if (!$token) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Wrong username or password'
@@ -68,8 +70,7 @@ class UserController extends Controller
                 'success' => true,
                 'token' => $token
             ]);
-        }
-        catch(JWTException $e){
+        } catch (JWTException $e) {
             return response()->json([
                 'success' => false,
                 'error' => $e
@@ -77,7 +78,8 @@ class UserController extends Controller
         }
     }
 
-    public function logout(Request $request){
+    public function logout(Request $request)
+    {
         JWTAuth::invalidate($request->bearerToken());
 
         return response()->json([
@@ -86,7 +88,8 @@ class UserController extends Controller
         ]);
     }
 
-    public function getAllUser(Request $request){
+    public function getAllUser(Request $request)
+    {
         $this->authorize('onlyAdmin', User::class);
 
         $list = User::all();
@@ -97,7 +100,8 @@ class UserController extends Controller
         ]);
     }
 
-    public function getUserInfo(Request $request, User $user){
+    public function getUserInfo(Request $request, User $user)
+    {
         $this->authorize('onlyAdmin', User::class);
 
         return response()->json([
@@ -106,7 +110,8 @@ class UserController extends Controller
         ]);
     }
 
-    public function destroy(Request $request, User $user){
+    public function destroy(Request $request, User $user)
+    {
         $this->authorize('onlyAdmin', User::class);
 
         $user->delete();

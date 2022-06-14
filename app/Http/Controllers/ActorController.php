@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Actor;
+use Illuminate\Support\Facades\DB;
 
 class ActorController extends Controller
 {
@@ -75,9 +76,49 @@ class ActorController extends Controller
 
     public function showAll(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'sort_by' => ['regex:/(id|popularity|name)\.(asc|desc)/'],
+            'limit' => 'integer|gte:1|lte:100',
+            'next' => 'integer|gte:1',
+            'search' => 'string'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'error' => $validator->errors()->toArray()
+            ]);
+        }
+
+        $list = DB::table('actors');
+
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $list->where('name', 'LIKE', "%$search%");
+        }
+
+        if ($request->has('sort_by')) {
+            $sortBy = explode('.', $request->input('sort_by'));
+            $list->orderBy($sortBy[0], $sortBy[1]);
+        }
+
+        $length = $list->count();
+
+        if ($request->has('next')) {
+            $next = $request->input('next');
+            $list = $list->skip($next);
+        }
+
+        $limit = $request->input('limit', 20);
+        $list->limit($limit);
+
+        $list = $list->select('id', 'name', 'profile_path')->distinct()->get();
+
         return response()->json([
-            'data' => Actor::all(),
             'success' => true,
+            'data' => $list,
+            'totalLength' => $length
         ]);
     }
 }
+
