@@ -1,159 +1,126 @@
 import '../../style/timeline.css';
 import { useEffect, useRef } from 'react';
+import TimelineHeader from './TimelineHeader';
+import TimelineSection from './TimelineSection';
+import {FiDownloadCloud} from 'react-icons/fi';
+import {MdMovieFilter} from 'react-icons/md'
 import {
-    FaFacebook, 
-    FaGlobeAsia, 
-    FaGoogle, 
-    FaHeart, 
-    FaLinkedin, 
-    FaMicrosoft, 
-    FaUmbrellaBeach,
-    FaArrowAltCircleUp,
-    FaAngular,
-    FaInstagramSquare,
-    FaTwitter,
-    FaYoutube,
-    FaRegArrowAltCircleUp
+    FaGlobeAsia,
+    FaHeart,
 } from 'react-icons/fa';
-
+import {TbMoodKid} from 'react-icons/tb';
+import TimelineService from './TimelineService';
 const milestones = [
     {
-        icon: <FaGoogle/>,
-        title: 'Google',
-        timeDetail: 'Written yesterday at 06:27 pm',
-        content: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae delectus, sed ratione doloremque reprehenderit saepe hic nam sint, architecto quibusdam commodi nemo voluptate velit sequi error, asperiores autem obcaecati. Commodi."
+        icon: <MdMovieFilter />,
+        title: 'Enjoy on your TV.',
+        content: "Watch on Smart TVs, Playstation, Xbox, Chromecast, Apple TV, Blu-ray players, and more."
     },
     {
-        icon: <FaFacebook/>,
-        title: 'Facebook',
-        timeDetail: 'Written yesterday at 06:27 pm',
-        content: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae delectus, sed ratione doloremque reprehenderit saepe hic nam sint, architecto quibusdam commodi nemo voluptate velit sequi error, asperiores autem obcaecati. Commodi."
+        icon: <FiDownloadCloud />,
+        title: 'Download your shows to watch offline.',
+        content: "Save your favorites easily and always have something to watch."
+    },
+    
+    {
+        icon: <FaGlobeAsia />,
+        title: 'Watch everywhere.',
+        content: "Stream unlimited movies and TV shows on your phone, tablet, laptop, and TV."
     },
     {
-        icon: <FaLinkedin/>,
-        title: 'Linkedin',
-        timeDetail: 'Written yesterday at 06:27 pm',
-        content: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae delectus, sed ratione doloremque reprehenderit saepe hic nam sint, architecto quibusdam commodi nemo voluptate velit sequi error, asperiores autem obcaecati. Commodi."
+        icon: <TbMoodKid />,
+        title: 'Create profiles for kids.',
+        content: "Send kids on adventures with their favorite characters in a space made just for them—free with your membership."
     },
-    {
-        icon: <FaMicrosoft/>,
-        title: 'Microsoft',
-        timeDetail: 'Written yesterday at 06:27 pm',
-        content: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae delectus, sed ratione doloremque reprehenderit saepe hic nam sint, architecto quibusdam commodi nemo voluptate velit sequi error, asperiores autem obcaecati. Commodi."
-    },
-    {
-        icon: <FaGlobeAsia/>,
-        title: 'GlobeAsia',
-        timeDetail: 'Written yesterday at 06:27 pm',
-        content: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae delectus, sed ratione doloremque reprehenderit saepe hic nam sint, architecto quibusdam commodi nemo voluptate velit sequi error, asperiores autem obcaecati. Commodi."
-    },
-    {
-        icon: <FaHeart/>,
-        title: 'Love',
-        timeDetail: 'Written yesterday at 06:27 pm',
-        content: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae delectus, sed ratione doloremque reprehenderit saepe hic nam sint, architecto quibusdam commodi nemo voluptate velit sequi error, asperiores autem obcaecati. Commodi."
-    },
-    {
-        icon: <FaAngular/>,
-        title: 'Angular',
-        timeDetail: 'Written yesterday at 06:27 pm',
-        content: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae delectus, sed ratione doloremque reprehenderit saepe hic nam sint, architecto quibusdam commodi nemo voluptate velit sequi error, asperiores autem obcaecati. Commodi."
-    },
-    {
-        icon: <FaUmbrellaBeach/>,
-        title: 'Umbrella',
-        timeDetail: 'Written yesterday at 06:27 pm',
-        content: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae delectus, sed ratione doloremque reprehenderit saepe hic nam sint, architecto quibusdam commodi nemo voluptate velit sequi error, asperiores autem obcaecati. Commodi."
-    }
+    
 ];
-
-function HomePage(props){
-
+const service = [
+   
+    {
+        id: 1,
+        time: "Gói tháng",
+        content: "Watch movies for 30 days in Full HD 4K",
+        price: "45000"
+    },
+    
+    {
+        id: 2,
+        time: "Gói 3 tháng",
+        content: "Watch movies for 90 days in Full HD 4K",
+        price: "70000"
+    },
+    
+    {
+        id: 3,
+        time: "Gói 6 tháng",
+        content: "Watch movies for 180 days in Full HD 4K",
+        price: "95000"
+    },
+    {
+        id: 4,
+        time: "Gói 1 năm",
+        content: "Watch movies for 360 days in Full HD 4K",
+        price: "130000"
+    },
+];
+function HomePage(props) {
+    const content = `One of the leading reputable websites in Vietnam with an extremely rich and diverse movie store. Watch movies without ads, high quality, user-friendly interface <3`;
     const milestoneRefs = useRef([]);
 
-    useEffect(()=>{
+    useEffect(() => {
         document.addEventListener('scroll', scrolling);
         document.addEventListener('resize', scrolling);
 
-        return ()=>{
+        return () => {
             document.removeEventListener('scroll', scrolling);
             document.removeEventListener('resize', scrolling);
         };
     });
 
-    function scrolling(){
-        const {scrollTop, offsetHeight} = document.documentElement;
+    function scrolling() {
+        const { scrollTop, offsetHeight } = document.documentElement;
         milestoneRefs.current.forEach(el => {
-            if(el.offsetTop <= scrollTop + offsetHeight*66/100){
+            if (el.offsetTop <= scrollTop + offsetHeight * 66 / 100) {
                 el.classList.add('show');
-                if(el.offsetTop >= scrollTop + offsetHeight*20/100
-                    && el.offsetTop <= scrollTop + offsetHeight*60/100)
+                if (el.offsetTop >= scrollTop + offsetHeight * 20 / 100
+                    && el.offsetTop <= scrollTop + offsetHeight * 60 / 100)
                     el.classList.add('main');
-                else    
+                else
                     el.classList.remove('main');
             }
-            else{
+            else {
                 el.classList.remove('show');
             }
         })
     }
 
-    function scrollTo(e){
-        const posY = document.documentElement.scrollTop + e.currentTarget.getBoundingClientRect().top;
-        window.scrollTo({top: posY, behavior: 'smooth'});
-    }
-
-    function scrollToTop(){
-        window.scrollTo({top: 0, behavior: 'smooth'});
-    }
-
-    return(
+    
+    
+    return (
         <div className='page timelime'>
             <div className="stem"></div>
-            <header className="header">
-                <h1>My timeline</h1>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis neque asperiores, perferendis cumque,
-                    assumenda iusto quia quisquam dolorem laborum libero omnis nesciunt reprehenderit veniam doloribus enim?
-                    Eaque laboriosam facilis rerum?
-                    Quidem, perferendis eveniet, ullam a dicta iure porro incidunt, nihil voluptatem maxime vero nisi quia
-                    doloribus illum maiores tempore dolorum provident! Pariatur at modi, tenetur laudantium dolorum quidem
-                    tempore accusamus.</p>
-                <p id="fact">Fact: I luv you pak pak</p>
-                <div className="stem-padding-top"></div>
-            </header>
-            <section className="timeline">
-                {
-                    milestones.map((milestone, i) => {
-                        return(
-                            <article ref={ref => milestoneRefs.current[i] = ref} className="milestone">
-                                <div className="mark">
-                                    <p className="icon"><i onClick={scrollTo}>{milestone.icon}</i></p>
-                                    <div className="stem-padding"></div>
-                                </div>
-                                <div className="content">
-                                    <p className="details">{milestone.timeDetail}</p>
-                                    <h2 className="title">{milestone.title}</h2>
-                                    <p>{milestone.content}</p>
-                                </div>
-                            </article>
-                        )
-                    })
-                }
-                <article ref={ref => milestoneRefs.current[milestoneRefs.current.length] = ref} className="milestone end">
-                    <div className="mark">
-                        <p onClick={scrollToTop} className="icon"><i><FaRegArrowAltCircleUp/></i></p>
-                    </div>
-                </article>
-            </section>
+            
+            <TimelineHeader 
+                title="Chill Together"
+                content = {content}
+                service = {service}
+            />
+            
+            <TimelineSection 
+                list = {milestones}
+                milestoneRefs = {milestoneRefs}
+
+            />
+            
             <footer>
-                <p>Made by Nam dep trai vip pro</p>
-                <ul class="contacts">
+                <p>Made by Kiến Nam, Quang Nhật, Anh Thư</p>
+                {/* <ul className="contacts">
                     <caption>Contacts:</caption>
-                    <li><a href="/"><FaFacebook/></a></li>
-                    <li><a href="/"><FaInstagramSquare/></a></li>
-                    <li><a href="/"><FaYoutube/></a></li>
-                    <li><a href="/"><FaTwitter/></a></li>
-                </ul>
+                    <li><a href="/"><FaFacebook /></a></li>
+                    <li><a href="/"><FaInstagramSquare /></a></li>
+                    <li><a href="/"><FaYoutube /></a></li>
+                    <li><a href="/"><FaTwitter /></a></li>
+                </ul> */}
             </footer>
         </div>
     )

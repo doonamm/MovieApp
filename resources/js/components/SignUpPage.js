@@ -7,12 +7,21 @@ import FormItem from "./formItem";
 import axios from "axios";
 import useInput from '../helper/useInput';
 import '../../style/SignUpPage.scss';
-import logo from '../../img/logo1.png';
+
+import logo from '../../img/logo.png';
+import { useState } from 'react';
+import SignUpProfile from './SignUpProfile';
+
 function SignUpPage() {
 
+    const navigate = useNavigate();
     const username = useInput("", false);
     const password = useInput("", false);
     const repassword = useInput("", false);
+
+    const [showClass, setShowClass] = useState("signUpProfile");
+
+    const [id, setID] = useState(0);
 
     function Register(e) {
         e.preventDefault();
@@ -42,8 +51,17 @@ function SignUpPage() {
             'password': password.value,
             'password_confirmation': repassword.value,
         })
-            .then(function (response) {
-                console.log(response);
+            .then(function (data) {
+                console.log(data.data);
+                if (data.data.success == true) {
+                    swal('Success', 'Sign up account successfully!', 'success');
+                    navigate("/signupprofile");
+                    setID(data.data.id);
+                    setShowClass("showSignUpProfile");
+                }
+                else {
+                    alert(data.data.error.username[0]);
+                }
             })
             .catch(function (error) {
                 console.log(error);
@@ -52,10 +70,10 @@ function SignUpPage() {
 
     return (
         <div className="page signup">
-            
+
             <div className="container">
                 <div className='img-wrapper'>
-                    <img src={logo}></img>
+                    <Link to="/home"><img src={logo}></img></Link>
                 </div>
                 <h2 className="margin">
                     SIGN UP
@@ -94,9 +112,14 @@ function SignUpPage() {
                         />
                         <input className='signup_btn' type="submit" value="SIGN UP" />
                         <p className='already_a_user'> Already a user ? <Link to='/signin'>SIGN IN</Link></p>
-
                     </form>
                 </div>
+
+
+                <SignUpProfile
+                    id={id}
+                    className={showClass}
+                />
             </div>
         </div>
     );

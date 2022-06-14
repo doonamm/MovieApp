@@ -5,10 +5,11 @@ import FormItem from './formItem';
 import useInput from '../helper/useInput';
 import axios from 'axios';
 import { storeToken } from '../helper/token';
-import {login} from '../redux/action/loginAction';
+import { login } from '../redux/action/loginAction';
+import { setId } from '../redux/action/userAction';
 import { connect } from 'react-redux';
 import logo from '../../img/logo1.png';
-import galaxy from '../../img/Galaxy.png';
+
 function SignInPage(props) {
 
     const navigate = useNavigate()
@@ -23,28 +24,30 @@ function SignInPage(props) {
             'username': username.value,
             'password': password.value,
         })
-        .then(function ({ data: res }) {
-            if(res.success){
-                storeToken(res.token);
-                props.login();
-                navigate('/');
-            }
-            else{
-                username.setError("Wrong username or password");
-                password.setValue("");
-            }
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+            .then(function ({ data: res }) {
+                if (res.success) {
+                    swal('Success', 'Sign in successfully!', 'success');
+                    storeToken(res.token);
+                    props.setId(res.user_id);
+                    props.login();
+                    navigate('/home');
+                }
+                else {
+                    username.setError("Wrong username or password");
+                    password.setValue("");
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
     return (
         <div className='page signin'>
             <div className='container'>
-                
+
                 <div className='img-wrapper'>
-                    <img src={logo}></img>
+                    <Link to="/home"><img src={logo}></img></Link>
                 </div>
                 <h2 className='margin'>SIGN IN</h2>
                 <div className='social_button margin'>
@@ -74,6 +77,7 @@ function SignInPage(props) {
 }
 
 const mapDispatchToProps = {
-    login
+    login,
+    setId
 }
 export default connect(null, mapDispatchToProps)(SignInPage);

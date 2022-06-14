@@ -10,10 +10,11 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class ProfileController extends Controller
 {
-    public function create(Request $request){
+    public function create(Request $request)
+    {
         $userId = JWTAuth::toUser($request->bearerToken())->id;
 
-        if(Profile::query()->where('user_id', '=', $userId)->count() > 0){
+        if (Profile::query()->where('user_id', '=', $userId)->count() > 0) {
             return response()->json([
                 'success' => false,
                 'message' => 'User is already have profile'
@@ -23,11 +24,10 @@ class ProfileController extends Controller
         $validator = Validator::make($request->all(), [
             'nickname' => 'required|string',
             'gender' => 'required|in:male,female',
-            'birthday' => 'required|date',
-            'avatar_url' => 'string|url'
+            'birthday' => 'required|date'
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json([
                 'success' => false,
                 'message' => 'Create profile fail',
@@ -35,14 +35,11 @@ class ProfileController extends Controller
             ]);
         }
 
-        
-
         $profile = Profile::query()->create([
             'user_id' => $userId,
             'nickname' => $request->input('nickname'),
             'gender' => $request->input('gender'),
-            'birthday' => $request->input('birthday'),
-            'avatar_url' => $request->input('avatar_url'),
+            'birthday' => $request->input('birthday')
         ]);
 
         return response()->json([
@@ -51,7 +48,8 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function showAll(Request $request){
+    public function showAll(Request $request)
+    {
         $this->authorize('onlyAdmin', Profile::class);
 
         $list = Profile::all();
@@ -62,7 +60,8 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function show(Request $request, User $user){
+    public function show(Request $request, User $user)
+    {
         $this->authorize('onlySelfAndAdmin', $user);
 
         $profile = Profile::query()->firstWhere('user_id', '=', $user->id);
@@ -73,7 +72,8 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function showPublic(Request $request, User $user){
+    public function showPublic(Request $request, User $user)
+    {
         $profile = Profile::where('user_id', '=', $user->id)->get(['nickname', 'gender', 'avatar_url']);
 
         return response()->json([
@@ -82,14 +82,42 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function update(Request $request, User $user){
+    public function update(Request $request, User $user)
+    {
         $this->authorize('onlySelfAndAdmin', $user);
 
         $validator = Validator::make($request->all(), [
             'nickname' => 'string',
             'gender' => 'in:male,female',
             'birthday' => 'date',
-            'avatar_url' => 'url'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Create profile fail',
+                'error' => $validator->errors()->toArray()
+            ]);
+        }
+
+        $success = Profile::query()->where('user_id', '=', $user->id)->update($request->all());
+
+        if (!$success) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Can not update profile'
+            ]);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Update profile success'
+        ]);
+    }
+
+    public function updateAvatar(Request $request){
+        $validator = Validator::make($request->all(), [
+            'image' => 'required|image|mimes:png,jpg,jpeg|max:2048'
         ]);
 
         if($validator->fails()){
@@ -100,18 +128,19 @@ class ProfileController extends Controller
             ]);
         }
 
-        $success = Profile::query()->where('user_id', '=', $user->id)->update($request->all());
+        $userId = JWTAuth::toUser($request->bearerToken())->id;
+        $profile = Profile::query()->where('user_id', '=', $userId);
 
-        if(!$success){
-            return response()->json([
-                'success' => false,
-                'message' => 'Can not update profile'
-            ]);
-        }
+        $image = $request->file('image');
+        $filename = time().rand(100000, 999999).'.'.$image->getClientOriginalExtension();
+        $image->move('uploads/', $filename);
+
+        $profile->update(['avatar_url' => $filename]);
 
         return response()->json([
             'success' => true,
-            'message' => 'Update profile success'
+            'message' => 'Update profile success',
+            'data' => $filename
         ]);
     }
 }
