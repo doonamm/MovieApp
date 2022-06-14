@@ -9,12 +9,13 @@ import SignUpPage from './SignUpPage';
 import SingleMoviePage from './SingleMoviePage';
 import LandingPage from './LandingPage';
 import MoviesPage from './MoviesPage';
-import {login} from '../redux/action/loginAction';
+import { login } from '../redux/action/loginAction';
 import ActorsPage from './ActorsPage';
-
+import NewUserPage from './NewUserPage';
+import SignUpProfile from './SignUpProfile';
 function App(props) {
-    useEffect(()=>{
-        if(localStorage.getItem('access')){
+    useEffect(() => {
+        if (localStorage.getItem('access')) {
             props.login();
         }
     }, []);
@@ -24,12 +25,14 @@ function App(props) {
             <Nav />
             <Routes>
                 {/* --------- Add Page here ----------- */}
-                <Route path='/' element={< LandingPage />} ></Route>
+                <Route path="/" element={<NewUserPage />} />
+                <Route path='/home' element={< LandingPage />} ></Route>
                 <Route path='/signin' element={<SignInPage />}></Route>
                 <Route path='/signup' element={<SignUpPage />}></Route>
-                <Route path='/movies' element={<MoviesPage/>}></Route>
+                <Route path='/signupprofile' element={<SignUpProfile />}></Route>
+                <Route path='/movies' element={<MoviesPage />}></Route>
                 <Route path='/movies/:id' element={<SingleMoviePage />}></Route>
-                <Route path='/actors' element={<ActorsPage/>}></Route>
+                <Route path='/actors' element={<ActorsPage />}></Route>
             </Routes>
 
         </BrowserRouter >

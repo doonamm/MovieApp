@@ -6,11 +6,18 @@ import axios from "axios";
 import useInput from '../helper/useInput';
 import '../../style/SignUpPage.scss';
 import logo from '../../img/logo.png';
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
+
 function SignUpPage() {
 
+    const navigate = useNavigate();
     const username = useInput("", false);
     const password = useInput("", false);
     const repassword = useInput("", false);
+
+    const { id, setID } = useState(0);
 
     function Register(e) {
         e.preventDefault();
@@ -40,8 +47,15 @@ function SignUpPage() {
             'password': password.value,
             'password_confirmation': repassword.value,
         })
-            .then(function (response) {
-                console.log(response);
+            .then(function (data) {
+                console.log(data.data);
+                if (data.data.success == true) {
+                    navigate("/signupprofile");
+                    setID(data.data.id);
+                }
+                else {
+                    alert(data.data.error.username[0]);
+                }
             })
             .catch(function (error) {
                 console.log(error);
@@ -50,10 +64,10 @@ function SignUpPage() {
 
     return (
         <div className="page signup">
-            
+
             <div className="container">
                 <div className='img-wrapper'>
-                    <img src={logo}></img>
+                    <Link to="/home"><img src={logo}></img></Link>
                 </div>
                 <h2 className="margin">
                     SIGN UP
@@ -89,8 +103,7 @@ function SignUpPage() {
                             className="input_form"
                             placeholder="Confirm Password"
                         />
-
-                        <input class='signup_btn' type="submit" value="SIGN UP" />
+                        <input className='signup_btn' type="submit" value="SIGN UP" />
                     </form>
                 </div>
             </div>
