@@ -63,15 +63,15 @@ class MovieController extends Controller
     public function update(Request $request, Movie $movie)
     {
         $validator = Validator::make($request->all(), [
-            "adult" => 'required|integer',
-            "title" => 'required|string',
-            "tagline" => 'required|string',
-            "overview" => 'required|string',
-            'status' => 'required|string',
-            'poster_path' => 'required|string',
+            "adult" => 'integer',
+            "title" => 'string',
+            "tagline" => 'string',
+            "overview" => 'string',
+            'status' => 'string',
+            'poster_path' => 'string',
             'backdrop_path' => 'string',
-            'language' => 'required|string',
-            'runtime' => 'required|integer|gte:1',
+            'language' => 'string',
+            'runtime' => 'integer|gte:1',
             'popularity' => 'numeric',
             'vote_average' => 'numeric',
             'vote_count' => 'integer',
@@ -211,7 +211,6 @@ class MovieController extends Controller
 
     public function destroy(Request $request, Movie $movie)
     {
-
         $movie->delete();
 
         return response()->json([
