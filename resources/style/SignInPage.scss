@@ -1,8 +1,14 @@
 
 
 .signin{  
-    background-color: var(--background-color);
+    // background-color: var(--background-color);
+    background: url('https://w.wallha.com/ws/13/q3pSAond.png');
+    background-repeat: no-repeat;
+    background-position: left center;
     padding: 30px 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
     .margin, .a{
         margin-bottom: 10px;
     }

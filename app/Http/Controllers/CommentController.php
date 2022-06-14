@@ -36,8 +36,6 @@ class CommentController extends Controller
         $movie->comment_count += 1;
         $movie->save();
 
-        
-
         $profile = DB::table('profiles')->where('user_id', $comment->user_id)->get()[0];
 
         return response()->json([
