@@ -94,4 +94,4 @@ Route::get("/movies/{movie}/comments", [CommentController::class, 'showAll']);
 
 Route::get('/users/{user}/profile/public', [ProfileController::class, 'showPublic']);
 
-Route::get('/movies/{movies}/', [MovieController::class, 'show']);
+Route::get('/movies/{movie}', [MovieController::class, 'show']);
