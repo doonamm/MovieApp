@@ -9,9 +9,8 @@ import useInput from '../helper/useInput';
 import '../../style/SignUpPage.scss';
 
 import logo from '../../img/logo.png';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import SignUpProfile from './SignUpProfile';
 
 function SignUpPage() {
 
@@ -20,7 +19,9 @@ function SignUpPage() {
     const password = useInput("", false);
     const repassword = useInput("", false);
 
-    const { id, setID } = useState(0);
+    const [showClass, setShowClass] = useState("signUpProfile");
+
+    const [id, setID] = useState(0);
 
     function Register(e) {
         e.preventDefault();
@@ -53,8 +54,8 @@ function SignUpPage() {
             .then(function (data) {
                 console.log(data.data);
                 if (data.data.success == true) {
-                    navigate("/signupprofile");
                     setID(data.data.id);
+                    setShowClass("showSignUpProfile");
                 }
                 else {
                     alert(data.data.error.username[0]);
@@ -111,6 +112,12 @@ function SignUpPage() {
                         <p className='already_a_user'> Already a user ? <Link to='/signin'>SIGN IN</Link></p>
                     </form>
                 </div>
+
+
+                <SignUpProfile
+                    id={id}
+                    className={showClass}
+                />
             </div>
         </div>
     );
