@@ -24,7 +24,7 @@ instance.interceptors.request.use(config => {
 
 instance.interceptors.response.use(async response => {
     const {data: resData} = response;
-    if(resData.success === false && resData.type === 'expired' && !getToken()){
+    if(resData.success === false && resData.type === 'expired'){
         swal("Token expired!", "Session timeout!", "warning");
         clearToken();
         store.dispatch(logout());

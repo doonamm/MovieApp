@@ -64,6 +64,10 @@
                             color: var(--yellow-color);
                             font-family: Nunito, sans-serif;
                         }
+                        .tagline{
+                            color: var(--text-color);
+                            font-size: 20px;
+                        }
                         .vote{
                             display: flex;
                             align-items: baseline;
@@ -86,27 +90,62 @@
                                 border: none;
                                 margin-bottom: 10px;
                             }
-                            .tagline{
-                                color: var(--text-color);
-                                font-size: 20px;
-                            }
-                            p{
-                                color: var(--white-color);
-                                margin-top: 10px;
+                           
+                        }
+                        .direction_button{
+                            display: flex;
+                            button{
                                 span{
-                                    text-transform: capitalize;
-                                    color: var(--yellow2-color);
+                                    margin-right: 5px;
+                                    font-size: 20px;
                                 }
+                                &.play{
+                                    width: 80px;
+                                    background-color: var(--play-button-color);
+                                    &:hover{
+                                        background-color: var(--play-button-color-hover);
+                                        cursor: pointer;
+                                        color: #fff;
+                                    }
+                                } 
+                                &.add{
+                                    width: 130px;
+                                    background-color: var(--add-button-color);
+                                    &:hover{
+                                        background-color: var(--add-button-color-hover);
+                                        cursor: pointer;
+                                        color: #fff;
+                                    }
+                                }
+                                display: flex;
+                                height: 40px;
+                                margin-right: 10px;
+                                font-size: 14px;
+                                border-radius: 4px;
+                                border-width: 1px;
+                                border-color: #333;
+                                color: #fff;
+                                justify-content: left;
+                                font-family: Nunito, sans-serif;
+                                box-shadow: 1px 1px rgba(0, 0, 0, .4), 0 0 1px rgba(0, 0, 0, .6);   
+                                text-align: left;
+                                padding-left: 5px;
+                                justify-content: center;
+                                line-height: 40px;
                             }
+                             
                         }
                     }
                 }
                 .description{
-                    font-size: 16px;
+                    font-size: 14px;
                     padding-right: 20px;
                     line-height: 23px;
                     font-family: Roboto,sans-serif;
                     color: var(--text-color);
+                    letter-spacing: 0.5px;
+                    text-align: justify;
+                    font-style: italic;
                     button{
                         margin-left: 10px;
                         background-color: transparent;
@@ -129,6 +168,8 @@
                         span{
                             margin-right: 5px;
                             font-size: 20px;
+                            position: relative;
+                            top: 4px;
                         }
                         &.play{
                             width: 80px;
@@ -177,6 +218,18 @@
                     color: var(--white-color);
                     font-size: 25px;
                 }
+                .tag{
+                    margin-top: 40px;
+                    font-size: 20px;
+                    p{
+                        color: var(--white-color);
+                        margin-top: 10px;
+                        span{
+                            text-transform: capitalize;
+                            color: var(--yellow2-color);
+                        }
+                    }
+                }
             }
         }
         .bottom_container{
@@ -218,23 +271,32 @@
                             .write_comment{
                                 display: flex;
                                 height: 35px;
-                                
+                                border-radius: 20px;
+                                overflow: hidden;
                                 textarea{
-                                    margin-right: 5px;
                                     width: 350px;
-                                    border-radius: 5px;
-                                    border-width: 2px;
                                     padding-top: 6px;
                                     padding-left: 10px;
                                     font-size: 16px;
+                                    resize: none;
+                                    outline: none;
+                                    // border-radius: 20px 0 0 20px;
+                                    border: 0;
+                                    padding: 8px 10px 6px;
+                                    &::placeholder{
+                                        font-family: inherit;
+
+                                    }
 
                                 }
                                 button{
-                                    border-radius: 4px;
+                                    // border-radius: 4px;
                                     background-color: var(--send-color);
                                     color: var(--white-color);
                                     border: none;
                                     width: 50px;
+                                    padding-top: 4px;
+                                    padding-right: 2px;
                                     &:hover{
                                         color: var(--white-color);
                                         background-color: var(--black-color);
@@ -254,7 +316,7 @@
                                     i{
                                         color: var(--reactbutton-color);
                                         font-style: normal;
-
+                                        margin-left: 2px;
                                         &:hover{
                                             color: var(--yellow-color);
                                             cursor: pointer;

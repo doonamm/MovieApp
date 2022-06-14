@@ -26,7 +26,7 @@ function CommentItem(props){
                 </div>
                 <div className='right_comment'>
                     <p className='name'>{d.nickname}</p>
-                    <p className='content'>{d.content}</p>
+                    <pre className='content'>{d.content}</pre>
                     <ul className='react'>
                         <li><span>{d.like_count + liked ? 1 : 0}</span><i onClick={toggleLike}>{liked ? 'unlike' : 'like'}</i></li>
                         <li>{deltaTime[1] || '0'} {deltaTime[0] || 'seconds'} ago</li>

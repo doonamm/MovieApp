@@ -13,12 +13,12 @@ function LandingPage() {
 
     function getListGenres() {
         instance.get("/genres")
-        .then(function (res) {
-            if(res.success){
-                setListGenres(res.data);
-            }
-        })
-        .catch(console.log);
+            .then(function (res) {
+                if (res.success) {
+                    setListGenres(res.data);
+                }
+            })
+            .catch(console.log);
     }
 
 

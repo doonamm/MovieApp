@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import stateToProps from '../helper/stateToProps';
 import { logout } from '../redux/action/loginAction';
-
+import logo from '../../img/logo2.png';
 function Nav(props) {
     const location = useLocation();
     const navigate = useNavigate();
@@ -35,7 +35,7 @@ function Nav(props) {
                 <div className='left'>
                     <div className="logo img-wrapper">
                         <Link to="/">
-                            <img src="https://previews.123rf.com/images/michaelrayback/michaelrayback1610/michaelrayback161000022/64360128-.jpg" />
+                            <img src={logo} />
                         </Link>
                     </div>
                     <ul className='nav-list'>
@@ -47,7 +47,7 @@ function Nav(props) {
                     {props.login.isLogged ? (
                         <div className="user-controllers">
                             <div onClick={toggleUserController} className="img-wrapper avatar">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/User_font_awesome.svg/2048px-User_font_awesome.svg.png" />
+                                <img src="https://img.freepik.com/free-vector/user-follower-icons-social-media-notification-icon-speech-bubbles-vector-illustration_56104-847.jpg?size=626&ext=jpg" />
                             </div>
                             <ul className={openUserController ? "controllers show" : "controllers"}>
                                 <li>Settings</li>
