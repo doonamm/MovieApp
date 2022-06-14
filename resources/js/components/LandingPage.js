@@ -1,10 +1,10 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import MovieAPIlist from "./MovieAPIlist";
 import { getToken } from "../helper/token";
+import '../../style/LandingPage.scss';
+import { instance } from "../helper/instance";
 
 function LandingPage() {
-
     const [listGenres, setListGenres] = useState([]);
 
     useEffect(() => {
@@ -12,23 +12,18 @@ function LandingPage() {
     }, [])
 
     function getListGenres() {
-        axios.get("http://localhost:8000/api/genres", {
-            headers: {
-                Authorization: getToken(),
-            },
+        instance.get("/genres")
+        .then(function (res) {
+            if(res.success){
+                setListGenres(res.data);
+            }
         })
-            .then(function ({ data }) {
-                console.log(data);
-                setListGenres(data.data);
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
+        .catch(console.log);
     }
 
 
     return (
-        <div>
+        <div className="landing_page wrap-center">
             {
                 listGenres.map(genre => <MovieAPIlist key={genre.id} title={genre.name} limit={10} genre={genre.name} />)
             }

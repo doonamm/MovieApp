@@ -1,23 +1,27 @@
 .people_list{
     text-align: center;
-
     list-style: none;
-    // justify-content: center;
     display:  grid;
     grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
     row-gap: 10px;
     column-gap: 10px;
     li{
-        margin-right: 5px;
         .img-wrapper{
             width: 60px;
             height: 60px;
             img{
                 border-radius: 4px;
+                &:hover{
+                    filter: brightness(0.5);
+                }
             }
         }
         span{
             font-size: 12px;
+        }
+        &:hover{
+            color: #fff;
+            cursor: pointer;
         }
     }
 }

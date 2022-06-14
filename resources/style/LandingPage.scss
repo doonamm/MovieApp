@@ -1,0 +1,33 @@
+.landing_page{
+    padding-top: 40px;
+    background-color: var(--background-color);
+    .movie_land{
+
+        h2{
+            font-size: 30px;
+            font-style: italic;
+            font-family: Roboto, sans-serif;
+            text-transform: capitalize;
+            margin: 40px 20px 20px;
+            color: var(--yellow2-color);
+        }
+        .movie_list{
+            background-color: var(--background-color1);
+            padding: 30px;
+            .movie_img{
+                .img-wrapper{
+
+                }
+                p{
+                    margin-top: 5px;
+                }
+                &:hover{
+                    p{
+                        color: var(--white-color);
+                    }
+                }
+            }
+
+        }
+    }
+}

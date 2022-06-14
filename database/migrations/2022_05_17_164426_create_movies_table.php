@@ -16,12 +16,14 @@ class CreateMoviesTable extends Migration
         Schema::create('movies', function (Blueprint $table) {
             $table->increments('id');
             $table->boolean('adult');
-            $table->string('title');
-            $table->string('tagline');
-            $table->string('overview');
+            $table->text('title');
+            $table->text('tagline');
+            $table->mediumText('overview');
             $table->string('status');
             $table->string('poster_path');
+            $table->string('backdrop_path');
             $table->string('language', 10);
+            $table->int('runtime');
             $table->double('popularity');
             $table->double('vote_average');
             $table->integer('vote_count');

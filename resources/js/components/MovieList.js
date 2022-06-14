@@ -1,7 +1,7 @@
 import MovieItem from "./MovieItem";
 import '../../style/MovieList.scss'
 function MovieList(props) {
-    const { list } = props;
+    const list = props.list || [];
 
     return (
         <ul className='movie_list'>
