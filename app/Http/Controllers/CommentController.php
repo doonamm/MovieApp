@@ -63,10 +63,8 @@ class CommentController extends Controller
 
         $sortBy = "desc";
         if ($request->has('sort_by')) {
-            $sortBy = explode('.', $request->input('sort_by'))[0];
+            $sortBy = explode('.', $request->input('sort_by'))[1];
         }
-
-
 
         $list = DB::table('comments');
         $list = $list->join('profiles', 'profiles.user_id', '=', 'comments.user_id')
@@ -83,6 +81,8 @@ class CommentController extends Controller
         
         $limit = $request->input('limit', 20);
         $list->limit($limit);
+
+        $list = $list->get();
 
         return response()->json([
             'success' => true,

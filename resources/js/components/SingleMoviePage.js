@@ -94,7 +94,9 @@ function SingleMoviePage(props) {
         tagline,
         overview,
         poster_path,
+        backdrop_path,
         vote_average,
+        runtime,
         release_date,
         vote_count,
         comment_count,
@@ -107,7 +109,7 @@ function SingleMoviePage(props) {
         <div className="page single-movie">
             <div className="container wrap-center">
                 <div className='top_container' style={{
-                        "background": `linear-gradient(#0718227e,#081b27), url(${'https://image.tmdb.org/t/p/w370_and_h556_bestv2' + poster_path})`
+                        "background": `linear-gradient(#0718227e,#081b27), url(${'https://image.tmdb.org/t/p/w370_and_h556_bestv2' + backdrop_path})`
                     }}>
                     <div className='left_container'>
                         <div className='film-info'>
