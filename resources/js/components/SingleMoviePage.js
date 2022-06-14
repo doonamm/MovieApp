@@ -144,7 +144,7 @@ function SingleMoviePage(props) {
                                     <button>{runtimeStr}</button>
                                 </div>
                                 <div className="direction_button khoangcach">
-                                    <button className='play'><span className='btn_icon'><GiPlayButton/></span>Play</button>
+                                    <button onClick={()=>navigate(`/movies/${id}/watch`)} className='play'><span className='btn_icon'><GiPlayButton/></span>Play</button>
                                     <button className='add'><span className='btn_icon'><FaPlus/></span>Add to my list</button>
                                 </div>
                             </div>

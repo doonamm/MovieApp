@@ -22,3 +22,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('{path?}', function () {
     return view('app');
 })->where('path', '^((?!api).)*$'); 
+
+Route::get('demo-pusher','FrontEndController@getPusher');
+// Truyển message lên server Pusher
+ Route::get('fire-event','FrontEndController@fireEvent');

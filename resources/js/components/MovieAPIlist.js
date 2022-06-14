@@ -26,7 +26,6 @@ function MovieAPIlist(props) {
             },
         })
             .then(function ({ data }) {
-                console.log(data);
                 setListMovie(data.data);
 
             })

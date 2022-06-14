@@ -1,18 +1,22 @@
 <?php
 
+use App\Events\MessageEvent;
 use App\Http\Controllers\ActorController;
 use App\Http\Controllers\CastController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Models\Cast;
 use App\Models\Movie_Genre;
+use Carbon\Carbon;
 use GuzzleHttp\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 Route::group([
     'prefix' => 'auth',
@@ -23,6 +27,15 @@ Route::group([
 });
 
 Route::group(['middleware' => 'auth.jwt'], function () {
+    Route::post('/new-message', function(Request $request){
+        $userId = JWTAuth::toUser($request->bearerToken())->id;
+
+        event(new MessageEvent([
+            'userId' => $userId,
+            'message' => $request->input('message')
+        ]));
+    });
+    
     Route::post('/avatar', [ProfileController::class, 'updateAvatar']);
 
     //user
