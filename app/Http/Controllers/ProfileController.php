@@ -10,10 +10,11 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class ProfileController extends Controller
 {
-    public function create(Request $request){
+    public function create(Request $request)
+    {
         $userId = JWTAuth::toUser($request->bearerToken())->id;
 
-        if(Profile::query()->where('user_id', '=', $userId)->count() > 0){
+        if (Profile::query()->where('user_id', '=', $userId)->count() > 0) {
             return response()->json([
                 'success' => false,
                 'message' => 'User is already have profile'
@@ -27,7 +28,7 @@ class ProfileController extends Controller
             'avatar_url' => 'string|url'
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json([
                 'success' => false,
                 'message' => 'Create profile fail',
@@ -35,7 +36,7 @@ class ProfileController extends Controller
             ]);
         }
 
-        
+
 
         $profile = Profile::query()->create([
             'user_id' => $userId,
@@ -51,7 +52,8 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function showAll(Request $request){
+    public function showAll(Request $request)
+    {
         $this->authorize('onlyAdmin', Profile::class);
 
         $list = Profile::all();
@@ -62,7 +64,8 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function show(Request $request, User $user){
+    public function show(Request $request, User $user)
+    {
         $this->authorize('onlySelfAndAdmin', $user);
 
         $profile = Profile::query()->firstWhere('user_id', '=', $user->id);
@@ -73,7 +76,8 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function showPublic(Request $request, User $user){
+    public function showPublic(Request $request, User $user)
+    {
         $profile = Profile::where('user_id', '=', $user->id)->get(['nickname', 'gender', 'avatar_url']);
 
         return response()->json([
@@ -82,7 +86,8 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function update(Request $request, User $user){
+    public function update(Request $request, User $user)
+    {
         $this->authorize('onlySelfAndAdmin', $user);
 
         $validator = Validator::make($request->all(), [
@@ -92,7 +97,7 @@ class ProfileController extends Controller
             'avatar_url' => 'url'
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json([
                 'success' => false,
                 'message' => 'Create profile fail',
@@ -102,7 +107,7 @@ class ProfileController extends Controller
 
         $success = Profile::query()->where('user_id', '=', $user->id)->update($request->all());
 
-        if(!$success){
+        if (!$success) {
             return response()->json([
                 'success' => false,
                 'message' => 'Can not update profile'
