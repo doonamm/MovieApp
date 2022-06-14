@@ -1,6 +1,7 @@
 :root{
     --nav-color: linear-gradient( #003b58,#012741);
     --black-color: #3b3939;
+    --dark-black-color: #111111;
     --hard-black-color: #333;
     --background-color1: #0C222F;
     --background-color: rgb(17, 26, 36);
@@ -17,12 +18,13 @@
     --reactbutton-color: #ff9900;
     --send-color: #00aeff;
     --special-text-color: #00aeff;
-
-
+    --header-page: #910000;
+    --footer-page: #080707;
     --symbol-width: 50px;
 	--timeline-color: #112C30;
 	--header-color: #46B2C3;
 	--stem-background: #1E4F56;
+    --form-color: rgb(252, 248, 228);
 }
 /* vietnamese */
 @font-face {
