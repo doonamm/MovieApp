@@ -1,5 +1,5 @@
 :root{
-    --nav-color: linear-gradient(to right, #006ba1,#111a20);
+    --nav-color: linear-gradient( #003b58,#012741);
     --black-color: #3b3939;
     --hard-black-color: #333;
     --background-color1: #0C222F;
@@ -17,6 +17,8 @@
     --commenttext-color: #eee6c5;
     --reactbutton-color: #ff9900;
     --send-color: #00aeff;
+    --special-text-color: #00aeff;
+
 
 
 }

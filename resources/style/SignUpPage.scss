@@ -1,4 +1,11 @@
 .signup{
+    background: url('https://w.wallha.com/ws/13/q3pSAond.png');
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding: 30px 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
     padding: 30px 0;
     background-color: var(--background-color);
     .img-wrapper{
@@ -26,6 +33,7 @@
     }
     .margin, .a{
         margin-bottom: 10px;
+        
     }
     .social_button{
         display: flex;
@@ -35,7 +43,7 @@
             height: 50px;
             width: 50px;
             font-size: 30px;
-            margin: 0px 10px;
+            margin: 10px 10px;
             border-radius: 50%;
             box-shadow: 1px 1px rgba(0, 0, 0, .1), 0 0 1px rgba(0, 0, 0, .2);   
             border: none;
@@ -76,7 +84,7 @@
                 border-width: 1px;
                 border-color: #000000;
                 border-radius: 5px;
-
+                padding-left: 10px;
             }
             .signup_btn{
                 
@@ -87,12 +95,18 @@
                 box-shadow: 0 0 10px -5px rgba(0, 0, 0, .4), 0 0 1px rgba(0, 0, 0, .9);    
                 border-radius: 10px;
                 border: none;
-                &.hover{
+                &:hover{
                     background-color: #141521;
                     color: rgb(243, 243, 243);   
                 }
             }
-            
+            .already_a_user{
+                color: var(--text-color);
+                a{
+                    font-style: italic;
+                    color: var(--special-text-color);
+                }
+            }
             
         }
     }
