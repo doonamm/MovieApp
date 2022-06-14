@@ -11,7 +11,6 @@ import LandingPage from './LandingPage';
 import MoviesPage from './MoviesPage';
 import { login } from '../redux/action/loginAction';
 import ActorsPage from './ActorsPage';
-import NewUserPage from './NewUserPage';
 import SignUpProfile from './SignUpProfile';
 function App(props) {
     useEffect(() => {
@@ -25,7 +24,6 @@ function App(props) {
             <Nav />
             <Routes>
                 {/* --------- Add Page here ----------- */}
-                <Route path="/" element={<NewUserPage />} />
                 <Route path='/home' element={< LandingPage />} ></Route>
                 <Route path='/signin' element={<SignInPage />}></Route>
                 <Route path='/signup' element={<SignUpPage />}></Route>
