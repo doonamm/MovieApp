@@ -94,7 +94,9 @@ function SingleMoviePage(props) {
         tagline,
         overview,
         poster_path,
+        backdrop_path,
         vote_average,
+        runtime,
         release_date,
         vote_count,
         comment_count,
@@ -107,7 +109,7 @@ function SingleMoviePage(props) {
         <div className="page single-movie">
             <div className="container wrap-center">
                 <div className='top_container' style={{
-                        "background": `linear-gradient(#0718227e,#081b27), url(${'https://image.tmdb.org/t/p/w370_and_h556_bestv2' + poster_path})`
+                        "background": `linear-gradient(#0718227e,#0C222F), url(${'https://image.tmdb.org/t/p/w370_and_h556_bestv2' + poster_path})`
                     }}>
                     <div className='left_container'>
                         <div className='film-info'>
@@ -116,15 +118,21 @@ function SingleMoviePage(props) {
                             </div>
                             <div className='attribute'>
                                 <h2 className="name">{title}</h2>
-                                <VoteStar rate={vote_average}/>
+                                <div className='vote'>
+                                    <VoteStar rate={vote_average}/>
+                                    <p>/ <span>{vote_count} votes</span></p>
+                                </div>
                                 <div className="tagproperties khoangcach">
-                                    <button>{adult ? 'adult' : 'for all'}</button>
+                                    <button>{adult ? 'Adult' : 'For All'}</button>
                                     <button>1h 20m</button>
+                                    <p className='tagline'>{tagline}</p>
+                                    <p>Status: <span> {status}</span></p>
+                                    <p>Language: <span>{language}</span></p>
+
                                 </div>
                             </div>
                         </div>
                         <div className='description khoangcach'>
-                            <p>{tagline}</p>
                             <div className="direction_button khoangcach">
                                 <button className='play'><span className='btn_icon'><GiPlayButton/></span>Play</button>
                                 <button className='add'><span className='btn_icon'><FaPlus/></span>Add to my list</button>
@@ -151,7 +159,7 @@ function SingleMoviePage(props) {
                     <div className='controller khoangcach'>
                         <div className='comment'>
                             <h2>Comments</h2>
-                            <div className='comment_body'>
+                            <div className='comment_body khoangcach'>
                                 <div className='left_comment img-wrapper'>
                                     <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl4TT6qkBfVlorfV_X3LM1Z7ChtoxnEOaTdA&usqp=CAU'/>
                                 </div>
