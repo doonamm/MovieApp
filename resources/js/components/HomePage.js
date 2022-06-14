@@ -8,7 +8,8 @@ import {
     FaGlobeAsia,
     FaHeart,
 } from 'react-icons/fa';
-import {TbMoodKid} from 'react-icons/tb'
+import {TbMoodKid} from 'react-icons/tb';
+import TimelineService from './TimelineService';
 const milestones = [
     {
         icon: <MdMovieFilter />,
@@ -33,9 +34,35 @@ const milestones = [
     },
     
 ];
-// const service = [
+const service = [
+   
+    {
+        id: 1,
+        time: "Gói tháng",
+        content: "Watch movies for 30 days in Full HD 4K",
+        price: "45000"
+    },
     
-// ];
+    {
+        id: 2,
+        time: "Gói 3 tháng",
+        content: "Watch movies for 90 days in Full HD 4K",
+        price: "70000"
+    },
+    
+    {
+        id: 3,
+        time: "Gói 6 tháng",
+        content: "Watch movies for 180 days in Full HD 4K",
+        price: "95000"
+    },
+    {
+        id: 4,
+        time: "Gói 1 năm",
+        content: "Watch movies for 360 days in Full HD 4K",
+        price: "130000"
+    },
+];
 function HomePage(props) {
     const content = `One of the leading reputable websites in Vietnam with an extremely rich and diverse movie store. Watch movies without ads, high quality, user-friendly interface <3`;
     const milestoneRefs = useRef([]);
@@ -74,10 +101,11 @@ function HomePage(props) {
             <div className="stem"></div>
             
             <TimelineHeader 
-            title="Chill Together"
-            content = {content}
+                title="Chill Together"
+                content = {content}
+                service = {service}
             />
-            {/* <TimelineService/> */}
+            
             <TimelineSection 
                 list = {milestones}
                 milestoneRefs = {milestoneRefs}
