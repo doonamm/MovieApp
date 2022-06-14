@@ -15,6 +15,7 @@ import ActorsPage from './ActorsPage';
 import SignUpProfile from './SignUpProfile';
 import HomePage from './HomePage';
 import SingleActorPage from './SingleActorPage';
+import ProfilePage from './ProfilePage';
 
 function App(props) {
     useEffect(() => {
@@ -40,7 +41,7 @@ function App(props) {
                 <Route path='/movies/:id' element={<SingleMoviePage />}></Route>
                 <Route path='/actors' element={<ActorsPage/>}></Route>
                 <Route path='/actors/:id' element={<SingleActorPage/>}></Route>
-
+                <Route path='/profile/:id' element={<ProfilePage/>}></Route>
             </Routes>
 
         </BrowserRouter >

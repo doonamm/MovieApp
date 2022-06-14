@@ -17,6 +17,7 @@ function Nav(props) {
     }
 
     function handleSignOut() {
+        swal('Bye bye', 'Good bye my friend!', 'success');
         props.logout();
         localStorage.clear();
         navigate('/');
@@ -25,6 +26,8 @@ function Nav(props) {
     if (location.pathname === '/signin' || location.pathname === '/signup') {
         return null;
     }
+
+    const userId = props.user.id || localStorage.getItem('user_id');
 
     return (
         <div className="nav">
@@ -48,7 +51,7 @@ function Nav(props) {
                             </div>
                             <ul className={openUserController ? "controllers show" : "controllers"}>
                                 <li>Settings</li>
-                                <li>Edit profile</li>
+                                <li onClick={()=>navigate('/profile/' + userId)}>Profile</li>
                                 <li onClick={handleSignOut}>Sign out</li>
                             </ul>
                         </div>
@@ -68,4 +71,4 @@ const mapDispatchToProps = {
     logout
 }
 
-export default connect(stateToProps('login'), mapDispatchToProps)(Nav);
+export default connect(stateToProps('login', 'user'), mapDispatchToProps)(Nav);

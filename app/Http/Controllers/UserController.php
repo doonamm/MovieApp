@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\UserRole;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -66,10 +67,14 @@ class UserController extends Controller
                 ]);
             }
 
+            $userId = Auth::guard('api')->user()->id;
+
             return response()->json([
                 'success' => true,
+                'user_id' => $userId,
                 'token' => $token
             ]);
+
         } catch (JWTException $e) {
             return response()->json([
                 'success' => false,

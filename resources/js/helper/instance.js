@@ -2,6 +2,7 @@ import axios from "axios";
 import store from './store';
 import { logout } from "../redux/action/loginAction";
 import { getToken, clearToken } from "./token";
+import swal from "sweetalert";
 
 export const instance = axios.create({
     baseURL: 'http://localhost:8000/api',
@@ -23,8 +24,8 @@ instance.interceptors.request.use(config => {
 
 instance.interceptors.response.use(async response => {
     const {data: resData} = response;
-    if(resData.success === false && resData.type === 'expired'){
-        alert('Session timeout!');
+    if(resData.success === false && resData.type === 'expired' && !getToken()){
+        swal("Token expired!", "Session timeout!", "warning");
         clearToken();
         store.dispatch(logout());
         window.location = '/';

@@ -9,8 +9,6 @@ import useInput from '../helper/useInput';
 import '../../style/SignUpPage.scss';
 
 import logo from '../../img/logo.png';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
 function SignUpPage() {
@@ -53,6 +51,7 @@ function SignUpPage() {
             .then(function (data) {
                 console.log(data.data);
                 if (data.data.success == true) {
+                    swal('Success', 'Sign up account successfully!', 'success');
                     navigate("/signupprofile");
                     setID(data.data.id);
                 }
