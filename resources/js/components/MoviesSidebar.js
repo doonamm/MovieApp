@@ -4,6 +4,7 @@ import {instance} from '../helper/instance';
 
 function MoviesSidebar(props){
     const [genres, setGenres] = useState(['all']);
+    const [selectedSortIndex, setSelectedSortIndex] = useState(0);
 
     useEffect(()=>{
         instance.get('/genres')
@@ -24,7 +25,9 @@ function MoviesSidebar(props){
         });
     }
 
-    function setSelectedSort(sort){
+    function setSelectedSort(sort, index){
+        setSelectedSortIndex(index);
+
         props.setQuery(state => {
             return{
                 ...state,
@@ -33,9 +36,12 @@ function MoviesSidebar(props){
         });
     }
 
-    function toggleSelectGenre(genre){
+    function toggleSelectGenre(genre, e){
+        e.target.classList.toggle('selected');
+
         const genres = props.query.genres || [];
         const i = genres.findIndex(item => item === genre);
+        
         if(i > -1){
             props.setQuery(state => {
                 return{
@@ -55,22 +61,31 @@ function MoviesSidebar(props){
     }
 
     return(
-        <div className="movies-sidebar">
+        <div className="sidebar movies">
             <div className="search">
                 <input onChange={handleInputSearch} type="text" placeholder="Search film..."/>
             </div>
-            <h3>Discovery</h3>
-            <ul className="filter-selections">
-                <li onClick={()=>setSelectedSort("popularity")}>Popularity</li>
-                <li onClick={()=>setSelectedSort("vote_average")}>Top rated</li>
-                <li onClick={()=>setSelectedSort("release_date")}>Newest</li>
-            </ul>
-            <h3>Genres</h3>
-            <ul className="filter-selections">
-                {
-                    genres.map(genre => <li key={genre.id} onClick={()=>toggleSelectGenre(genre.name)}>{genre.name}</li>)
-                }
-            </ul>
+            <div className="filter-container">
+                <h3>Discovery</h3>
+                <ul className="filter-selections">
+                    <li className={selectedSortIndex === 0 ? 'selected' : ''} onClick={()=>setSelectedSort("popularity", 0)}>Popularity</li>
+                    <li className={selectedSortIndex === 1 ? 'selected' : ''} onClick={()=>setSelectedSort("vote_average", 1)}>Top rated</li>
+                    <li className={selectedSortIndex === 2 ? 'selected' : ''} onClick={()=>setSelectedSort("release_date", 2)}>Newest</li>
+                </ul>
+                <h3>Genres</h3>
+                <ul className="filter-selections">
+                    {
+                        genres.map(genre => (
+                            <li 
+                                key={genre.id} 
+                                onClick={(e)=>toggleSelectGenre(genre.name, e)}
+                            >
+                                {genre.name}
+                            </li>
+                        ))
+                    }
+                </ul>
+            </div>
         </div>
     )
 }

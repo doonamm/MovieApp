@@ -5,11 +5,12 @@ import { connect } from "react-redux";
 import MovieList from "./MovieList";
 import MoviesSidebar from "./MoviesSidebar";
 import { instance } from '../helper/instance';
+import {FaPlus} from 'react-icons/fa';
 
 function MoviesPage(props){
     const [list, setList] = useState([]);
     const [query, setQuery] = useState({
-        sort_by: 'popularity.desc',
+        sort_by: 'popularity.desc'
     });
     const [next, setNext] = useState(0);
 
@@ -51,9 +52,9 @@ function MoviesPage(props){
         <div className="page movies query-page">
             <MoviesSidebar query={query} setQuery={setQuery}/>
             <div className="main">
-                <h1>Search your favorite movie!</h1>
+                <h1 className='title'>Search your favorite movie!</h1>
                 <MovieList list={list}/>
-                <button onClick={handleShowMore}>show more</button>
+                <button className='showmore-btn' onClick={handleShowMore}><FaPlus/></button>
             </div>
         </div>
     )

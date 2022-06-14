@@ -64,8 +64,8 @@ Route::group(['middleware' => 'auth.jwt'], function () {
             Route::put('/', [MovieController::class, 'update']);
             Route::delete('/', [MovieController::class, 'destroy']);
 
-            Route::get('/casts', [Cast::class, 'showAll']);
-            Route::put('/genres', [Movie_Genre::class, 'showAll']);
+            Route::get('/casts', [CastController::class, 'showAll']);
+            Route::put('/genres', [Movie_GenreController::class, 'showAll']);
 
             //comments
             Route::group(['prefix' => 'comments'], function () {

@@ -31,7 +31,9 @@ function Nav(props){
             <div className="wrap-center">
                 <div className='left'>
                     <div className="logo img-wrapper">
-                        <img src="https://previews.123rf.com/images/michaelrayback/michaelrayback1610/michaelrayback161000022/64360128-.jpg"/>
+                        <Link to="/">
+                            <img src="https://previews.123rf.com/images/michaelrayback/michaelrayback1610/michaelrayback161000022/64360128-.jpg"/>
+                        </Link>
                     </div>
                     <ul className='nav-list'>
                         <li><Link to="/movies">Movies</Link></li>

@@ -7,6 +7,7 @@ import axios from 'axios';
 import { storeToken } from '../helper/token';
 import {login} from '../redux/action/loginAction';
 import { connect } from 'react-redux';
+import logo from '../../img/logo.png';
 
 function SignInPage(props) {
 
@@ -41,6 +42,10 @@ function SignInPage(props) {
     return (
         <div className='page signin'>
             <div className='container'>
+                
+                <div className='img-wrapper'>
+                    <img src={logo}></img>
+                </div>
                 <h2 className='margin'>SIGN IN</h2>
                 <div className='social_button margin'>
                     <button className='facebook'><FaFacebookF /></button>
@@ -57,6 +62,7 @@ function SignInPage(props) {
                         title="Password"
                         type="password"
                         useInputObject={password}
+                        className="margin"
                     />
                     <Link to='#'>Forgot your password ?</Link>
                     <p className='needanaccount'>Need an account?<Link to='/signup'>SIGN UP</Link></p>
