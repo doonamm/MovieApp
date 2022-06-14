@@ -9,6 +9,7 @@ import MovieList from './MovieList';
 import CommentList from './CommentList';
 import VoteStar from './VoteStar';
 import { instance } from '../helper/instance';
+import {useNavigate} from 'react-router-dom';
 
 function SingleMoviePage(props) {
     const {id} = useParams();
@@ -20,6 +21,7 @@ function SingleMoviePage(props) {
     const [rcmMovies, setRcmMovies] = useState([]);
     const [inputCmt, setInputCmt] = useState('');
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(()=>{
         loadMovie();
@@ -105,11 +107,24 @@ function SingleMoviePage(props) {
         popularity,
     } = movieInfo;
 
+    function convertRuntime(time){
+        if(time < 60){
+            return time + 'm';
+        }
+        const m = time%60;
+
+        time -= m;
+
+        return time/60 + 'h ' + m + 'm';
+    }
+
+    const runtimeStr = convertRuntime(runtime);
+
     return (
         <div className="page single-movie">
             <div className="container wrap-center">
                 <div className='top_container' style={{
-                        "background": `linear-gradient(#0718227e,#0C222F), url(${'https://image.tmdb.org/t/p/w370_and_h556_bestv2' + poster_path})`
+                        "background": `linear-gradient(#0718227e,#0C222F), url(${'https://image.tmdb.org/t/p/w370_and_h556_bestv2' + backdrop_path})`
                     }}>
                     <div className='left_container'>
                         <div className='film-info'>
@@ -124,17 +139,16 @@ function SingleMoviePage(props) {
                                 </div>
                                 <div className="tagproperties khoangcach">
                                     <button>{adult ? 'Adult' : 'For All'}</button>
-                                    <button>1h 20m</button>
+                                    <button>{runtimeStr}</button>
                                     <p className='tagline'>{tagline}</p>
                                     <p>Status: <span> {status}</span></p>
                                     <p>Language: <span>{language}</span></p>
-
                                 </div>
                             </div>
                         </div>
                         <div className='description khoangcach'>
                             <div className="direction_button khoangcach">
-                                <button className='play'><span className='btn_icon'><GiPlayButton/></span>Play</button>
+                                <button onClick={()=>navigate(`/movies/${id}/watch`)} className='play'><span className='btn_icon'><GiPlayButton/></span>Play</button>
                                 <button className='add'><span className='btn_icon'><FaPlus/></span>Add to my list</button>
                             </div>
                             <p className="description khoangcach">
