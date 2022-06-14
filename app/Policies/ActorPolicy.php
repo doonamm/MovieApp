@@ -10,14 +10,19 @@ use App\Enums\UserRole;
 class ActorPolicy
 {
     use HandlesAuthorization;
-    /**
-     * Determine whether the user can create models.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
+
     public function create(User $user)
     {
         return $user->role === UserRole::Admin;
+    }
+
+    public function onlyAdmin(User $user)
+    {
+        return $user->role === UserRole::Admin;
+    }
+
+    public function onlySelfAndAdmin(User $user, User $u)
+    {
+        return $user->role === UserRole::Admin || $user->id === $u->id;
     }
 }
