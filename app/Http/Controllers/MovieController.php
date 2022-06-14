@@ -9,10 +9,86 @@ use Illuminate\Support\Facades\Validator;
 
 class MovieController extends Controller
 {
-    //
+
+    // $table->increments('id');
+    //         $table->boolean('adult');
+    //         $table->text('title');
+    //         $table->text('tagline');
+    //         $table->mediumText('overview');
+    //         $table->string('status');
+    //         $table->string('poster_path');
+    //         $table->string('backdrop_path');
+    //         $table->string('language', 10);
+    //         $table->int('runtime');
+    //         $table->double('popularity');
+    //         $table->double('vote_average');
+    //         $table->integer('vote_count');
+    //         $table->bigInteger('revenue');
+    //         $table->integer('comment_count');
+    //         $table->date('release_date');
+    //         $table->timestamp('created_at');
 
     public function create(Request $request)
     {
+    }
+
+    public function update(Request $request, Movie $movie)
+    {
+        $validator = Validator::make($request->all(), [
+            "adult" => 'required|integer',
+            "title" => 'required|string',
+            "tagline" => 'required|string',
+            "overview" => 'required|string',
+            'status' => 'required|string',
+            'poster_path' => 'required|string',
+            'backdrop_path' => 'string',
+            'language' => 'required|string',
+            'runtime' => 'required|integer|gte:1',
+            'popularity' => 'numeric',
+            'vote_average' => 'numeric',
+            'vote_count' => 'integer',
+            'revenue' => 'integer',
+            'comment_count' => 'integer',
+            'release_date' => 'date',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'error' => $validator->errors()->toArray()
+            ]);
+        }
+
+        $success = Movie::query()->where('id', '=', $movie->id)->update([
+            "adult" => $request->input('adult'),
+            "title" => $request->input('title'),
+            "tagline" => $request->input('tagline'),
+            "overview" => $request->input('overview'),
+            'status' => $request->input('status'),
+            'poster_path' => $request->input('poster_path'),
+            'backdrop_path' => $request->input('backdrop_path'),
+            'language' => $request->input('language'),
+            'runtime' => $request->input('runtime'),
+            'popularity' => $request->input('popularity'),
+            'vote_average' => $request->input('vote_average'),
+            'vote_count' => $request->input('vote_count'),
+            'revenue' => $request->input('revenue'),
+            'comment_count' => $request->input('comment_count'),
+            'release_date' => $request->input('release_date')
+        ]);
+
+        if (!$success) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Can not update movie'
+            ]);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Update movie success',
+            'data' => $success
+        ]);
     }
 
     public function show(Request $request, Movie $movie)
@@ -36,7 +112,8 @@ class MovieController extends Controller
             'release_date' => 'date',
             'limit' => 'integer|gte:1|lte:100',
             'next' => 'integer|gte:1',
-            'search' => 'string'
+            'search' => 'string',
+            'runtime' => 'integer|gte:1',
         ]);
 
         if ($validator->fails()) {

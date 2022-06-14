@@ -11,8 +11,9 @@ import LandingPage from './LandingPage';
 import MoviesPage from './MoviesPage';
 import { login } from '../redux/action/loginAction';
 import ActorsPage from './ActorsPage';
-
 import ResetPasswordPage from './ResetPassworPage';
+import HomePage from "./HomePage"
+
 function App(props) {
     useEffect(() => {
         if (localStorage.getItem('access')) {
@@ -28,7 +29,7 @@ function App(props) {
 
                 <Route path='/home' element={< LandingPage />} ></Route>
 
-                <Route path='/' element={<LandingPage />} ></Route>
+                <Route path='/' element={<HomePage />} ></Route>
 
                 <Route path='/signin' element={<SignInPage />}></Route>
                 <Route path='/signup' element={<SignUpPage />}></Route>
