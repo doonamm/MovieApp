@@ -13,6 +13,40 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class UserController extends Controller
 {
+
+    public function resetPassword(Request $request, User $user)
+    {
+        $validator = Validator::make($request->all(), [
+            'password' => 'required|string',
+            'newpassword' => 'required|string',
+            'confirm_password' => 'required|same:newpassword',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Reset Password fail',
+                'error' => $validator->errors()->toArray()
+            ]);
+        }
+
+        $success = User::query()->where('id', '=', $user->id)->update([
+            'password' => Hash::make($request->input('newpassword'))
+        ]);
+
+        if (!$success) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Can not reset password'
+            ]);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'reset password success'
+        ]);
+    }
+
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [

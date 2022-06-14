@@ -32,6 +32,7 @@ Route::group(['middleware' => 'auth.jwt'], function () {
         Route::group(['prefix' => '/{user}'], function () {
             Route::get('/', [UserController::class, 'getUserInfo']);
             Route::delete('/', [UserController::class, 'destroy']);
+            Route::post('/', [UserController::class, 'resetPassword']);
 
 
             Route::get('/profile', [ProfileController::class, 'show']);
@@ -48,7 +49,7 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     Route::get('/genres', [GenreController::class, 'showAll']);
 
     //actors
-    Route::group(['prefix' => 'actors'], function(){
+    Route::group(['prefix' => 'actors'], function () {
         Route::get('/', [ActorController::class, 'showAll']);
         Route::post('/', [ActorController::class, 'create']);
         Route::get('/{actor}', [ActorController::class, 'show']);

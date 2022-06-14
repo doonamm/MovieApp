@@ -51,6 +51,8 @@ function Nav(props) {
                             </div>
                             <ul className={openUserController ? "controllers show" : "controllers"}>
                                 <li>Settings</li>
+                                <li>Edit profile</li>
+                                <li><Link to="/reset">Reset Password</Link></li>
                                 <li onClick={()=>navigate('/profile/' + userId)}>Profile</li>
                                 <li onClick={handleSignOut}>Sign out</li>
                             </ul>
