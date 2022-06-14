@@ -131,7 +131,7 @@
                         white-space: nowrap;
                         width: 100%;
                         margin: 4px 0;
-                        
+                        user-select: none;
                         &:hover{
                             background-color: #ddd;
                         }
