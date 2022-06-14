@@ -38,7 +38,6 @@ function Nav(props){
                     <ul className='nav-list'>
                         <li><Link to="/movies">Movies</Link></li>
                         <li><Link to="/actors">Actors</Link></li>
-                        <li><Link to="/companies">Companies</Link></li>
                     </ul>
                 </div>
                 <div className='right'>

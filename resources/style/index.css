@@ -12,13 +12,15 @@
     --play-button-color: #3ca845;
     --play-button-color-hover: #55c455;
     --add-button-color: #ff9900;
-    
     --add-button-color-hover: #fdad00;
     --commenttext-color: #eee6c5;
     --reactbutton-color: #ff9900;
     --send-color: #00aeff;
 
-
+    --symbol-width: 50px;
+	--timeline-color: #112C30;
+	--header-color: #46B2C3;
+	--stem-background: #1E4F56;
 }
 /* vietnamese */
 @font-face {
