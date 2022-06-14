@@ -133,6 +133,8 @@ function SingleMoviePage(props) {
                             </div>
                             <div className='attribute'>
                                 <h2 className="name">{title}</h2>
+                                <p className='tagline'>{tagline}</p>
+
                                 <div className='vote'>
                                     <VoteStar rate={vote_average}/>
                                     <p>/ <span>{vote_count} votes</span></p>
@@ -140,17 +142,14 @@ function SingleMoviePage(props) {
                                 <div className="tagproperties khoangcach">
                                     <button>{adult ? 'Adult' : 'For All'}</button>
                                     <button>{runtimeStr}</button>
-                                    <p className='tagline'>{tagline}</p>
-                                    <p>Status: <span> {status}</span></p>
-                                    <p>Language: <span>{language}</span></p>
+                                </div>
+                                <div className="direction_button khoangcach">
+                                    <button className='play'><span className='btn_icon'><GiPlayButton/></span>Play</button>
+                                    <button className='add'><span className='btn_icon'><FaPlus/></span>Add to my list</button>
                                 </div>
                             </div>
                         </div>
                         <div className='description khoangcach'>
-                            <div className="direction_button khoangcach">
-                                <button onClick={()=>navigate(`/movies/${id}/watch`)} className='play'><span className='btn_icon'><GiPlayButton/></span>Play</button>
-                                <button className='add'><span className='btn_icon'><FaPlus/></span>Add to my list</button>
-                            </div>
                             <p className="description khoangcach">
                                 {showMore ? overview :`${overview?.substring(0,250)}`}
                                 <button className='btn_readmore' onClick={() => setShowMore(!showMore)}>{showMore ? "Read less" : "...Read more"}</button>
@@ -166,6 +165,10 @@ function SingleMoviePage(props) {
                         <h3>Release Date</h3>
                         <div className='release_year'>
                             <p>{release_date}</p>
+                        </div>
+                        <div className='tag'>
+                            <p>Status: <span> {status}</span></p>
+                            <p>Language: <span>{language}</span></p>
                         </div>
                     </div>
                 </div>
