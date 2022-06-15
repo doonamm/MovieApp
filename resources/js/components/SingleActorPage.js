@@ -5,6 +5,10 @@ import { useEffect } from 'react';
 import {useParams} from 'react-router-dom';
 import {instance} from '../helper/instance';
 import MovieList from './MovieList';
+import stateToProps from '../helper/stateToProps';
+import {connect} from 'react-redux';
+import EditActorPopup from './EditActorPopup';
+import {useNavigate} from 'react-router-dom';
 
 function SingleActorPage(props){
     const {id} = useParams();
@@ -12,6 +16,8 @@ function SingleActorPage(props){
     const [moreBio, setMoreBio] = useState(false);
     const [movieList, setMovieList] = useState([]);
     const [next, setNext] = useState(0);
+    const [openEditForm, setOpenEditForm] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(()=>{
         instance.get('/actors/' + id)
@@ -51,9 +57,36 @@ function SingleActorPage(props){
         popularity
     } = info;
 
+    function deleteActor(){
+        swal('Delete actor', `Delete actor "${name}"`, 'warning').then((accept)=>{
+            if(accept){
+                instance.delete(`/actors/${id}`)
+                .then(res => {
+                    if(res.success){
+                        navigate('/actors');
+                        swal('Delete actor', `Delete success!"`, 'success');
+                    }
+                    else{
+                        swal('Delete actor', `Delete fail!"`, 'error');
+                    }
+                })
+                .catch(console.log);
+            }
+        });
+    }
+
     return(
         <div className="page single-actor">
             <div className='wrap-center'>
+                {
+                    props.user.role === 'admin'
+                    &&
+                    <div className='admin-btn-container'>
+                        <button onClick={deleteActor} className='admin-btn delete'>Delete</button>
+                        <button onClick={()=>setOpenEditForm(!openEditForm)} className='admin-btn edit'>Edit</button>
+                    </div>
+                }
+                {openEditForm && <EditActorPopup setOpen={setOpenEditForm} data={info}/>}
                 <div className='top'>
                     <div className='img-wrapper'>
                         <img src={'https://image.tmdb.org/t/p/w370_and_h556_bestv2' + profile_path}/>
@@ -96,4 +129,4 @@ function SingleActorPage(props){
     )
 }
 
-export default SingleActorPage;
+export default connect(stateToProps('user'))(SingleActorPage);

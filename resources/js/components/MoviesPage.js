@@ -6,6 +6,8 @@ import MovieList from "./MovieList";
 import MoviesSidebar from "./MoviesSidebar";
 import { instance } from '../helper/instance';
 import {FaPlus} from 'react-icons/fa';
+import stateToProps from '../helper/stateToProps';
+import AddMoviePopup from './AddMoviePopup';
 
 function MoviesPage(props){
     const [list, setList] = useState([]);
@@ -13,6 +15,7 @@ function MoviesPage(props){
         sort_by: 'popularity.desc'
     });
     const [next, setNext] = useState(0);
+    const [openPopup, setOpenPopup] = useState(false);
 
     useEffect(()=>{
         fetchMovies();
@@ -52,7 +55,15 @@ function MoviesPage(props){
         <div className="page movies query-page">
             <MoviesSidebar query={query} setQuery={setQuery}/>
             <div className="main">
-                <h1 className='title'>Search your favorite movie!</h1>
+                <div className='row'>
+                    <h1 className='title'>Search your favorite movie!</h1>
+                    {
+                        props.user.role === 'admin'
+                        &&
+                        <button onClick={setOpenPopup} className='admin-btn add'>Add movie</button>
+                    }
+                </div>
+                {openPopup && <AddMoviePopup setOpen={setOpenPopup}/>}
                 <MovieList list={list}/>
                 <button className='showmore-btn' onClick={handleShowMore}><FaPlus/></button>
             </div>
@@ -60,4 +71,4 @@ function MoviesPage(props){
     )
 }
 
-export default connect()(MoviesPage);
+export default connect(stateToProps('user'))(MoviesPage);

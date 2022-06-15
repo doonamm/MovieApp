@@ -87,23 +87,7 @@ class MovieController extends Controller
             ]);
         }
 
-        $success = Movie::query()->where('id', '=', $movie->id)->update([
-            "adult" => $request->input('adult'),
-            "title" => $request->input('title'),
-            "tagline" => $request->input('tagline'),
-            "overview" => $request->input('overview'),
-            'status' => $request->input('status'),
-            'poster_path' => $request->input('poster_path'),
-            'backdrop_path' => $request->input('backdrop_path'),
-            'language' => $request->input('language'),
-            'runtime' => $request->input('runtime'),
-            'popularity' => $request->input('popularity'),
-            'vote_average' => $request->input('vote_average'),
-            'vote_count' => $request->input('vote_count'),
-            'revenue' => $request->input('revenue'),
-            'comment_count' => $request->input('comment_count'),
-            'release_date' => $request->input('release_date')
-        ]);
+        $success = Movie::query()->where('id', '=', $movie->id)->update($request->all());
 
         if (!$success) {
             return response()->json([

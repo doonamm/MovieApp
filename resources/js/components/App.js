@@ -10,6 +10,7 @@ import SingleMoviePage from './SingleMoviePage';
 import LandingPage from './LandingPage';
 import MoviesPage from './MoviesPage';
 import { login } from '../redux/action/loginAction';
+import { setRole, setId } from '../redux/action/userAction';
 import ActorsPage from './ActorsPage';
 
 import ResetPasswordPage from './ResetPassworPage';
@@ -18,14 +19,19 @@ import HomePage from './HomePage';
 import SingleActorPage from './SingleActorPage';
 import ProfilePage from './ProfilePage';
 import WatchMoviePage from './WatchMoviePage';
+import stateToProps from '../helper/stateToProps';
 
 
 function App(props) {
     useEffect(() => {
         if (localStorage.getItem('access')) {
             props.login();
+            props.setRole(localStorage.getItem('role'));
+            props.setId(localStorage.getItem('id'));
         }
     }, []);
+
+    console.log(props.user.role);
 
     return (
         <BrowserRouter>
@@ -51,7 +57,9 @@ function App(props) {
 }
 
 const mapDispatchToProps = {
-    login
+    login,
+    setRole,
+    setId
 }
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(stateToProps('user'), mapDispatchToProps)(App);

@@ -8,7 +8,7 @@ import axios from "axios";
 import useInput from '../helper/useInput';
 import '../../style/SignUpPage.scss';
 
-import logo from '../../img/logo.png';
+import logo from '../../img/logo1.png';
 import { useState } from 'react';
 import SignUpProfile from './SignUpProfile';
 

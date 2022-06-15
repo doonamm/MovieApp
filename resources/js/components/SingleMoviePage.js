@@ -10,6 +10,10 @@ import CommentList from './CommentList';
 import VoteStar from './VoteStar';
 import { instance } from '../helper/instance';
 import {useNavigate} from 'react-router-dom';
+import { connect } from 'react-redux';
+import stateToProps from '../helper/stateToProps';
+import swal from 'sweetalert';
+import EditMoviePopup from './EditMoviePopup';
 
 function SingleMoviePage(props) {
     const {id} = useParams();
@@ -21,6 +25,7 @@ function SingleMoviePage(props) {
     const [rcmMovies, setRcmMovies] = useState([]);
     const [inputCmt, setInputCmt] = useState('');
     const [loading, setLoading] = useState(false);
+    const [openEditForm, setOpenEditForm] = useState(false);
     const navigate = useNavigate();
 
     useEffect(()=>{
@@ -120,16 +125,40 @@ function SingleMoviePage(props) {
 
     const runtimeStr = convertRuntime(runtime);
 
+    function deleteMovie(){
+        swal('Delete movie', `Delete movie "${title}"`, 'warning').then((accept)=>{
+            if(accept){
+                instance.delete(`/movies/${id}`)
+                .then(res => {
+                    if(res.success){
+                        navigate('/movies');
+                        swal('Delete movie', `Delete success!"`, 'success');
+                    }
+                })
+                .catch(console.log);
+            }
+        });
+    }
+
     return (
         <div className="page single-movie">
             <div className="container wrap-center">
+                {
+                    props.user.role === 'admin'
+                    &&
+                    <div className='admin-btn-container'>
+                        <button onClick={deleteMovie} className='admin-btn delete'>Delete</button>
+                        <button onClick={()=>setOpenEditForm(!openEditForm)} className='admin-btn edit'>Edit</button>
+                    </div>
+                }
+                {openEditForm && <EditMoviePopup setOpen={setOpenEditForm} data={movieInfo}/>}
                 <div className='top_container' style={{
-                        "background": `linear-gradient(#0718227e,#0C222F), url(${'https://image.tmdb.org/t/p/w370_and_h556_bestv2' + backdrop_path})`
+                        "background": `linear-gradient(#0718227e,#0C222F), url(${backdrop_path})`
                     }}>
                     <div className='left_container'>
                         <div className='film-info'>
                             <div className='poster img-wrapper'>
-                                <img src={'https://image.tmdb.org/t/p/w370_and_h556_bestv2' + poster_path}/>
+                                <img src={poster_path}/>
                             </div>
                             <div className='attribute'>
                                 <h2 className="name">{title}</h2>
@@ -210,4 +239,4 @@ function SingleMoviePage(props) {
         </div>
     );
 }
-export default SingleMoviePage;
+export default connect(stateToProps('user'))(SingleMoviePage);

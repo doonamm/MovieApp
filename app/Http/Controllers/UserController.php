@@ -101,11 +101,12 @@ class UserController extends Controller
                 ]);
             }
 
-            $userId = Auth::guard('api')->user()->id;
+            $user = Auth::guard('api')->user();
 
             return response()->json([
                 'success' => true,
-                'user_id' => $userId,
+                'user_id' => $user->id,
+                'role' => $user->role,
                 'token' => $token
             ]);
 

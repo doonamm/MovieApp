@@ -9,6 +9,11 @@ export default function reducer(state =  defautlState, action){
                 ...state,
                 id: action.payload
             };
+        case type.SET_ROLE:
+            return {
+                ...state,
+                role: action.payload
+            };
         case type.SET_NAME:
             return {
                 ...state,

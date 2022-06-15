@@ -108,3 +108,27 @@ body{
 .page{
     min-height: 100% !important;
 }
+.admin-btn{
+    background-color: #F94C66;
+    border: 0;
+    padding: 7px 15px 6px;
+    border-radius: 5px;
+    color: #fff;
+    display: block;
+    cursor: pointer;
+}
+.admin-btn.delete{
+    background-color: #F94C66;
+}
+.admin-btn.add{
+    background-color: #3EC70B;
+}
+.admin-btn.edit{
+    background-color: orange;
+}
+.admin-btn-container{
+    display: flex;
+    column-gap: 10px;
+    margin-left: auto;
+    width: fit-content;
+}

@@ -1,5 +1,8 @@
 .query-page{
     display: flex;
+    &.movies{
+        position: relative;
+    }
     .sidebar{
         background-color: var(--white-color);
         padding: 30px 10px;
@@ -66,6 +69,11 @@
     .main{
         width: 100%;
         padding: 30px 20px;
+        .row{
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
         .title{
             color: var(--white-color);
             margin-bottom: 30px;

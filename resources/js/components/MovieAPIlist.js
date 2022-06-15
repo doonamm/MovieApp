@@ -34,6 +34,10 @@ function MovieAPIlist(props) {
             })
     }
 
+    if(listMovie.length === 0){
+        return null;
+    }
+
     return (
         <div className="movie_land">
             <h2 className="title">{title}</h2>

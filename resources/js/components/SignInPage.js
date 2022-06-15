@@ -6,7 +6,7 @@ import useInput from '../helper/useInput';
 import axios from 'axios';
 import { storeToken } from '../helper/token';
 import { login } from '../redux/action/loginAction';
-import { setId } from '../redux/action/userAction';
+import { setId, setRole } from '../redux/action/userAction';
 import { connect } from 'react-redux';
 import logo from '../../img/logo1.png';
 
@@ -29,6 +29,7 @@ function SignInPage(props) {
                     swal('Success', 'Sign in successfully!', 'success');
                     storeToken(res.token);
                     props.setId(res.user_id);
+                    props.setRole(res.role);
                     props.login();
                     navigate('/home');
                 }
@@ -78,6 +79,7 @@ function SignInPage(props) {
 
 const mapDispatchToProps = {
     login,
-    setId
+    setId,
+    setRole
 }
 export default connect(null, mapDispatchToProps)(SignInPage);
