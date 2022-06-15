@@ -32,7 +32,26 @@ function SingleMoviePage(props) {
         loadMovie();
         loadCasts();
         loadComments();
-    }, []);
+        loadRcmMovies();
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }, [id]);
+
+    function loadRcmMovies(){
+        instance.get('/movies', {
+            params: {
+                limit: 16
+            }
+        })
+        .then(res => {
+            if(res.success){
+                setRcmMovies(res.data);
+            }
+        })
+        .catch(console.log);
+    }
 
     function loadMovie(){
         setLoading(true);
@@ -227,7 +246,7 @@ function SingleMoviePage(props) {
                         <div> 
                             <h2>Similar Movies</h2>
                             <div className='similar_movie khoangcach'>
-                                <MovieList  list={rcmMovies}/>
+                                <MovieList list={rcmMovies}/>
                             </div>
                             <a className="btn btn-primary" onClick={showMore_movie}>
                                 <span>Show more</span>

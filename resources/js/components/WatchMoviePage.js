@@ -1,7 +1,7 @@
 import '../../style/WatchMoviePage.scss';
 
 import ReactPlayer from 'react-player/youtube';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import stateToProps from '../helper/stateToProps';
 import {useNavigate, useParams} from 'react-router-dom';
 import {connect} from 'react-redux';
@@ -12,11 +12,11 @@ import {addMsg} from '../redux/action/chatAction';
 
 const movie_url = 'https://www.youtube.com/watch?v=Eag3k9p4pr4';
 
-function WatchMoviePage(props){
+const WatchMoviePage = (props) => {
     const {id} = useParams();
     const [chatMsg, setChatMsg] = useState('');
     const [userId, setUserId] = useState('');
-    const [msgList, setMsgList] = useState([]);
+    const [playing, setPlaying] = useState(false);
 
     useEffect(()=>{
         const userId_ = props.user.id || localStorage.getItem('user_id');
@@ -31,14 +31,17 @@ function WatchMoviePage(props){
         });
         
         var channel = pusher.subscribe('movie-app-20521627');
-
-        channel.bind('message', data => {
-            console.log(msgList);
-            console.log(data);
-            setMsgList(...msgList, data.message.message);
+        channel.bind('chat', data => {
+            const {message} = data
+            if(message === 'play'){
+                setPlaying(true);
+            }
+            else if(message === 'pause'){
+                setPlaying(false);
+            }
         });
 
-        return 
+        return;
     }, []);
 
     function handleSendMsg(){
@@ -52,22 +55,34 @@ function WatchMoviePage(props){
         setChatMsg('');
     }
 
+    function handlePause(){
+        instance.post('/new-message', {
+            message: "pause"
+        })
+        .catch(console.log);
+    }
+
+    function handlePlay(data){
+        console.log(data);
+        instance.post('/new-message', {
+            message: "play"
+        })
+        .catch(console.log);
+    }
+    
+    function handleSeek(data){
+        console.log('seek', data);
+        instance.post('/new-message', {
+            message: ""
+        })
+        .catch(console.log);
+    }
+
     return(
         <div className="page watch">
             <div className='wrap-center'>
                 <div className='player-wrapper'>
-                    <ReactPlayer className='player' width='100%' height='100%' url={movie_url}/>
-                </div>
-                <div className='chat-box'>
-                    <ul className='chat-list'> 
-                        {
-                            // msgList.map(msg => <li>{msg}</li>)
-                        }                        
-                    </ul>
-                    <div className='chat-form'>
-                        <input type='text' value={chatMsg} onChange={e => setChatMsg(e.target.value)}/>
-                        <button onClick={handleSendMsg}>Send</button>
-                    </div>
+                    <ReactPlayer controls playing={playing} onPause={handlePause} onPlay={handlePlay} className='player' width='100%' height='100%' url={movie_url}/>
                 </div>
             </div>
         </div>

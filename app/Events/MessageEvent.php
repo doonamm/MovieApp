@@ -16,12 +16,8 @@ class MessageEvent implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $message = [];
-    /**
-     * Create a new event instance.
-     *
-     * @return void
-     */
+    public $message;
+    
     public function __construct($message)
     {
         $this->message = $message;
@@ -34,6 +30,6 @@ class MessageEvent implements ShouldBroadcastNow
 
     public function broadcastAs()
     {
-        return 'message';
+        return 'chat';
     }
 }

@@ -30,10 +30,7 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     Route::post('/new-message', function(Request $request){
         $userId = JWTAuth::toUser($request->bearerToken())->id;
 
-        event(new MessageEvent([
-            'userId' => $userId,
-            'message' => $request->input('message')
-        ]));
+        event(new MessageEvent($request->input('message')));
     });
     
     Route::post('/avatar', [ProfileController::class, 'updateAvatar']);
